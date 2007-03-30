@@ -1,0 +1,70 @@
+head	1.2;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.2
+date	92.07.30.12.14.25;	author se;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	92.02.17.23.13.04;	author se;	state Exp;
+branches;
+next	;
+
+
+desc
+@header for converters.c
+@
+
+
+1.2
+log
+@add copyright note
+@
+text
+@/*
+ * converters.h:	Copyright 1992 by 
+ *			Stefan Esser
+ *			Institut for Nuclear Physics
+ *			University of Cologne, Germany
+ *
+ */
+
+#include <sys/types.h>
+
+/* $Id: converters.h,v 1.1 1992/02/17 23:13:04 se Exp $
+ *
+ * $Log: converters.h,v $
+ * Revision 1.1  1992/02/17  23:13:04  se
+ * Initial revision
+ *
+ * Revision 1.1  1992/02/17  17:55:02  se
+ * Initial revision
+ *
+ */
+
+#if defined(__STDC__) || defined(__cplusplus)
+# define P_(s) s
+#else
+# define P_(s) ()
+#endif
+
+void installconverters P_((MFILE * mat));
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 8
+d11 1
+a11 1
+/* $Id: converters.h,v 1.1 1992/02/17 17:55:02 se Exp $
+d14 3
+@

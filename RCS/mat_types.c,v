@@ -1,0 +1,627 @@
+head	1.13;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.13
+date	93.07.20.17.57.16;	author se;	state Exp;
+branches;
+next	1.12;
+
+1.12
+date	93.04.22.15.26.28;	author se;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	92.12.31.10.59.40;	author se;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	92.07.30.12.09.41;	author se;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	92.07.25.14.13.18;	author se;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	92.07.08.18.44.34;	author se;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	92.06.10.11.13.51;	author se;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	92.05.13.23.34.41;	author se;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	92.03.12.17.08.23;	author se;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	92.02.19.17.07.35;	author se;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	92.02.19.00.04.34;	author se;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	92.02.13.14.37.45;	author se;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	92.02.03.17.38.25;	author se;	state Exp;
+branches;
+next	;
+
+
+desc
+@array of structures containing one record for each known matrix format
+@
+
+
+1.13
+log
+@*** empty log message ***
+@
+text
+@/*
+ * mat_types.c:		Copyright 1992 by 
+ *			Stefan Esser
+ *			Institut for Nuclear Physics
+ *			University of Cologne, Germany
+ *
+ */
+
+#include "mfile.h"
+#include "lc_minfo.h"
+#include "lc_getput.h"
+#include "oldmat_minfo.h"
+#include "oldmat_getput.h"
+#include "mate_minfo.h"
+#include "mate_getput.h"
+#include "trixi_minfo.h"
+#include "trixi_getput.h"
+#include "txt_minfo.h"
+#include "txt_getput.h"
+#ifdef undef
+#ifndef NO_SHM
+#include "shm_minfo.h"
+#include "shm_getput.h"
+#endif /* NO_SHM */
+#endif
+#include "mat_types.h"
+
+static char rcsid[] = "$Id: mat_types.c,v 1.12 1993/04/22 15:26:28 se Exp $";
+
+/* $Log: mat_types.c,v $
+ * Revision 1.12  1993/04/22  15:26:28  se
+ * Support added for SIGNED 2 byte integer data
+ *
+ * Revision 1.11  1992/12/31  10:59:40  se
+ * no shared mem support if NO_SHM defined
+ *
+ * Revision 1.10  1992/07/30  12:09:41  se
+ * added copyright note
+ *
+ * Revision 1.9  1992/07/25  14:13:18  se
+ * added entries for triagonal matrizes MAT_LE4T/LE2T/HE4T/HE2T
+ *
+ * Revision 1.8  1992/07/08  18:44:34  se
+ * reestablished traditional function declarations for compatibility with
+ * non ANSI compilers
+ *
+ * Revision 1.7  92/06/10  11:13:51  11:13:51  se (Stefan Esser)
+ * structure of matprocs table changed
+ * 
+ * Revision 1.6  1992/05/13  23:34:41  se
+ * added description entry for MAT_TXT matrizes
+ *
+ * Revision 1.5  1992/03/12  17:08:23  se
+ * added line defining MAT_MATE to matprocs
+ *
+ * Revision 1.4  1992/02/19  17:07:35  se
+ * general cleanup ...
+ *
+ * Revision 1.3  1992/02/19  00:04:34  se
+ * mat_types now defines access functions instead of making the matproc[]
+ * array available
+ *
+ * Revision 1.2  1992/02/13  14:37:45  se
+ * added rcsid[]
+ *
+ */
+
+#if defined(__STDC__) || defined(__cplusplus)
+# define CONST const
+#else
+# define CONST /* */
+#endif
+
+static matprocs matproc [] =
+{
+/* formats that are easily recognized (eg. by magic number) first	     */
+  { MAT_LC,   "lc",   MAT_D_I4S, lc_get,   lc_put,  lc_probe,	  lc_init    },
+#ifdef undef
+#ifndef NO_SHM
+  { MAT_SHM,  "shm",  MAT_D_I4S, shm_get,  NULL,    shm_probe,	  NULL       },
+#endif /* NO_SHM */
+#endif
+  { MAT_MATE, "mate", MAT_D_I4S, mate_get, NULL,    mate_probe,	  NULL       },
+  { MAT_TRIXI, "trixi", MAT_D_I2U, trixi_get, NULL, trixi_probe,  NULL       },
+
+/* formats that may need guessing ...					     */
+  { MAT_LE4,  "le4",  MAT_D_I4S, le4_get,  le4_put, oldmat_probe, oldmat_init},
+  { MAT_HE4,  "he4",  MAT_D_I4S, he4_get,  he4_put, NULL,	  oldmat_init},
+
+  { MAT_LE2,  "le2",  MAT_D_I2U, le2_get,  le2_put, NULL,	  oldmat_init},
+  { MAT_HE2,  "he2",  MAT_D_I2U, he2_get,  he2_put, NULL,	  oldmat_init},
+
+  { MAT_LE2S, "le2s", MAT_D_I2S, le2s_get, le2_put, NULL,	  oldmat_init},
+  { MAT_HE2S, "he2s", MAT_D_I2S, he2s_get, he2_put, NULL,	  oldmat_init},
+
+  { MAT_LE4T, "le4t", MAT_D_I4S, le4t_get, le4t_put, NULL,	  oldmat_init},
+  { MAT_HE4T, "he4t", MAT_D_I4S, he4t_get, he4t_put, NULL,	  oldmat_init},
+
+  { MAT_LE2T, "le2t", MAT_D_I2U, le2t_get, le2t_put, NULL,	  oldmat_init},
+  { MAT_HE2T, "he2t", MAT_D_I2U, he2t_get, he2t_put, NULL,	  oldmat_init},
+
+  { MAT_LF4,  "lf4",  MAT_D_F4,  lf4_get,  lf4_put, NULL,	  oldmat_init},
+  { MAT_HF4,  "hf4",  MAT_D_F4,  hf4_get,  hf4_put, NULL,	  oldmat_init},
+
+  { MAT_LF8,  "lf8",  MAT_D_F8,  lf8_get,  lf8_put, NULL,	  oldmat_init},
+  { MAT_HF8,  "hf8",  MAT_D_F8,  hf8_get,  hf8_put, NULL,	  oldmat_init},
+
+/*
+  { MAT_VAXF, "vaxf", MAT_D_F4,  vaxf_get, vaxf_put,NULL,	  oldmat_init},
+  { MAT_VAXG, "vaxg", MAT_D_F8,  vaxg_get, vaxg_put,NULL,	  oldmat_init},
+*/
+  { MAT_TXT,  "txt",  MAT_D_F8,	 txt_get,  txt_put, txt_probe,	  txt_init   },
+
+/* MAT_INVALID must be the last entry (used internally !)		     */
+  { MAT_INVALID,"???",MAT_D_INV, NULL,	    NULL,   NULL,	  NULL       },
+};
+
+
+void matproc_guessfiletype (mat)
+     MFILE *mat;
+{
+  matprocs *p = matproc;
+  
+  while (p->filetype != MAT_INVALID) {
+    mprobef *f = p->mprobe;
+    if (f) {
+      f (mat);
+      if (mat->filetype != MAT_UNKNOWN) return;
+    }
+    p++;
+  }
+}
+
+
+void matproc_init (mat)
+     MFILE *mat;
+{
+  matprocs *p = matproc;
+  int mft = mat->filetype;
+  int pft;
+  
+  while ((pft = p->filetype) != MAT_INVALID) {
+    if (pft == mft) {
+      minitf *f = p->minit;
+      if (f) f (mat);
+      return;
+    }
+    p++;
+  }
+}
+
+char *matproc_fmtname (mft)
+     int mft;
+{
+  matprocs *p = matproc;
+  int pft;
+
+  while ((pft = p->filetype) != MAT_INVALID) {
+    if (pft == mft) {
+      return p->fmtname;
+    }
+    p++;
+  }    
+  return "???";
+}
+
+
+int matproc_filetype (fmt)
+     CONST char *fmt;
+{
+  matprocs *p = matproc;
+  
+  while (p->filetype != MAT_INVALID) {
+    if (strcmp (p->fmtname, fmt) == 0) {
+      return p->filetype;
+    }
+    p++;
+  }
+  return MAT_INVALID;
+}
+
+
+int matproc_datatype (mft)
+     int mft;
+{
+  matprocs *p = matproc;
+  int pft;
+
+  while ((pft = p->filetype) != MAT_INVALID) {
+    if (pft == mft) {
+      return p->datatype;
+    }
+    p++;
+  }    
+  return MAT_D_INV;
+}
+
+
+mgetf* matproc_getf (mft)
+     int mft;
+{
+  matprocs *p = matproc;
+  int pft;
+
+  while ((pft = p->filetype) != MAT_INVALID) {
+    if (pft == mft) {
+      return p->mget;
+    }
+    p++;
+  }    
+  return (mgetf*) NULL;
+}
+
+
+mputf* matproc_putf (mft)
+     int mft;
+{
+  matprocs *p = matproc;
+  int pft;
+
+  while ((pft = p->filetype) != MAT_INVALID) {
+    if (pft == mft) {
+      return p->mput;
+    }
+    p++;
+  }    
+  return (mputf*) NULL;
+}
+@
+
+
+1.12
+log
+@Support added for SIGNED 2 byte integer data
+@
+text
+@d20 1
+d25 1
+d28 1
+a28 1
+static char rcsid[] = "$Id: mat_types.c,v 1.11 1992/12/31 10:59:40 se Exp $";
+d31 3
+d78 1
+d82 1
+d125 1
+a125 1
+    probef f = p->mprobef;
+d144 1
+a144 1
+      initf f = p->minitf;
+d199 1
+a199 1
+getf matproc_getf (mft)
+d207 1
+a207 1
+      return p->mgetf;
+d211 1
+a211 1
+  return (getf) NULL;
+d215 1
+a215 1
+putf matproc_putf (mft)
+d223 1
+a223 1
+      return p->mputf;
+d227 1
+a227 1
+  return (getf) NULL;
+a228 2
+
+
+@
+
+
+1.11
+log
+@no shared mem support if NO_SHM defined
+@
+text
+@d26 1
+a26 1
+static char rcsid[] = "$Id: mat_types.c,v 1.10 1992/07/30 12:09:41 se Exp $";
+d29 3
+d85 3
+@
+
+
+1.10
+log
+@added copyright note
+@
+text
+@a19 1
+#ifndef OSK
+d23 1
+a23 2
+#endif
+#endif
+d26 1
+a26 1
+static char rcsid[] = "$Id: mat_types.c,v 1.9 1992/07/25 14:13:18 se Exp $";
+d29 3
+a69 1
+#ifndef OSK
+d72 1
+a72 2
+#endif
+#endif
+@
+
+
+1.9
+log
+@added entries for triagonal matrizes MAT_LE4T/LE2T/HE4T/HE2T
+@
+text
+@d1 8
+d16 2
+d28 1
+a28 1
+static char rcsid[] = "$Id: mat_types.c,v 1.8 1992/07/08 18:44:34 se Exp $";
+d31 3
+d75 1
+@
+
+
+1.8
+log
+@reestablished traditional function declarations for compatibility with
+non ANSI compilers
+@
+text
+@d11 1
+d15 1
+d18 1
+a18 1
+static char rcsid[] = "$Id: mat_types.c,v 1.6 1992/05/13 23:34:41 se Exp $";
+d20 5
+a24 1
+/* $Log:	mat_types.c,v $
+d57 1
+d60 1
+d64 3
+d70 5
+a74 2
+  { MAT_LE4,  "le4",  MAT_D_I4S, le4_get,  le4_put, oldmat_probe, oldmat_init},
+  { MAT_HE4,  "he4",  MAT_D_I4S, he4_get,  he4_put, NULL,	  oldmat_init},
+@
+
+
+1.7
+log
+@structure of matprocs table changed
+@
+text
+@d18 4
+a21 1
+/* $Log: mat_types.c,v $
+d40 6
+d79 2
+a80 1
+void matproc_guessfiletype (MFILE *mat)
+d95 2
+a96 1
+void matproc_init (MFILE *mat)
+d112 2
+a113 1
+char *matproc_fmtname (int mft)
+d128 2
+a129 1
+int matproc_filetype (const char *fmt)
+d143 2
+a144 1
+int matproc_datatype (int mft)
+d159 2
+a160 1
+getf matproc_getf (int mft)
+d175 2
+a176 1
+putf matproc_putf (int mft)
+@
+
+
+1.6
+log
+@added description entry for MAT_TXT matrizes
+@
+text
+@d3 1
+d5 1
+d7 1
+d9 1
+d12 1
+d14 1
+d16 1
+a16 1
+static char rcsid[] = "$Id: mat_types.c,v 1.5 1992/03/12 17:08:23 se Exp $";
+d19 3
+a36 12
+typedef void (*probef)(MFILE *mat);
+typedef void (*initf)(MFILE *mat);
+typedef char fmtnametype[7];
+
+typedef struct 
+{
+  int		filetype;
+  probef	mprobef;
+  initf		minitf;
+  fmtnametype	fmtname;
+} matprocs;
+
+d40 1
+a40 1
+  { MAT_LC,		lc_probe,	lc_init,	"lc"		},
+d42 1
+a42 1
+  { MAT_SHM,		shm_probe,	NULL,		"shm"		},
+d44 23
+a66 15
+  { MAT_MATE,		mate_probe,	NULL,		"mate"		},
+/* formats that need guessing ...					     */
+  { MAT_LE4,		oldmat_probe,	oldmat_init,	"le4"		},
+  { MAT_LE2,		NULL,		oldmat_init,	"le2"		},
+  { MAT_HE4,		NULL,		oldmat_init,	"he4"		},
+  { MAT_HE2,		NULL,		oldmat_init,	"he2"		},
+  { MAT_LF4,		NULL,		oldmat_init,	"lf4"		},
+  { MAT_LF8,		NULL,		oldmat_init,	"lf8"		},
+  { MAT_HF4,		NULL,		oldmat_init,	"hf4"		},
+  { MAT_HF8,		NULL,		oldmat_init,	"hf8"		},
+  { MAT_VAXF,		NULL,		oldmat_init,	"vaxf"		},
+  { MAT_VAXG,		NULL,		oldmat_init,	"vaxg"		},
+  { MAT_TXT,		txt_probe,	txt_init,	"txt"		},
+/* last entry must be MAT_INVALID (used internally !)			     */
+  { MAT_INVALID,	NULL,		NULL,		"???"		}
+d128 46
+@
+
+
+1.5
+log
+@added line defining MAT_MATE to matprocs
+@
+text
+@d5 1
+d10 1
+a10 1
+static char rcsid[] = "$Id: mat_types.c,v 1.4 1992/02/19 17:07:35 se Exp $";
+d13 3
+d59 1
+@
+
+
+1.4
+log
+@general cleanup ...
+@
+text
+@d4 1
+d9 1
+a9 1
+static char rcsid[] = "$Id: mat_types.c,v 1.3 1992/02/19 00:04:34 se Exp $";
+d12 3
+d43 1
+a43 1
+
+@
+
+
+1.3
+log
+@mat_types now defines access functions instead of making the matproc[]
+array available
+@
+text
+@d8 1
+a8 1
+static char rcsid[] = "$Id: mat_types.c,v 1.2 1992/02/13 14:37:45 se Exp $";
+d11 4
+d58 1
+a58 1
+  matprocs *p;
+d60 7
+a66 4
+  for (p = matproc; 
+       p->filetype != MAT_INVALID && mat->filetype == MAT_UNKNOWN; 
+       p++) {
+    if (p->mprobef) p->mprobef (mat);
+d73 11
+a83 9
+  int ft;
+  initf f;
+  int i = 0;
+
+  while (((ft = matproc[i].filetype) != MAT_INVALID) && (ft != mat->filetype)) {
+    i++;
+  }
+  if ((ft != MAT_INVALID) && (f = matproc[i].minitf)) {
+    f (mat);
+d87 1
+a87 1
+char *matproc_fmtname (int filetype)
+d89 2
+a90 1
+  matprocs *mp = matproc;
+d92 7
+a98 2
+  while (mp->filetype != filetype && mp->filetype != MAT_INVALID) mp++;
+  return mp->fmtname;
+d106 7
+a112 2
+  while (p->filetype != MAT_INVALID && strcmp (p->fmtname, fmt) != 0) p++;
+  return p->filetype;
+@
+
+
+1.2
+log
+@added rcsid[]
+@
+text
+@a1 1
+#include "mat_types.h"
+d8 1
+a8 1
+static char rcsid[] = "$Id$";
+d10 4
+a13 1
+/* $Log$
+d16 3
+d20 1
+a20 1
+matprocs matproc [] =
+d22 8
+d50 44
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d9 6
+@

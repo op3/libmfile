@@ -1,0 +1,588 @@
+head	1.12;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.12
+date	93.07.20.17.58.23;	author se;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	92.07.30.12.09.41;	author se;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	92.07.08.21.03.39;	author se;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	92.07.08.18.44.34;	author se;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	92.06.10.11.19.02;	author se;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	92.03.31.02.25.59;	author se;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	92.03.31.02.04.07;	author se;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	92.03.17.15.28.12;	author se;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	92.02.18.23.43.25;	author se;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	92.02.15.17.22.42;	author se;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	92.02.13.14.37.45;	author se;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	92.02.03.17.38.25;	author se;	state Exp;
+branches;
+next	;
+
+
+desc
+@open and close matrix files
+@
+
+
+1.12
+log
+@modified for use with access method module
+@
+text
+@/*
+ * mopen.c:		Copyright 1992 by 
+ *			Stefan Esser
+ *			Institut for Nuclear Physics
+ *			xUniversity of Cologne, Germany
+ *
+ */
+
+#include <stdlib.h>
+#include <string.h>
+/*#include <sys/file.h>*/
+/*#include <sys/stat.h>*/
+
+#include "mfile.h"
+#include "maccess.h"
+#include "mat_types.h"
+#include "endian.h"
+#include "mopen.h"
+
+static char rcsid[] = "$Id: mopen.c,v 1.11 1992/07/30 12:09:41 se Exp $";
+
+/* $Log: mopen.c,v $
+ * Revision 1.11  1992/07/30  12:09:41  se
+ * added copyright note
+ * added support for comment field
+ *
+ * Revision 1.10  1992/07/08  21:03:39  se
+ * general cleanup for strictest GCC warning levels
+ *
+ * Revision 1.9  1992/07/08  18:44:34  se
+ * reestablished traditional function declarations for compatibility with
+ * non ANSI compilers
+ *
+ * Revision 1.8  92/06/10  11:19:02  11:19:02  se (Stefan Esser)
+ * changes to reflect mat->specinfo now being union {int, int*}
+ * 
+ * Revision 1.7  1992/03/31  02:25:59  se
+ * now includes string.h instead of strings.h
+ *
+ * Revision 1.6  1992/03/31  02:04:07  se
+ * removed unneccessary definition of setdefaultfiletype()
+ *
+ * Revision 1.5  1992/03/17  15:28:12  se
+ * added global entry mflush to write out all buffers of a dirty matrix
+ * doesn't close the file, but tries to make sure that a close would succeed
+ *
+ * Revision 1.4  1992/02/18  23:43:25  se
+ * uses access functions instead of directly accessing the configuration
+ * array matproc[].
+ *
+ * Revision 1.3  1992/02/15  17:22:42  se
+ * mopen now accepts matrix format specifier in mode string (eg. "w,1k.le4")
+ * OS 9K compatibility
+ *
+ * Revision 1.2  1992/02/13  14:37:45  se
+ * added rcsid[]
+ *
+ */
+
+#if defined(__STDC__) || defined(__cplusplus)
+# define P_(s) s
+#else
+# define P_(s) ()
+#endif
+
+static void guessfiletype P_((MFILE *mat));
+static void setmatdefaults P_((MFILE *mat));
+static void openmatfile P_((MFILE *mat, char *name, char *mode));
+
+#undef P_
+
+/* include header files for all known format check routines */
+#include "lc_minfo.h"
+/*#include "oldmat_minfo.h"*/
+
+
+static void setmatdefaults (mat)
+     MFILE *mat;
+{
+  mat->ap		= NULL;
+  mat->name		= NULL;
+  mat->comment		= NULL;
+  mat->version		= 0;
+  mat->status		= 0;
+
+  mat->filetype		= MAT_UNKNOWN;
+
+  mat->levels		= 1;
+  mat->lines		= 1;
+  mat->columns		= 0;
+
+  mat->mflushf		= NULL;
+  mat->muninitf		= NULL;
+  mat->mgeti4f		= NULL;
+  mat->mgetf4f		= NULL;
+  mat->mgetf8f		= NULL;
+  mat->mputi4f		= NULL;
+  mat->mputf4f		= NULL;
+  mat->mputf8f		= NULL;
+
+  mat->specinfo.p	= NULL;
+}
+
+
+static void openmatfile (mat, name, mode)
+     MFILE *mat;
+     char *name;
+     char *mode;
+{  
+  char *accessmode = NULL;
+
+  /* PROVISORISCH !!! 
+   *  Test auf (_accessmode_) in Name und Mode noch einrichten !!!
+   */
+
+  mat->name = malloc (strlen (name) +1);
+  if (mat->name) strcpy (mat->name, name);
+
+  mat->ap = tryaccess (name, mode, accessmode);
+
+  if (!mat->ap) mat->filetype = MAT_INVALID;
+}  
+
+
+MFILE *mopen (name, mode)
+     char *name, *mode;
+{
+  MFILE *mat;
+  char *fmt;
+  
+  if (name == NULL || mode == NULL) return NULL;
+
+  mat = (MFILE *) malloc (sizeof (*mat));
+  if (mat == NULL) return NULL;
+
+  setmatdefaults (mat);
+  openmatfile (mat, name, mode);
+
+  if (mat->filetype != MAT_INVALID) {
+    mat->filetype = MAT_UNKNOWN;
+  
+    if (mat->ap->size != 0) matproc_guessfiletype (mat);
+  }
+  
+  fmt = strchr (mode, ',');
+  if (fmt) msetfmt (mat, fmt +1);
+
+  if (mat->filetype == MAT_INVALID) {
+    mclose (mat);
+    mat = NULL;
+  }
+  
+  return (mat);
+}
+
+
+int mclose (mat)
+     MFILE *mat;
+{
+  int status = 0;
+  
+  if (mat) {
+    if (mat->muninitf) status = mat->muninitf (mat);
+    if (mat->ap)
+    {
+      if (_close (mat->ap) != 0) status = -1;
+      free (mat->ap->name);
+      free (mat->ap);
+    }
+
+    if (mat->name) free (mat->name);
+    free (mat);
+  }
+  return status;
+}
+
+int mflush (mat)
+     MFILE *mat;
+{
+  int status = 0;
+  
+  if (mat && mat->mflushf) status = mat->mflushf (mat);
+  if (mat->ap)
+  {
+    if (_flush (mat->ap) != 0) status = -1;
+  }
+
+  return status;
+}
+
+@
+
+
+1.11
+log
+@added copyright note
+added support for comment field
+@
+text
+@d11 2
+a12 2
+#include <sys/file.h>
+#include <sys/stat.h>
+d15 1
+d20 1
+a20 1
+static char rcsid[] = "$Id: mopen.c,v 1.10 1992/07/08 21:03:39 se Exp $";
+d23 4
+a75 15
+static void guessfiletype (mat)
+     MFILE *mat;
+{
+  struct stat stat_buf;
+
+  mat->filetype = MAT_UNKNOWN;
+  
+  if (fstat (mat->fd, &stat_buf) != 0)			return;
+  if (S_ISREG (stat_buf.st_mode)) {
+    if (stat_buf.st_size != 0) matproc_guessfiletype (mat);
+  } else {
+    mat->filetype = MAT_INVALID;
+  }  
+}
+
+d80 1
+a80 1
+  mat->fd		= -1;
+d110 1
+a110 15
+  int rd=0;
+  int wr=0;
+  char *p = mode;
+  char c;
+
+  while (c = *p++) {
+    if (c == 'r') { rd = 1; continue; }
+    if (c == 'w') { wr = 1; continue; }
+    if (c == '+') { rd = 1; wr = 1; continue; }
+    if (c == ',') { break; }
+  }		    
+
+  mat->mode = wr ? rd ? O_RDWR | O_CREAT
+		      : O_WRONLY | O_CREAT | O_TRUNC
+		 :	O_RDONLY;
+d112 4
+d119 1
+a119 7
+#if defined(OSK)
+  if (mat->mode & (O_RDONLY|O_WRONLY|O_RDWR) == O_WRONLY) unlink (name);
+
+  mat->fd = open (name, mat->mode);
+  if (mat->fd < 0 && mat->mode & (O_RDONLY|O_WRONLY|O_RDWR) != O_RDONLY) {
+    mat->fd = creat (name, mat->mode);
+  }    
+d121 1
+a121 6
+  if (mat->fd < 0) mat->filetype = MAT_INVALID;
+#else
+  if ((mat->fd = open (name, mat->mode, 0644)) < 0) {
+    mat->filetype = MAT_INVALID;
+  }
+#endif
+d140 3
+a142 1
+    guessfiletype (mat);
+d164 6
+a169 1
+    if (close (mat->fd) != 0) status = -1;
+d180 9
+a188 2
+  if (mat && mat->mflushf) return mat->mflushf (mat);
+  return 0;
+@
+
+
+1.10
+log
+@general cleanup for strictest GCC warning levels
+@
+text
+@d1 8
+d19 1
+a19 1
+static char rcsid[] = "$Id: mopen.c,v 1.9 1992/07/08 18:44:34 se Exp $";
+d22 3
+d92 1
+@
+
+
+1.9
+log
+@reestablished traditional function declarations for compatibility with
+non ANSI compilers
+@
+text
+@d11 1
+a11 1
+static char rcsid[] = "$Id: mopen.c,v 1.7 1992/03/31 02:25:59 se Exp $";
+d13 5
+a17 1
+/* $Log:	mopen.c,v $
+d63 1
+a63 1
+  struct stat stat;
+d67 3
+a69 3
+  if (fstat (mat->fd, &stat) != 0)			return;
+  if (S_ISREG (stat.st_mode)) {
+    if (stat.st_size != 0) matproc_guessfiletype (mat);
+@
+
+
+1.8
+log
+@changes to reflect mat->specinfo now being union {int, int*}
+@
+text
+@d13 4
+a16 1
+/* $Log: mopen.c,v $
+d40 5
+d50 2
+d56 2
+a57 1
+static void guessfiletype (MFILE *mat)
+d72 2
+a73 1
+static void setmatdefaults (MFILE *mat)
+d99 4
+a102 1
+static void openmatfile (MFILE *mat, char *name, char *mode)
+@
+
+
+1.7
+log
+@now includes string.h instead of strings.h
+@
+text
+@d11 1
+a11 1
+static char rcsid[] = "$Id: mopen.c,v 1.6 1992/03/31 02:04:07 se Exp $";
+d14 3
+d83 1
+a83 1
+  mat->specinfo		= NULL;
+@
+
+
+1.6
+log
+@removed unneccessary definition of setdefaultfiletype()
+@
+text
+@d2 1
+a2 1
+#include <strings.h>
+d11 1
+a11 1
+static char rcsid[] = "$Id: mopen.c,v 1.5 1992/03/17 15:28:12 se Exp $";
+d14 3
+@
+
+
+1.5
+log
+@added global entry mflush to write out all buffers of a dirty matrix
+doesn't close the file, but tries to make sure that a close would succeed
+@
+text
+@d11 1
+a11 1
+static char rcsid[] = "$Id: mopen.c,v 1.4 1992/02/18 23:43:25 se Exp $";
+d14 4
+a32 1
+static void setdefaultfiletype P_((MFILE *mat));
+a42 1
+  int i;
+@
+
+
+1.4
+log
+@uses access functions instead of directly accessing the configuration
+array matproc[].
+@
+text
+@d11 1
+a11 1
+static char rcsid[] = "$Id: mopen.c,v 1.3 1992/02/15 17:22:42 se Exp $";
+d14 4
+d66 1
+a66 1
+/*  mat->minitf		= NULL;*/
+d160 7
+@
+
+
+1.3
+log
+@mopen now accepts matrix format specifier in mode string (eg. "w,1k.le4")
+OS 9K compatibility
+@
+text
+@d11 1
+a11 1
+static char rcsid[] = "$Id: mopen.c,v 1.2 1992/02/13 14:37:45 se Exp $";
+d14 4
+d42 1
+a42 9
+    if (stat.st_size != 0) {
+      matprocs *p;
+  
+      for (p = matproc; 
+	   p->filetype != MAT_INVALID && mat->filetype == MAT_UNKNOWN; 
+	   p++) {
+        if (p->mprobef) p->mprobef (mat);
+      }
+    }
+a45 23
+}
+
+
+void initspecinfo (MFILE *mat)
+{
+  int i;
+  int ft;
+  void (*f)(MFILE *mat);
+  
+#ifdef undef
+  if (mat->filetype == MAT_UNKNOWN) mat->filetype = MAT_STD_INT;
+  if (mat->levels   == 0)	    mat->levels   = 1;
+  if (mat->lines    == 0)	    mat->lines    = 4096;
+  if (mat->columns  == 0)	    mat->columns  = 4096;
+#endif
+
+  i = 0;
+  while (((ft = matproc[i].filetype) != MAT_INVALID) && (ft != mat->filetype)) {
+    i++;
+  }
+  if ((ft != MAT_INVALID) && (f = matproc[i].minitf)) {
+    f (mat);
+  }
+@
+
+
+1.2
+log
+@added rcsid[]
+@
+text
+@d11 1
+a11 1
+static char rcsid[] = "$Id$";
+d13 4
+a16 1
+/* $Log$
+a22 1
+static u_int matfilemode P_((char *p));
+d59 2
+a60 1
+  if (mat->filetype == MAT_UNKNOWN) mat->filetype = MAT_STD;
+d64 1
+a101 11
+static u_int matfilemode (char *p)
+{
+  while (*p && (*p != 'w') && (*p != '+')) p++;
+  if (*p) {
+    return O_RDWR | O_CREAT;
+  } else {
+    return O_RDONLY;
+  }
+}
+
+
+d104 16
+a119 1
+  mat->mode = matfilemode (mode);
+d121 9
+a129 1
+  strcpy (mat->name, name);
+d131 2
+a132 1
+#ifndef OSK
+d134 1
+a134 5
+#else
+  if (mat->mode == O_RDONLY) {
+    if ((mat->fd = open (name, mat->mode)) < 0) {
+      mat->filetype = MAT_INVALID;
+    }
+a135 1
+  else if ((mat->fd = creat (name, mat->mode)) < 0)  {
+a136 2
+    mat->filetype = MAT_INVALID;
+  }
+d144 2
+a145 1
+
+d158 3
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d11 6
+@

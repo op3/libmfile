@@ -1,0 +1,243 @@
+head	1.8;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.8
+date	92.07.30.12.14.25;	author se;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	92.07.25.14.11.09;	author se;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	92.07.08.21.03.39;	author se;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	92.07.08.18.44.34;	author se;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	92.06.30.14.50.48;	author se;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	92.03.17.15.24.52;	author se;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	92.02.13.16.19.08;	author se;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	92.02.03.17.53.37;	author se;	state Exp;
+branches;
+next	;
+
+
+desc
+@header file for lc_minfo.c
+@
+
+
+1.8
+log
+@add copyright note
+@
+text
+@/*
+ * lc_minfo.h:		Copyright 1992 by 
+ *			Stefan Esser
+ *			Institut for Nuclear Physics
+ *			University of Cologne, Germany
+ *
+ */
+
+#include <sys/types.h>
+#include "mfile.h"
+
+/* $Id: lc_minfo.h,v 1.7 1992/07/25 14:11:09 se Exp $
+ *
+ * $Log: lc_minfo.h,v $
+ * Revision 1.7  1992/07/25  14:11:09  se
+ * LC_STD_VERSION set to LC_C2_VERSION (was LC_C1_VERSION)
+ *
+ * Revision 1.6  1992/07/08  21:03:39  se
+ * general cleanup for strictest GCC warning levels
+ *
+ * Revision 1.5  1992/07/08  18:44:34  se
+ * reestablished traditional function declarations for compatibility with
+ * non ANSI compilers
+ *
+ * Revision 1.4  92/06/30  14:50:48  14:50:48  se (Stefan Esser)
+ * removed definition of LC_C3_VERSION
+ * 
+ * Revision 1.3  1992/03/17  15:24:52  se
+ * struct lc_minfo changed to reflect comprf and uncomprf now return int
+ *
+ * Revision 1.2  1992/02/13  16:19:08  se
+ * RCS Id and Log entries added
+ *
+ */
+
+#define MAGIC_LC	0x80FFFF10
+
+#define LC_C1_VERSION	(1)
+#define LC_C2_VERSION	(2)
+
+#define LC_MAX_VERSION	LC_C2_VERSION
+
+#define LC_STD_VERSION	LC_C2_VERSION
+
+typedef struct {
+  u_int		magic;
+  u_int		version;
+  u_int		levels, lines, columns;
+  u_int		poslentablepos;
+  u_int		freepos, freelistpos;
+  u_int		used, free;
+  u_int		status;
+} lc_header;
+
+typedef struct {
+  u_int		pos,len;
+} lc_poslen;
+
+typedef struct {
+  int		version;
+  u_int		freepos, freelistpos;
+  int		*linebuf;
+  void		*comprlinebuf;
+  u_int		cachedlinedirty;
+  u_int		cachedline;
+  u_int		cachedcomprline;
+  u_int		comprlinelen;
+  u_int		poslentablepos;
+  lc_poslen	*poslentableptr;
+  int		(*comprf)();
+  int		(*uncomprf)();
+} lc_minfo;
+
+#if defined(__STDC__) || defined(__cplusplus)
+# define P_(s) s
+#else
+# define P_(s) ()
+#endif
+
+void lc_probe P_((MFILE *mat));
+void lc_init P_((MFILE *mat));
+int lc_putinfo P_((MFILE *mat, minfo *info));
+int lc_uninit P_((MFILE *mat));
+@
+
+
+1.7
+log
+@LC_STD_VERSION set to LC_C2_VERSION (was LC_C1_VERSION)
+@
+text
+@d1 8
+d12 1
+a12 1
+/* $Id: lc_minfo.h,v 1.6 1992/07/08 21:03:39 se Exp $
+d15 3
+@
+
+
+1.6
+log
+@general cleanup for strictest GCC warning levels
+@
+text
+@d4 1
+a4 1
+/* $Id: lc_minfo.h,v 1.5 1992/07/08 18:44:34 se Exp $
+d7 3
+d32 1
+a32 1
+#define LC_STD_VERSION	LC_C1_VERSION
+@
+
+
+1.5
+log
+@reestablished traditional function declarations for compatibility with
+non ANSI compilers
+@
+text
+@d4 1
+a4 1
+/* $Id: lc_minfo.h,v 1.3 1992/03/17 15:24:52 se Exp $
+d6 5
+a10 1
+ * $Log:	lc_minfo.h,v $
+d49 1
+a49 1
+  u_int		*comprlinebuf;
+@
+
+
+1.4
+log
+@removed definition of LC_C3_VERSION
+@
+text
+@d6 4
+a9 1
+ * $Log: lc_minfo.h,v $
+@
+
+
+1.3
+log
+@struct lc_minfo changed to reflect comprf and uncomprf now return int
+@
+text
+@d4 1
+a4 1
+/* $Id: lc_minfo.h,v 1.2 1992/02/13 16:19:08 se Exp $
+d7 3
+a18 1
+#define LC_C3_VERSION	(3)
+d20 1
+a20 1
+#define LC_MAX_VERSION	LC_C3_VERSION
+@
+
+
+1.2
+log
+@RCS Id and Log entries added
+@
+text
+@d4 1
+a4 1
+/* $Id$
+d6 4
+a9 1
+ * $Log$
+d47 2
+a48 2
+  u_int		(*comprf)();
+  void		(*uncomprf)();
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d4 5
+@

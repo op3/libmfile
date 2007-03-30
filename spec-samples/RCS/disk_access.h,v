@@ -1,0 +1,25 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@ * @;
+
+
+1.1
+date	93.07.20.18.00.36;	author se;	state Exp;
+branches;
+next	;
+
+
+desc
+@header file for disc access methods
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@int disk_tryaccess (amp ap, char *name, char *mode);
+@

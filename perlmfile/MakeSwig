@@ -1,0 +1,7 @@
+# -*- Makefile -*-
+SWIG	= swig
+OPTIONS	= -perl5 -shadow
+OBJECT  = mfile.i
+
+all:	mfile.i
+	$(SWIG) $(OPTIONS) $(OBJECT)

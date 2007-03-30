@@ -1,0 +1,114 @@
+head	1.4;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.4
+date	92.07.30.12.14.25;	author se;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	92.06.10.11.30.35;	author se;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	92.02.13.16.19.08;	author se;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	92.02.03.17.53.37;	author se;	state Exp;
+branches;
+next	;
+
+
+desc
+@function definitions for oldmat_minfo.c
+@
+
+
+1.4
+log
+@added copyright note
+@
+text
+@/*
+ * matop_minfo.h:	Copyright 1992 by 
+ *			Stefan Esser
+ *			Institut for Nuclear Physics
+ *			University of Cologne, Germany
+ *
+ */
+
+/* $Id: oldmat_minfo.h,v 1.3 1992/06/10 11:30:35 se Exp $
+ *
+ * $Log: oldmat_minfo.h,v $
+ * Revision 1.3  1992/06/10  11:30:35  se
+ * changed definition of MAGIC_OLDMAT into reference to external variable
+ *
+ * Revision 1.2  1992/02/13  16:19:08  se
+ * RCS Id and Log entries added
+ *
+ */
+
+#include "endian.h"
+
+extern char MAGIC_OLDMAT[];
+
+#define OLDMAT_STD_VERSION 1
+
+typedef char oldmat_header[64];
+
+#if defined(__STDC__) || defined(__cplusplus)
+# define P_(s) s
+#else
+# define P_(s) ()
+#endif
+
+/* oldmat_minfo.c */
+void oldmat_probe P_((MFILE *mat));
+void oldmat_init P_((MFILE *mat));
+int oldmat_uninit P_((MFILE *mat));
+int oldmat_putinfo P_((MFILE *mat, minfo *info));
+@
+
+
+1.3
+log
+@changed definition of MAGIC_OLDMAT into reference to external variable
+@
+text
+@d1 5
+a5 1
+/* $Id: oldmat_minfo.h,v 1.2 1992/02/13 16:19:08 se Exp $
+d7 4
+d12 3
+@
+
+
+1.2
+log
+@RCS Id and Log entries added
+@
+text
+@d1 1
+a1 1
+/* $Id$
+d3 4
+a6 1
+ * $Log$
+d8 8
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 5
+@

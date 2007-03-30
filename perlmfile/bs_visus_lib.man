@@ -1,0 +1,71 @@
+int bs_shift(unsigned long *ref_spec,unsigned long *spec,int res,int NBSEG,int flag_C,int LOW_LIMIT_C,int flag_H,int HIGH_LIMIT,int LOW_LIMIT,int CMP_FAC,float *shift_koef_a,float *shift_koef_b,float *mean_least_square)
+
+return 1: OK
+return 0: nicht OK
+return -1/-2: OK, aber 1/2 Peaks nicht gefunden
+return -4: OK, aber nur 4 Peaks gefunden
+return -5: Fehler beim Programmaufruf oder -ablauf
+
+Variablen:
+
+unsigned long *ref_spec		Referenzspektrum als Array.
+unsigned long *spec		Shiftspektrum als Array.
+int res				Aufloesung.
+int NBSEG			Anzahl der zu vergleichenden Peaks,
+				7< NBSEG <5.
+int flag_C			=1 entspricht der Option -C... .
+int LOW_LIMIT_C			Untergrenze im Shiftspektrum. Default:200.
+int flag_H			=1 entspricht der Option -H... .
+int HIGH_LIMIT			Obergrenze im Referenzspektrum.
+int LOW_LIMIT			Untergrenze im Referenzspektrum. Default:200. 
+int CMP_FAC			Groesse des Vergleichsmusters=NBSEG*CMP_FAC. 
+				Default:3
+float *shift_koef_a		Shiftkoeffizient.
+float *shift_koef_b		Shiftkoeffizient.
+float *mean_least_square	Mittlere Quadratische Abweichung der zugeordneten 
+				Peaks von den Peaks des Referenzspektrums
+
+Die Variablen flag_C und flag_H werden 1 gesetzt, wenn man die Optionen -C bzw. -H 
+nutzen will und funktionieren in Kombination mit LOW_LIMIT_C bzw. HIGH_LIMIT.
+Beispiel: Die Option -H500 in bsvisus entspricht flag_H=1 und HIGH_LIMIT=500 in 
+dieser Funktion.
+
+-------------------------------------------------------------------------------------
+
+int bs_shift_default(unsigned long *ref_spec,unsigned long *spec,int res,float *shift_koef_a,float *shift_koef_b,float *mean_least_square)
+
+Diese Funktion entspricht der Funktion bs_shift, nur das alle Optionen automatisch 
+auf ihre Defaultwerte gesetzt werden, und somit beim Funktionsaufruf entfallen.
+
+-------------------------------------------------------------------------------------
+
+int bs_shift_F(float *man_pos_ref_float,int M,unsigned long *spec,int res,int flag_C,int LOW_LIMIT_C,int CMP_FAC,float *shift_koef_a,float *shift_koef_b,float *mean_least_square)
+
+Entspricht der Option -F... . Hier gibt man der Funktion ein Array: 
+(float *man_pos_ref_float) mit den Positionen der Peaks, die gesucht werden sollen.
+Zusaetzlich gibt man noch mit (int M) die Anzahl der Peaks bzw. die Groesse des
+Arrays (float *man_pos_ref_float) an.
+Die anderen Variablen entsprechen denen in bs_shift.
+
+-------------------------------------------------------------------------------------
+
+int bs_shift_R(int *max_pos_ref,int M,unsigned long *ref_spec,unsigned long *spec,int res,int flag_C,int LOW_LIMIT_C,int flag_H,int HIGH_LIMIT,int LOW_LIMIT,int CMP_FAC,float *shift_koef_a,float *shift_koef_b,float *mean_least_square)
+
+Entspricht der Option -R... .Hier gibt man der Funktion ein Array: 
+(int *max_pos_ref) mit den ungefaehren, d.h. Kanal-Positionen der Peaks, die gesucht werden sollen.
+Zusaetzlich gibt man noch mit (int M) die Anzahl der Peaks bzw. die Groesse des
+Arrays (int *max_pos_ref) an.
+Die anderen Variablen entsprechen denen in bs_shift.  
+
+-------------------------------------------------------------------------------------
+
+int bs_shift_M(int *man_pos,int M,unsigned long *ref_spec,unsigned long *spec,int res,int NBSEG,int flag_C,int LOW_LIMIT_C,int flag_H,int HIGH_LIMIT,int LOW_LIMIT,int CMP_FAC,float *shift_koef_a,float *shift_koef_b,float *mean_least_square)
+
+Entspricht der Option -M... .Hier gibt man der Funktion zusaetzlich ein Array: 
+(int *man_pos) mit den Kanalpositionen von Coulex-Linien.
+Zusaetzlich gibt man noch mit (int M) die Anzahl der Peaks bzw. die Groesse des
+Arrays (int *man_pos) an.
+Die anderen Variablen entsprechen denen in bs_shift.  
+
+------------------------------------------------------------------------------------
+

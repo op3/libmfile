@@ -1,0 +1,18 @@
+Dies ist ein kleines Perlwrapper-Paket um die mfile-Routinen. (Eigentlich 
+nur die Spektren-Routinen) und die Shiftroutinen von bs_vis 
+
+Installation:	
+make Makeswig
+perl Makefile.PL PREFIX=/ikp/local/lib/perl5
+make
+make test
+make install
+
+die Module mfile.pm und die library mfile.so stehen dann unter 
+/ikp/local/lib/perl5/lib/site_perl/5.005/sun4-solaris/auto/mfile/mfile.so
+/ikp/local/lib/perl5/lib/site_perl/5.005/sun4-solaris/mfile.pm
+und sollten in das im Pfad liegende Direktory /ikp/local/lib/perl5 gelinkt
+werden.
+
+Die Dokumentation ist noch nicht vorhanden, aber test.pl zeigt einige 
+M"oglichkeiten.
