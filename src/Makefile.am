@@ -56,6 +56,11 @@ libmfile_la_SOURCES = mfile.h \
 		txt_minfo.c \
 		txt_minfo.h 
 
-pkginclude_HEADERS = mfile.h
+# pkginclude_HEADERS = mfile.h
+
+# Headers that will be installed to filesystem
+include_HEADERS 	= mfile.h 
+
+libmfile_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)
 
 datarootdir = @datarootdir@
