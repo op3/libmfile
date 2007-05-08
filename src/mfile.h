@@ -137,7 +137,9 @@ Changelog:
 #define MAT_LE2S	(20)	/* signed LE2 matrix file		*/
 #define MAT_HE2S	(21)	/* signed HE2 matrix file		*/
 
-#define MAT_FMTLAST	(21)	/* last format currently assigned	*/
+#define MAT_GF2         (22)    /* Radware gf2 format                   */
+#define MAT_HGF2        (23)    /* Big endian Radware gf2 format        */
+#define MAT_FMTLAST	(23)	/* last format currently assigned	*/
 
 #define MAT_STD_INT	MAT_LC	/* default integer matrix format	*/
 #define MAT_STD_FLT	MAT_LF4	/* only for testing purpises ...	*/

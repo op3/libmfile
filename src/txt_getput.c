@@ -7,6 +7,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include "mfile.h"
 #include "maccess.h"
 #include "txt_minfo.h"

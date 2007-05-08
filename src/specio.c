@@ -18,8 +18,8 @@ int load_spec (name, buf, num)
   int n;
   MFILE *mat;
 
-  mat = mopen (name, "r");
-  n = mget (mat, buf, 0, 0, 0, num);
+  mat = mopen ((char *)name, "r");
+  n = mget (mat, (void *)buf, 0, 0, 0, num);
   if (mclose (mat) != 0) return -1;
   return n;
 }
@@ -33,7 +33,7 @@ int save_spec (name, buf, num)
   MFILE *mat;
   minfo info;
   
-  mat = mopen (name, "w");
+  mat = mopen ((char *)name, "w");
 
   mgetinfo (mat, &info);
   info.filetype = MAT_LC;
@@ -42,7 +42,7 @@ int save_spec (name, buf, num)
   info.columns  = num;
   msetinfo (mat, &info);
 
-  n = mput (mat, buf, 0, 0, 0, num);
+  n = mput (mat, (void *)buf, 0, 0, 0, num);
   if (mclose (mat) != 0) return -1;
   return n;
 }

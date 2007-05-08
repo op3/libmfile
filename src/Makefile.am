@@ -17,6 +17,10 @@ libmfile_la_SOURCES = mfile.h \
 		endian.h \
 		getputint.c \
 		getputint.h \
+		gf2_getput.c \
+		gf2_getput.h \
+		gf2_minfo.c \
+		gf2_minfo.h \
 		lc_c1.c \
 		lc_c1.h \
 		lc_c2.c \

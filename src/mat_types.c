@@ -11,6 +11,8 @@
 #include "lc_getput.h"
 #include "oldmat_minfo.h"
 #include "oldmat_getput.h"
+#include "gf2_getput.h"
+#include "gf2_minfo.h"
 #include "mate_minfo.h"
 #include "mate_getput.h"
 #include "trixi_minfo.h"
@@ -77,42 +79,44 @@ static char rcsid[] = "$Id: mat_types.c,v 1.13 1993/07/20 17:57:16 se Exp $";
 static matprocs matproc [] =
 {
 /* formats that are easily recognized (eg. by magic number) first	     */
-  { MAT_LC,   "lc",   MAT_D_I4S, lc_get,   lc_put,  lc_probe,	  lc_init    },
+  { MAT_LC,   "lc",   MAT_D_I4S, (mgetf *)lc_get,   (mputf *)lc_put,  lc_probe,	  lc_init    },
 #ifdef undef
 #ifndef NO_SHM
-  { MAT_SHM,  "shm",  MAT_D_I4S, shm_get,  NULL,    shm_probe,	  NULL       },
+  { MAT_SHM,  "shm",  MAT_D_I4S, (mgetf *)shm_get,  NULL,    shm_probe,	  NULL       },
 #endif /* NO_SHM */
 #endif
-  { MAT_MATE, "mate", MAT_D_I4S, mate_get, NULL,    mate_probe,	  NULL       },
-  { MAT_TRIXI, "trixi", MAT_D_I2U, trixi_get, NULL, trixi_probe,  NULL       },
+  { MAT_MATE, "mate", MAT_D_I4S, (mgetf *)mate_get, NULL,    mate_probe,	  NULL       },
+  { MAT_TRIXI, "trixi", MAT_D_I2U, (mgetf *)trixi_get, NULL, trixi_probe,  NULL       },
+  { MAT_GF2, "gf2", MAT_D_F4, (mgetf *)gf2_get, (mputf *)gf2_put, gf2_probe,  gf2_init       },
+  { MAT_HGF2, "hgf2", MAT_D_F4, (mgetf *)gf2_get, (mputf *)gf2_put, gf2_probe,  gf2_init       },
 
 /* formats that may need guessing ...					     */
-  { MAT_LE4,  "le4",  MAT_D_I4S, le4_get,  le4_put, oldmat_probe, oldmat_init},
-  { MAT_HE4,  "he4",  MAT_D_I4S, he4_get,  he4_put, NULL,	  oldmat_init},
+  { MAT_LE4,  "le4",  MAT_D_I4S, (mgetf *)le4_get,  (mputf *)le4_put, oldmat_probe, oldmat_init},
+  { MAT_HE4,  "he4",  MAT_D_I4S, (mgetf *)he4_get,  (mputf *)he4_put, NULL,	  oldmat_init},
 
-  { MAT_LE2,  "le2",  MAT_D_I2U, le2_get,  le2_put, NULL,	  oldmat_init},
-  { MAT_HE2,  "he2",  MAT_D_I2U, he2_get,  he2_put, NULL,	  oldmat_init},
+  { MAT_LE2,  "le2",  MAT_D_I2U, (mgetf *)le2_get,  (mputf *)le2_put, NULL,	  oldmat_init},
+  { MAT_HE2,  "he2",  MAT_D_I2U, (mgetf *)he2_get,  (mputf *)he2_put, NULL,	  oldmat_init},
 
-  { MAT_LE2S, "le2s", MAT_D_I2S, le2s_get, le2_put, NULL,	  oldmat_init},
-  { MAT_HE2S, "he2s", MAT_D_I2S, he2s_get, he2_put, NULL,	  oldmat_init},
+  { MAT_LE2S, "le2s", MAT_D_I2S, (mgetf *)le2s_get, (mputf *)le2_put, NULL,	  oldmat_init},
+  { MAT_HE2S, "he2s", MAT_D_I2S, (mgetf *)he2s_get, (mputf *)he2_put, NULL,	  oldmat_init},
 
-  { MAT_LE4T, "le4t", MAT_D_I4S, le4t_get, le4t_put, NULL,	  oldmat_init},
-  { MAT_HE4T, "he4t", MAT_D_I4S, he4t_get, he4t_put, NULL,	  oldmat_init},
+  { MAT_LE4T, "le4t", MAT_D_I4S, (mgetf *)le4t_get, (mputf *)le4t_put, NULL,	  oldmat_init},
+  { MAT_HE4T, "he4t", MAT_D_I4S, (mgetf *)he4t_get, (mputf *)he4t_put, NULL,	  oldmat_init},
 
-  { MAT_LE2T, "le2t", MAT_D_I2U, le2t_get, le2t_put, NULL,	  oldmat_init},
-  { MAT_HE2T, "he2t", MAT_D_I2U, he2t_get, he2t_put, NULL,	  oldmat_init},
+  { MAT_LE2T, "le2t", MAT_D_I2U, (mgetf *)le2t_get, (mputf *)le2t_put, NULL,	  oldmat_init},
+  { MAT_HE2T, "he2t", MAT_D_I2U, (mgetf *)he2t_get, (mputf *)he2t_put, NULL,	  oldmat_init},
 
-  { MAT_LF4,  "lf4",  MAT_D_F4,  lf4_get,  lf4_put, NULL,	  oldmat_init},
-  { MAT_HF4,  "hf4",  MAT_D_F4,  hf4_get,  hf4_put, NULL,	  oldmat_init},
+  { MAT_LF4,  "lf4",  MAT_D_F4,  (mgetf *)lf4_get,  (mputf *)lf4_put, NULL,	  oldmat_init},
+  { MAT_HF4,  "hf4",  MAT_D_F4,  (mgetf *)hf4_get,  (mputf *)hf4_put, NULL,	  oldmat_init},
 
-  { MAT_LF8,  "lf8",  MAT_D_F8,  lf8_get,  lf8_put, NULL,	  oldmat_init},
-  { MAT_HF8,  "hf8",  MAT_D_F8,  hf8_get,  hf8_put, NULL,	  oldmat_init},
+  { MAT_LF8,  "lf8",  MAT_D_F8,  (mgetf *)lf8_get,  (mputf *)lf8_put, NULL,	  oldmat_init},
+  { MAT_HF8,  "hf8",  MAT_D_F8,  (mgetf *)hf8_get,  (mputf *)hf8_put, NULL,	  oldmat_init},
 
 /*
   { MAT_VAXF, "vaxf", MAT_D_F4,  vaxf_get, vaxf_put,NULL,	  oldmat_init},
   { MAT_VAXG, "vaxg", MAT_D_F8,  vaxg_get, vaxg_put,NULL,	  oldmat_init},
 */
-  { MAT_TXT,  "txt",  MAT_D_F8,	 txt_get,  txt_put, txt_probe,	  txt_init   },
+  { MAT_TXT,  "txt",  MAT_D_F8,	 (mgetf *)txt_get,  (mputf *)txt_put, txt_probe,	  txt_init   },
 
 /* MAT_INVALID must be the last entry (used internally !)		     */
   { MAT_INVALID,"???",MAT_D_INV, NULL,	    NULL,   NULL,	  NULL       },

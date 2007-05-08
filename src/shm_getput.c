@@ -9,6 +9,7 @@
 #ifndef NO_SHM
 
 #include <stdlib.h>
+#include <string.h>
 #include "mfile.h"
 #include "shm_minfo.h"
 #include "shm_getput.h"
