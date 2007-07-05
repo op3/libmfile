@@ -7,7 +7,7 @@
  */
 
 #include "mfile.h"
-#include "endian.h"
+#include "sys_endian.h"
 #include "maccess.h"
 #include "disk_access.h"
 #ifndef NO_SHM

@@ -7,7 +7,7 @@
  */
 
 #include "mfile.h"
-#include "endian.h"
+#include "sys_endian.h"
 #include "getputint.h"
 #include "maccess.h"
 #include <errno.h>

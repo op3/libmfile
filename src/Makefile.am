@@ -14,7 +14,7 @@ libmfile_la_SOURCES = mfile.h \
 		converters.h \
 		disk_access.c \
 		disk_access.h \
-		endian.h \
+		sys_endian.h \
 		getputint.c \
 		getputint.h \
 		gf2_getput.c \

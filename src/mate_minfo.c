@@ -12,7 +12,7 @@
 
 #include "mfile.h"
 #include "maccess.h"
-#include "endian.h"
+#include "sys_endian.h"
 #include "getputint.h"
 #include "mate_minfo.h"
 #include "mate_getput.h"

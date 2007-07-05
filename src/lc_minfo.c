@@ -11,7 +11,7 @@
 
 #include "mfile.h"
 #include "maccess.h"
-#include "endian.h"
+#include "sys_endian.h"
 #include "getputint.h"
 #include "lc_minfo.h"
 #include "lc_getput.h"

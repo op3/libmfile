@@ -1,14 +1,14 @@
 /*
- * endian.h:		Copyright 1992 by 
+ * sys_endian.h:		Copyright 1992 by 
  *			Stefan Esser
  *			Institut for Nuclear Physics
  *			University of Cologne, Germany
  *
  */
 
-/* $Id: endian.h,v 1.4 1992/07/30 12:14:25 se Exp $
+/* $Id: sys_endian.h,v 1.4 1992/07/30 12:14:25 se Exp $
  *
- * $Log: endian.h,v $
+ * $Log: sys_endian.h,v $
  * Revision 1.4  1992/07/30  12:14:25  se
  * add copyright note
  *

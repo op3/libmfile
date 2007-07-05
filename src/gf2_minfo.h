@@ -9,7 +9,7 @@
  *  This file provides support for Radware gf2 files.
  */
 
-#include "endian.h"
+#include "sys_endian.h"
 
 #define GF2_STD_VERSION 2
 

@@ -20,7 +20,7 @@
  *
  */
 
-#include "endian.h"
+#include "sys_endian.h"
 
 extern char MAGIC_OLDMAT[];
 

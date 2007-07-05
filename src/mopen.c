@@ -14,7 +14,7 @@
 #include "mfile.h"
 #include "maccess.h"
 #include "mat_types.h"
-#include "endian.h"
+#include "sys_endian.h"
 #include "mopen.h"
 
 static char rcsid[] = "$Id: mopen.c,v 1.12 1993/07/20 17:58:23 se Exp $";
