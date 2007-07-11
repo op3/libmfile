@@ -42,6 +42,30 @@ AC_PROG_INSTALL
 AC_LANG([C])
 AC_PROG_LIBTOOL
 
+###
+## Add the option to enable libefence for memory debugging
+###
+AC_ARG_WITH([efence],
+            [AS_HELP_STRING([--with-efence],
+              [enable libefence (for memory debugging) @<:@default=no@:>@])])
+AS_IF([test "x$with_efence" == xyes],
+        [AC_CHECK_LIB([efence], [main], [],
+           [if test "x$with_efence" == xyes; then
+              AC_MSG_FAILURE(
+                   [--with-efence was given, but test for libefence failed])
+               fi
+              ])])
+
+###
+## Enable debugging output
+###
+AC_ARG_WITH([debug],
+            [AS_HELP_STRING([--with-debug-output],
+              [enable debugging output @<:@default=no@:>@])])
+AS_IF([test "x$with_debug_output" == xyes],
+	    AC_DEFINE([DEBUG_OUTPUT], [1],[Enable debugging output])
+)		
+
 AC_CONFIG_FILES([Makefile \
 	         man/Makefile \
 		 src/Makefile ])
