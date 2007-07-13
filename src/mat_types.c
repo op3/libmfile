@@ -27,6 +27,7 @@
 #endif
 #include "mat_types.h"
 
+#include <string.h>
 
 
 /* $Log: mat_types.c,v $
