@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-
+#include <errno.h>
 
 #ifdef DEBUG_OUTPUT
 /* Define Debugging function (from: http://c-faq.com/cpp/debugmacs.html) */
@@ -59,6 +59,9 @@ static void debug(const char *fmt, ...) {
 #define DEBUG
 
 #endif /* DEBUG_OUTPUT */
+
+#define PERROR fprintf(stderr, "(%s:%d)\t", \
+		__FILE__,__LINE__),perror
 
 
 #endif /* DEBUG_H_ */
