@@ -10,8 +10,8 @@
 #include <stdlib.h>
 #include "mfile.h"
 #include "converters.h"
+#include "debug.h"
 
-static char rcsid[] = "$Id: converters.c,v 1.9 1992/07/30 12:09:41 se Exp $";
 
 /* $Log: converters.c,v $
  * Revision 1.9  1992/07/30  12:09:41  se
@@ -144,7 +144,7 @@ static int conv_dbl_to_int(int *dst, CONST double *src, int num) {
 
 
 static void *mgetconvbuf = NULL;
-static int mgetconvbufsize = 0;
+static unsigned int mgetconvbufsize = 0;
 
 
 static void checkconvbuffer(unsigned int size) {
@@ -152,7 +152,10 @@ static void checkconvbuffer(unsigned int size) {
   if (mgetconvbufsize < size) {
     if (mgetconvbuf) free (mgetconvbuf);  
     mgetconvbuf = (void *)malloc (size);
-    mgetconvbufsize = (mgetconvbuf != NULL) ? size : -1;
+    if(mgetconvbuf == NULL) {
+      PERROR("malloc");
+    }
+    mgetconvbufsize = (mgetconvbuf != NULL) ? size : 0;
   }
 
 }
