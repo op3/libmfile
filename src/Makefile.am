@@ -7,7 +7,8 @@ AM_CFLAGS= -O2 -g -Wall -pedantic \
 
 lib_LTLIBRARIES = libmfile.la
 
-libmfile_la_SOURCES = mfile.h \
+libmfile_la_SOURCES = debug.h \
+		mfile.h \
 		callindir.c \
 		callindir.h \
 		converters.c \
