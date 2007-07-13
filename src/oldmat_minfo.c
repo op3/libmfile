@@ -331,9 +331,7 @@ int oldmat_uninit (mat)
   return 0;
 }
 
-int oldmat_putinfo (mat, info)
-     MFILE *mat;
-     minfo *info;
-{
+int oldmat_putinfo(MFILE *mat, minfo *info) {
+
   return 0;
 }

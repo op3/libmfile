@@ -53,91 +53,63 @@ maccessdescr *tryaccess_first   = &shm_access;
 
 /* ------------------------------------------------------------------------- */
 
-static int dummy_flush (ap)
-     amp ap;
-{
+static int dummy_flush(amp ap) {
   return 0;
 }
 
-static int dummy_close (ap)
-     amp ap;	
-{
+static int dummy_close(amp ap) {
   return 0;
 }
 
-static void *dummy_geta (ap, offset, nbytes)
-     amp ap;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static void *dummy_geta(amp ap, acc_pos offset, acc_pos nbytes) {
   return (void*) NULL;
 }
 
-static void *dummy_puta (ap, offset, nbytes)
-     amp ap;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static void *dummy_puta(amp ap, acc_pos offset, acc_pos nbytes) {
   return (void*) NULL;
 }
 
 /* ------------------------------------------------------------------------- */
 
-static int get_via_geta (ap, buffer, offset, nbytes)
-     amp ap;
-     void *buffer;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static int get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+
   void* src = _geta (ap, offset, nbytes);
   if (src)
   {
     memcpy (buffer, src, nbytes);
     return nbytes;
   }
+
   return 0;
 }
 
-static int put_via_puta (ap, buffer, offset, nbytes)
-     amp ap;
-     void *buffer;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static int put_via_puta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+
   void* dest = _puta (ap, offset, nbytes);
   if (dest)
   {
     memcpy (dest, buffer, nbytes);
     return nbytes;
   }
+
   return 0;
 }
 
 /* ------------------------------------------------------------------------- */
 /* PROVISORISCH !!! noch nicht implementiert */
 
-static void *geta_via_get (ap, offset, nbytes)
-     amp ap;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static void *geta_via_get(amp ap, acc_pos offset, acc_pos nbytes) {
   return (void*) NULL;
 }
 
-static void *puta_via_put (ap, offset, nbytes)
-     amp ap;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static void *puta_via_put(amp ap, acc_pos offset, acc_pos nbytes) {
   return (void*) NULL;
 }
 
 /* ------------------------------------------------------------------------- */
 
-int maddaccess (tryaccess, name)
-     tryaccessf *tryaccess;
-     char *name;
-{
+int maddaccess (     tryaccessf *tryaccess, char *name) {
+
   maccessdescr *p = (maccessdescr*) malloc (sizeof (maccessdescr));
   if (p)
   {
@@ -147,6 +119,7 @@ int maddaccess (tryaccess, name)
     tryaccess_first	= p;
     return 0;
   }
+
   return -1;
 }
 
@@ -159,10 +132,8 @@ static amp newaccessmethod()
   return ap;
 }
 
-static amp initaccessmethod(ap, name)
-     amp ap;
-     char *name;
-{
+static amp initaccessmethod(amp ap, char *name) {
+
   if (name)
   {
     ap->name = malloc (strlen(name) +1);
@@ -182,11 +153,8 @@ static amp initaccessmethod(ap, name)
 }
 
 
-amp tryaccess (name, mode, accessname)
-     char *name;
-     char *mode;
-     char *accessname;
-{
+amp tryaccess(char *name, char *mode, char *accessname) {
+
   amp ap = newaccessmethod();
 
   if (ap)
@@ -206,5 +174,6 @@ amp tryaccess (name, mode, accessname)
     }
   }
   free (ap);
+
   return NULL;
 }

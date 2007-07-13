@@ -95,11 +95,8 @@ default:
   return 0;
 }
 
-static char *strbcat (s1, s2, n)
-     char *s1;
-     char *s2;
-     int n;
-{
+static char *strbcat(char *s1, char *s2, int n) {
+
   char c;
   char *p = s1 + strlen(s1);
   int i;
@@ -115,9 +112,8 @@ static char *strbcat (s1, s2, n)
   *++p = '\0';
 }
 
-void mate_probe (mat)
-     MFILE *mat;
-{
+void mate_probe(MFILE *mat) {
+
   mate_header mate_h;
   char comment[128];
 
@@ -148,5 +144,6 @@ void mate_probe (mat)
 
   mat->comment = (char *) malloc (strlen(comment) +1);
   strcpy (mat->comment, comment);
+
 }
 

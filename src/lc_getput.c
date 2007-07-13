@@ -79,11 +79,8 @@ static void trycacheline P_((MFILE *mat, u_int line));
 #undef P_
 
 #ifdef VERIFY_COMPRESSION
-static void verifycompr (lci, line, num)
-     lc_minfo *lci;
-     int *line;
-     int num;
-{
+static void verifycompr(lc_minfo *lci, int *line, int num) {
+
   static int uncline[MAT_COLMAX];
 
   if (num > MAT_COLMAX) return;
@@ -103,11 +100,8 @@ static void verifycompr (lci, line, num)
 }
 #endif /* VERIFY_COMPRESSION */
 
-static int readline (mat, buffer, line)
-     MFILE *mat;
-     int *buffer;
-     u_int line;
-{
+static int readline(MFILE *mat, int *buffer, u_int line) {
+
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
   
   if (lci->cachedcomprline != line) {
@@ -127,14 +121,12 @@ static int readline (mat, buffer, line)
   if (lci->cachedcomprline == line) {
     return lci->uncomprf (buffer, lci->comprlinebuf, mat->columns);
   }
+
   return -1;
 }
 
-static int writeline (mat, buffer, line)
-     MFILE *mat;
-     int *buffer;
-     u_int line;
-{
+static int writeline(MFILE *mat, int *buffer, u_int line) {
+
   amp ap		  = mat->ap;
   lc_minfo *lci		  = (lc_minfo *) mat->specinfo.p;
 
@@ -159,13 +151,12 @@ static int writeline (mat, buffer, line)
       return mat->columns;
     }
   }
+
   return -1;
 }
 
-static void trycacheline (mat, line)
-     MFILE *mat;
-     u_int line;
-{
+static void trycacheline(MFILE *mat, u_int line) {
+
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
   
   if (lci->cachedline != line) {
@@ -180,11 +171,8 @@ static void trycacheline (mat, line)
   }
 }
 
-int lc_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int lc_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
 
   line += level * mat->lines;
@@ -204,11 +192,8 @@ int lc_get (mat, buffer, level, line, col, num)
   return -1;
 }
 
-int lc_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int lc_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
 
   line += level * mat->lines;
@@ -233,9 +218,8 @@ int lc_put (mat, buffer, level, line, col, num)
 }
 
 
-int lc_flushcache (mat)
-     MFILE *mat;
-{
+int lc_flushcache(MFILE *mat) {
+
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
 
   if (lci->cachedlinedirty

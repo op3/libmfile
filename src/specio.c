@@ -10,25 +10,20 @@
 
 static char rcsid[] = "$Id: specio.c,v 1.7 1998/11/09 18:21:10 root Exp $";
 
-int load_spec (name, buf, num)
-     const char *name;
-     unsigned long *buf;
-     int num;
-{
+int load_spec(const char *name, unsigned long *buf, int num) {
+
   int n;
   MFILE *mat;
 
   mat = mopen ((char *)name, "r");
   n = mget (mat, (void *)buf, 0, 0, 0, num);
   if (mclose (mat) != 0) return -1;
+
   return n;
 }
 
-int save_spec (name, buf, num)
-     const char *name;
-     unsigned long *buf;
-     int num;
-{
+int save_spec(const char *name, unsigned long *buf, int num) {
+
   int n;
   MFILE *mat;
   minfo info;
@@ -44,6 +39,7 @@ int save_spec (name, buf, num)
 
   n = mput (mat, (void *)buf, 0, 0, 0, num);
   if (mclose (mat) != 0) return -1;
+
   return n;
 }
 

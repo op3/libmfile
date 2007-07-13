@@ -27,11 +27,7 @@ static char rcsid[] = "$Id: mate_getput.c,v 1.3 1993/07/20 17:58:06 se Exp $";
 
 #define fpos(s) (((level * mat->lines + line) * mat->columns + col) * (s))
 
-int mate_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int mate_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
   int nread = getle4 (mat->ap, buffer, fpos (4) + 0x200, num);
   int i;
 

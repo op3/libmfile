@@ -38,9 +38,8 @@ unsigned int gf2_swap32(unsigned int in) {
 }
 
 /* Probe for gf2 format files */
-void gf2_probe(mat)
-  MFILE *mat;
-{
+void gf2_probe(MFILE *mat) {
+
    int gf2_header[9];
    
    if (_get(mat->ap, gf2_header, 0, sizeof(gf2_header)) != sizeof(gf2_header)) return;
@@ -56,13 +55,13 @@ void gf2_probe(mat)
    }
    else return;
    mat->levels = 1;
+
    return;
 }
 
 /* Initialise gf2 format */
-void gf2_init (mat)
-     MFILE *mat;
-{
+void gf2_init(MFILE *mat) {
+
   if (0 < mat->columns && mat->columns <= MAT_COLMAX) {
     int filetype = mat->filetype;
     int datatype = matproc_datatype (filetype);
@@ -80,9 +79,8 @@ void gf2_init (mat)
 }
 
 /* End gf2 format */
-int gf2_uninit (mat)
-     MFILE *mat;
-{
+int gf2_uninit(MFILE *mat) {
+
    int status, num = mat->columns;
    int gf2_header[] = {
         24,                       /* recla */

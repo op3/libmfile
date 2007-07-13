@@ -77,9 +77,8 @@ static void openmatfile P_((MFILE *mat, char *name, char *mode));
 /*#include "oldmat_minfo.h"*/
 
 
-static void setmatdefaults (mat)
-     MFILE *mat;
-{
+static void setmatdefaults(MFILE *mat) {
+
   mat->ap		= NULL;
   mat->name		= NULL;
   mat->comment		= NULL;
@@ -105,11 +104,8 @@ static void setmatdefaults (mat)
 }
 
 
-static void openmatfile (mat, name, mode)
-     MFILE *mat;
-     char *name;
-     char *mode;
-{
+static void openmatfile(MFILE *mat, char *name, char *mode) {
+
   char *accessmode = NULL;
 
   /* PROVISORISCH !!! 
@@ -125,9 +121,8 @@ static void openmatfile (mat, name, mode)
 }  
 
 
-MFILE *mopen (name, mode)
-     char *name, *mode;
-{
+MFILE *mopen(char *name, char *mode) {
+
   MFILE *mat;
   char *fmt;
   
@@ -157,9 +152,8 @@ MFILE *mopen (name, mode)
 }
 
 
-int mclose (mat)
-     MFILE *mat;
-{
+int mclose(MFILE *mat) {
+
   int status = 0;
   
   if (mat) {
@@ -174,12 +168,12 @@ int mclose (mat)
     if (mat->name) free (mat->name);
     free (mat);
   }
+
   return status;
 }
 
-int mflush (mat)
-     MFILE *mat;
-{
+int mflush(MFILE *mat) {
+
   int status = 0;
   
   if (mat && mat->mflushf) status = mat->mflushf (mat);

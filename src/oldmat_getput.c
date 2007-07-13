@@ -48,93 +48,60 @@ static char rcsid[] = "$Id: oldmat_getput.c,v 1.9 1993/07/20 17:58:45 se Exp $";
 
 #define fpos_t(s) ((level * tri_pos(mat->lines,0) + tri_pos(line, col)) * (s))
 
-int le4_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le4_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return getle4 (mat->ap, buffer, fpos (4), num);
 }
 
-int le4_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le4_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return putle4 (mat->ap, buffer, fpos (4), num);
 }
 
-int le2_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le2_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return getle2 (mat->ap, buffer, fpos (2), num);
 }
 
-int le2_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le2_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return putle2 (mat->ap, buffer, fpos (2), num);
 }
 
-int le2s_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le2s_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return getle2s (mat->ap, buffer, fpos (2), num);
 }
 
-int he4_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he4_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return gethe4 (mat->ap, buffer, fpos (4), num);
 }
 
-int he4_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he4_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return puthe4 (mat->ap, buffer, fpos (4), num);
 }
 
-int he2_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he2_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return gethe2 (mat->ap, buffer, fpos (2), num);
 }
 
-int he2s_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he2s_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return gethe2s (mat->ap, buffer, fpos (2), num);
 }
 
-int he2_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he2_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return puthe2 (mat->ap, buffer, fpos (2), num);
 }
 
 /*----------------------------------------------------------------------*/
 
-int le4t_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le4t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata, nzero;
   int res;
 
@@ -149,11 +116,8 @@ int le4t_get (mat, buffer, level, line, col, num)
   return num;
 }
 
-int le4t_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le4t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata;
   int res;
   int i;
@@ -171,11 +135,8 @@ int le4t_put (mat, buffer, level, line, col, num)
   return num;
 }
 
-int le2t_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le2t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata, nzero;
   int res;
 
@@ -190,11 +151,8 @@ int le2t_get (mat, buffer, level, line, col, num)
   return num;
 }
 
-int le2t_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int le2t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata;
   int res;
   int i;
@@ -212,11 +170,8 @@ int le2t_put (mat, buffer, level, line, col, num)
   return num;
 }
 
-int he4t_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he4t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata, nzero;
   int res;
 
@@ -231,11 +186,8 @@ int he4t_get (mat, buffer, level, line, col, num)
   return num;
 }
 
-int he4t_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he4t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata;
   int res;
   int i;
@@ -253,11 +205,8 @@ int he4t_put (mat, buffer, level, line, col, num)
   return num;
 }
 
-int he2t_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he2t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata, nzero;
   int res;
 
@@ -272,11 +221,8 @@ int he2t_get (mat, buffer, level, line, col, num)
   return num;
 }
 
-int he2t_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int he2t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int ndata;
   int res;
   int i;
@@ -296,69 +242,45 @@ int he2t_put (mat, buffer, level, line, col, num)
 
 /*----------------------------------------------------------------------*/
 
-int lf4_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     float *buffer;
-{
+int lf4_get(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return getle4 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
-int lf4_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     float *buffer;
-{
+int lf4_put(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return putle4 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
-int hf4_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     float *buffer;
-{
+int hf4_get(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return gethe4 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
-int hf4_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     float *buffer;
-{
+int hf4_put(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return puthe4 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
 /*----------------------------------------------------------------------*/
 
-int lf8_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     double *buffer;
-{
+int lf8_get(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return getle8 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
-int lf8_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     double *buffer;
-{
+int lf8_put(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return putle8 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
-int hf8_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     double *buffer;
-{
+int hf8_get(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return gethe8 (mat->ap, (int *)buffer, fpos (4), num);
 }
 
-int hf8_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     double *buffer;
-{
+int hf8_put(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return puthe8 (mat->ap, (int *)buffer, fpos (4), num);
 }
 

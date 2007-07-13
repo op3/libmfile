@@ -39,11 +39,8 @@ static char rcsid[] = "$Id: shm_getput.c,v 1.7 1992/12/31 10:59:06 se Exp $";
  */
 
 
-int shm_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int shm_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   int *p = (int *) mat->specinfo.p;
 
   memcpy (buffer, p + col, num * sizeof(buffer[0]));

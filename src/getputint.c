@@ -11,6 +11,7 @@
 #include "getputint.h"
 #include "maccess.h"
 #include <errno.h>
+#include "debug.h"
 
 static char rcsid[] = "$Id: getputint.c,v 1.9 1993/07/20 17:55:46 se Exp $";
 
@@ -45,20 +46,19 @@ static char rcsid[] = "$Id: getputint.c,v 1.9 1993/07/20 17:55:46 se Exp $";
  */
 
 #ifdef undef
-int get (fd, adr, pos, num)
-     int fd;
-     void *adr;
-     u_int pos;
-     u_int num;
-{
+int get(int fd, void *adr, u_int pos, u_int num) {
+
   int w;
   int done = 0;
   char *buffer = adr;
 
   errno = 0;
   
-  if (lseek (fd, pos, SEEK_SET) != pos) return -1;
-    
+  if (lseek (fd, pos, SEEK_SET) != pos) {
+    PERROR("lseek");
+    return -1;
+  }
+
   do {
     w = read(fd, buffer, num);
     if (w > 0){
@@ -75,8 +75,8 @@ int get (fd, adr, pos, num)
         int saveerrno = errno;
 	(void) close(fd);
 	errno = saveerrno;
-	perror ("get");		/* ERROR ABORT */
-	exit (1);		/* include corresponding header file !!! */
+	PERROR("get");		/* ERROR ABORT */
+	exit (1);		
 #endif
 	return -1;
       } else {
@@ -84,24 +84,24 @@ int get (fd, adr, pos, num)
       }
     }
   } while (num > 0);
+
   return done;
 }
 
 
-int put (fd, adr, pos, num)
-     int fd;
-     void *adr;
-     u_int pos;
-     u_int num;
-{
+int put(int fd, void *adr, u_int pos, u_int num) {
+
   int w;
   int done = 0;
   char *buffer = adr;
 
   errno = 0;
   
-  if (lseek (fd, pos, SEEK_SET) != pos) return -1;
-    
+  if (lseek (fd, pos, SEEK_SET) != pos) {
+    PERROR("lseek");
+    return -1;
+  }
+
   do {
     w = write(fd, buffer, num);
     if (w > 0){
@@ -118,8 +118,8 @@ int put (fd, adr, pos, num)
         int saveerrno = errno;
 	(void) close(fd);
 	errno = saveerrno;
-	perror ("get");		/* ERROR ABORT */
-	exit (1);		/* include corresponding header file !!! */
+	PERROR ("get");		/* ERROR ABORT */
+	exit (1);	
 #endif
 	return -1;
       } else {
@@ -127,16 +127,14 @@ int put (fd, adr, pos, num)
       }
     }
   } while (num > 0);
+
   return done;
 }
 #endif /* undef */
 
 
-u_int getle8 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{     
+u_int getle8(amp ap, int *buffer, u_int pos, u_int num) {
+     
 #ifdef LOWENDIAN
   int *iobuf = buffer;
 #else
@@ -154,14 +152,12 @@ u_int getle8 (ap, buffer, pos, num)
     *(buffer++) = GETLE4(t1);
   }
 #endif
+
   return num;
 }
      
-u_int putle8 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int putle8(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_int n;
 #ifdef LOWENDIAN
   int *iobuf = buffer;
@@ -180,11 +176,8 @@ u_int putle8 (ap, buffer, pos, num)
   return num;
 }
 
-u_int gethe8 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{     
+u_int gethe8(amp ap, int *buffer, u_int pos, u_int num) {     
+
 #ifndef LOWENDIAN
   int *iobuf = buffer;
 #else
@@ -202,14 +195,12 @@ u_int gethe8 (ap, buffer, pos, num)
     *(buffer++) = GETHE4(t1);
   }
 #endif
+
   return num;
 }
      
-u_int puthe8 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int puthe8(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_int n;
 #ifndef LOWENDIAN
   int *iobuf = buffer;
@@ -228,11 +219,8 @@ u_int puthe8 (ap, buffer, pos, num)
   return num;
 }
 
-u_int getle4 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{     
+u_int getle4 (amp ap, int *buffer, u_int pos, u_int num) {
+     
 #ifdef LOWENDIAN
   int *iobuf = buffer;
 #else
@@ -247,14 +235,12 @@ u_int getle4 (ap, buffer, pos, num)
     *(buffer++) = GETLE4(t);
   }
 #endif
+
   return num;
 }
      
-u_int putle4 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int putle4 (amp ap, int *buffer, u_int pos, u_int num) {
+
   u_int n;
 #ifdef LOWENDIAN
   int *iobuf = buffer;
@@ -268,14 +254,12 @@ u_int putle4 (ap, buffer, pos, num)
 #endif
   n = num << 2;
   if (_put (ap, (char *)iobuf, pos, n) != n) return 0;
+
   return num;
 }
 
-u_int gethe4 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int gethe4(amp ap, int *buffer, u_int pos, u_int num) {
+
 #ifndef LOWENDIAN
   int *iobuf = buffer;
 #else
@@ -293,11 +277,8 @@ u_int gethe4 (ap, buffer, pos, num)
   return num;
 }
 
-u_int puthe4 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int puthe4(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_int n;
 #ifndef LOWENDIAN
   int *iobuf = buffer;
@@ -314,11 +295,8 @@ u_int puthe4 (ap, buffer, pos, num)
   return num;
 }
 
-u_int getle2 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int getle2(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_short iobuf[MAT_COLMAX], *p;
   u_int n = num << 1;
 
@@ -327,14 +305,12 @@ u_int getle2 (ap, buffer, pos, num)
     register int t = *(p++);
     *(buffer++) = (u_short) GETLE2(t);
   }
+
   return num;
 }
 
-u_int putle2 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int putle2(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_short iobuf[MAT_COLMAX], *p;
   u_int n;
 
@@ -344,14 +320,12 @@ u_int putle2 (ap, buffer, pos, num)
   }
   n = num << 1;
   if (_put (ap, (char *)iobuf, pos, n) != n) return 0;
+
   return num;
 }
 
-u_int gethe2 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int gethe2(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_short iobuf[MAT_COLMAX], *p;
   u_int n = num << 1;
 
@@ -360,14 +334,12 @@ u_int gethe2 (ap, buffer, pos, num)
     register int t = *(p++);
     *(buffer++) = (u_short) GETHE2(t);
   }
+
   return num;
 }
 
-u_int puthe2 (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int puthe2(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_short iobuf[MAT_COLMAX], *p;
   u_int n;
 
@@ -377,14 +349,12 @@ u_int puthe2 (ap, buffer, pos, num)
   }
   n = num << 1;
   if (_put (ap, (char *)iobuf, pos, n) != n) return 0;
+
   return num;
 }
 
-u_int getle2s (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int getle2s(amp ap, int *buffer, u_int pos, u_int num) {
+
   short iobuf[MAT_COLMAX], *p;
   u_int n = num << 1;
 
@@ -393,14 +363,12 @@ u_int getle2s (ap, buffer, pos, num)
     register int t = *(p++);
     *(buffer++) = (short) GETLE2(t);
   }
+
   return num;
 }
 
-u_int gethe2s (ap, buffer, pos, num)
-     amp ap;
-     u_int pos, num;
-     int *buffer;
-{
+u_int gethe2s(amp ap, int *buffer, u_int pos, u_int num) {
+
   u_short iobuf[MAT_COLMAX], *p;
   u_int n = num << 1;
 
@@ -409,6 +377,7 @@ u_int gethe2s (ap, buffer, pos, num)
     register int t = *(p++);
     *(buffer++) = (short) GETHE2(t);
   }
+
   return num;
 }
 

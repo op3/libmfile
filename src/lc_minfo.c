@@ -78,10 +78,9 @@ static int lc_flush P_((MFILE *mat));
 
 #undef P_
 
-static int init_lci(mat, freepos, freelistpos, poslentablepos)
-     MFILE *mat;
-     unsigned int freepos, freelistpos, poslentablepos;
-{
+static int init_lci(MFILE *mat, unsigned int freepos, 
+		    unsigned int freelistpos, unsigned int poslentablepos) {
+
   u_int n = mat->lines * mat->levels;
 
   lc_minfo *lci = (lc_minfo *)malloc (sizeof (lc_minfo));
@@ -140,12 +139,12 @@ static int init_lci(mat, freepos, freelistpos, poslentablepos)
       }
     }
   }
+
   return -1;
 }
 
-void lc_probe (mat)
-     MFILE *mat;
-{
+void lc_probe(MFILE *mat) {
+
   lc_header lch;
   
   if (_get (mat->ap, &lch, 0, sizeof(lch)) != sizeof(lch))	return;
@@ -171,9 +170,8 @@ void lc_probe (mat)
   if (mat->specinfo.p) mat->status |= (MST_INITIALIZED | MST_DIMSFIXED);
 }
 
-void lc_init (mat)
-     MFILE *mat;
-{
+void lc_init(MFILE *mat) {
+
   if (mat->status & MST_INITIALIZED) return;
 
   if (mat->version == 0) {
@@ -194,29 +192,25 @@ void lc_init (mat)
 
 
 #ifdef undef
-int lc_putinfo (mat, info)
-     MFILE *mat;
-     minfo* info;
-{
+int lc_putinfo(MFILE *mat, minfo *info) {
   return 0;
 }
 #endif
 
 
-int lc_uninit (mat)
-     MFILE *mat;
-{
+int lc_uninit(MFILE *mat) {
+
   int status;
 
   status = lc_flush (mat);
   free_lci (mat);
+
   return status;
 }  
 
 
-static int lc_flush (mat)
-     MFILE *mat;
-{
+static int lc_flush(MFILE *mat) {
+
   if (mat->status & MST_DIRTY) {
     lc_header lch;
     lc_minfo *lci = (lc_minfo *)mat->specinfo.p;
@@ -249,9 +243,8 @@ static int lc_flush (mat)
 }
 
 
-static void free_lci (mat)
-     MFILE *mat;
-{
+static void free_lci(MFILE *mat) {
+
   if (mat != NULL) {
     lc_minfo *lci = (lc_minfo *)mat->specinfo.p;
     if (lci->linebuf != NULL)		free (lci->linebuf);

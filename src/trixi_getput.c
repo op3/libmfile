@@ -27,10 +27,7 @@ static char rcsid[] = "$Id: trixi_getput.c,v 1.2 1993/07/20 18:00:12 se Exp $";
 
 #define fpos(s) (((level * mat->lines + line) * mat->columns + col) * (s) +512)
 
-int trixi_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int trixi_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   return getle2 (mat->ap, buffer, fpos (2), num);
 }

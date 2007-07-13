@@ -4,59 +4,61 @@
 
 #include "maccess.h"
 #include "disk_access.h"
+#include "debug.h"
 
 /* ------------------------------------------------------------------------- */
 
-int disk_get (ap, buffer, offset, nbytes)
-     amp ap;
-     void *buffer;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+int disk_get(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+
   FILE *f = (FILE*) ap->specinfo.p;
-  if (fseek (f, (long)offset, SEEK_SET) != 0) return -1;
+  if (fseek (f, (long)offset, SEEK_SET) != 0) {
+    PERROR("fseek");
+    return -1;
+  }
+
   return fread (buffer, 1, nbytes, f);
 }
 
-int disk_put (ap, buffer, offset, nbytes)
-     amp ap;
-     void *buffer;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+int disk_put(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+
   FILE *f = (FILE*) ap->specinfo.p;
-  if (fseek (f, (long)offset, SEEK_SET) != 0) return -1;
+
+  if (fseek (f, (long)offset, SEEK_SET) != 0) {
+    PERROR("fseek");
+    return -1;
+  }
+
   return fwrite (buffer, 1, nbytes, f);
 }
 
 /* ------------------------------------------------------------------------- */
 
-int disk_flush (ap)
-     amp ap;
-{
+int disk_flush(amp ap) {
+
   FILE *f = (FILE*) ap->specinfo.p;
+
   return fflush (f);
 }
 
-int disk_close (ap)
-     amp ap;
-{
+int disk_close (amp ap) {
+
   FILE *f = (FILE*) ap->specinfo.p;
+
   return fclose (f);
 }
 
 /* ------------------------------------------------------------------------- */
 
-int disk_tryaccess (ap, name, mode)
-     amp ap;
-     char *name;
-     char *mode;
-{
+int disk_tryaccess(amp ap, char *name, char *mode) {
+
   FILE *f;
   struct stat stat_buf;
 
   f = fopen (name, mode);
-  if (!f) return -1;
+  if (!f) {
+    PERROR("fopen");
+    return -1;
+  }
   ap->specinfo.p = (void*) f;
   ap->get	 = disk_get;
   ap->put	 = disk_put;
@@ -67,6 +69,7 @@ int disk_tryaccess (ap, name, mode)
   {
     ap->size = stat_buf.st_size;
   }
+
   return 0;
 }
 

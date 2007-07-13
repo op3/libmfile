@@ -55,9 +55,8 @@ static char rcsid[] = "$Id: shm_minfo.c,v 1.9 1993/07/20 17:59:23 se Exp $";
 
 
 #ifdef undef
-void shm_probe (mat)
-     MFILE *mat;
-{
+void shm_probe(MFILE *mat) {
+
   char buf[128], *p;
   int shmid;
   struct shmid_ds shm_stat;
@@ -95,24 +94,19 @@ void shm_probe (mat)
   mat->specinfo.p	= shm_addr;
 }
 
-void shm_init (mat)
-     MFILE *mat;
-{
+void shm_init(MFILE *mat) {
+
   mat->filetype = MAT_INVALID;
 }
 
 
-int shm_putinfo (mat, info)
-     MFILE *mat;
-     minfo* info;
-{
+int shm_putinfo(MFILE *mat, minfo *info) {
+
   return 0;
 }
 
 
-int shm_uninit (mat)
-     MFILE *mat;
-{
+int shm_uninit(MFILE *mat) {
   /* 
     not yet implemented:
     if shmctl() --> shm_attach == 1: 

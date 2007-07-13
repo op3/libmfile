@@ -65,10 +65,8 @@ static char *minfototxt P_((char *fmt, minfo *info));
 
 #undef P_
 
-int mgetinfo (mat, info)
-     MFILE *mat;
-     minfo *info;
-{
+int mgetinfo(MFILE *mat, minfo *info) {
+
   if (info == NULL) return -1;
 
   if (mat == NULL) {
@@ -96,10 +94,8 @@ int mgetinfo (mat, info)
 }
 
 
-int msetinfo (mat, info)
-     MFILE *mat;
-     minfo *info;
-{
+int msetinfo(MFILE *mat, minfo *info) {
+
   /* check parameters and set filetype = MATINVALID in case of error */
   /* should call 'mat->msetinfof()' for sanity checks ... */
 
@@ -128,10 +124,8 @@ int msetinfo (mat, info)
 }
 
 
-int mtxttoinfo (fmt, info)
-     char *fmt;
-     minfo *info;
-{
+int mtxttoinfo(char *fmt, minfo *info) {
+
   int lev=0;
   int lin=0;
   int col=0;
@@ -206,11 +200,8 @@ int mtxttoinfo (fmt, info)
 
 
 
-static char *putnum (p, n, put1)
-     char *p;
-     u_int n;
-     int put1;
-{
+static char *putnum(char *p, u_int n, int put1) {
+
   if (n != 1 || put1) {
     char numbuf[32];
     char *revp = numbuf;
@@ -222,27 +213,25 @@ static char *putnum (p, n, put1)
     while (revp != numbuf) { *p++ = *--revp; }
   }
   *p = '\0';
+
   return p;
 }
 
 
-static char *putfmt (p, filetype)
-     char *p;
-     int filetype;
-{
+static char *putfmt(char *p, int filetype) {
+
   char *cp;
 
   cp = matproc_fmtname (filetype);
   while (*cp) *p++ = *cp++;
   *p = '\0';
+
   return p;
 }
 
 
-static char *minfototxt (fmt, info)
-     char *fmt;
-     minfo *info;
-{
+static char *minfototxt(char *fmt, minfo *info) {
+
   static char txtbuf[127];
   char *p;
 
@@ -271,10 +260,8 @@ static char *minfototxt (fmt, info)
 }
 
 
-int msetfmt (mat, format)
-     MFILE *mat;
-     char *format;
-{
+int msetfmt(MFILE *mat, char *format) {
+
   minfo info;
   if (mat && format) {
     if (mgetinfo (mat, &info) != 0) return -1;
@@ -287,10 +274,8 @@ int msetfmt (mat, format)
 }
 
 
-char* mgetfmt (mat, format)
-     MFILE *mat;
-     char *format;
-{
+char* mgetfmt(MFILE *mat, char *format) {
+
   minfo info;
 
   mgetinfo (mat, &info);

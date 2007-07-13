@@ -123,9 +123,8 @@ static matprocs matproc [] =
 };
 
 
-void matproc_guessfiletype (mat)
-     MFILE *mat;
-{
+void matproc_guessfiletype(MFILE *mat) {
+
   matprocs *p = matproc;
   
   while (p->filetype != MAT_INVALID) {
@@ -139,9 +138,8 @@ void matproc_guessfiletype (mat)
 }
 
 
-void matproc_init (mat)
-     MFILE *mat;
-{
+void matproc_init(MFILE *mat) {
+
   matprocs *p = matproc;
   int mft = mat->filetype;
   int pft;
@@ -156,9 +154,8 @@ void matproc_init (mat)
   }
 }
 
-char *matproc_fmtname (mft)
-     int mft;
-{
+char *matproc_fmtname(int mft) {
+
   matprocs *p = matproc;
   int pft;
 
@@ -172,9 +169,8 @@ char *matproc_fmtname (mft)
 }
 
 
-int matproc_filetype (fmt)
-     CONST char *fmt;
-{
+int matproc_filetype(CONST char *fmt) {
+
   matprocs *p = matproc;
   
   while (p->filetype != MAT_INVALID) {
@@ -187,9 +183,8 @@ int matproc_filetype (fmt)
 }
 
 
-int matproc_datatype (mft)
-     int mft;
-{
+int matproc_datatype(int mft) {
+
   matprocs *p = matproc;
   int pft;
 
@@ -203,9 +198,8 @@ int matproc_datatype (mft)
 }
 
 
-mgetf* matproc_getf (mft)
-     int mft;
-{
+mgetf* matproc_getf(int mft) {
+
   matprocs *p = matproc;
   int pft;
 
@@ -215,13 +209,13 @@ mgetf* matproc_getf (mft)
     }
     p++;
   }    
+
   return (mgetf*) NULL;
 }
 
 
-mputf* matproc_putf (mft)
-     int mft;
-{
+mputf* matproc_putf(int mft) {
+
   matprocs *p = matproc;
   int pft;
 
@@ -231,5 +225,6 @@ mputf* matproc_putf (mft)
     }
     p++;
   }    
+
   return (mputf*) NULL;
 }

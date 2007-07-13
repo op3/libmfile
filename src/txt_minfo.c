@@ -104,9 +104,8 @@ static void txt_free P_((MFILE *mat));
 
 
 
-void txt_probe (mat)
-     MFILE *mat;
-{
+void txt_probe(MFILE *mat) {
+
   char buffer[PROBESIZE];
   char *p = buffer;
   unsigned int fpos = 0;
@@ -140,9 +139,8 @@ void txt_probe (mat)
   }
 }
 
-static int txt_load (mat)
-     MFILE *mat;
-{
+static int txt_load(MFILE *mat) {
+
   char buffer[PROBESIZE];
   char *p = buffer;
   unsigned int fpos = 0;
@@ -175,27 +173,25 @@ static int txt_load (mat)
   return n;
 }
 
-static int txt_alloc (mat)
-     MFILE *mat;
-{
+static int txt_alloc(MFILE *mat) {
+
   unsigned arrsize = mat->levels * mat->lines * mat->columns * sizeof(double);
   mat->specinfo.p = (void *) malloc (arrsize);
   if (mat->specinfo.p == NULL) return -1;
   memset (mat->specinfo.p, 0, arrsize);
+
   return 0;
 }
 
-static void txt_free (mat)
-     MFILE *mat;
-{
+static void txt_free(MFILE *mat) {
+
   double *dblp = (double *) mat->specinfo.p;
   if (dblp) free (dblp);
   mat->specinfo.p = NULL;
 }
 
-void txt_init (mat)
-     MFILE *mat;
-{
+void txt_init(MFILE *mat) {
+
   if (mat->status & MST_INITIALIZED) return;
 
   if (mat->version == 0) {
@@ -215,13 +211,13 @@ void txt_init (mat)
   }
 }
 
-int txt_uninit (mat)
-     MFILE *mat;
-{
+int txt_uninit(MFILE *mat) {
+
   int status;
 
   status = txt_flush (mat);
   txt_free (mat);
+
   return status;
 }  
 

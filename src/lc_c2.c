@@ -64,11 +64,8 @@ static char rcsid[] = "$Id: lc_c2.c,v 1.5 1992/07/30 12:09:41 se Exp $";
 
 /* liefert Anzahl Bytes nach Kompression oder -1 bei Fehler */
 
-int lc2_compress (dest, src, num)
-     char *dest;
-     int *src;
-     int num;
-{
+int lc2_compress(char *dest, int *src, int num) {
+
   int last = 0;
   char *p = dest;
   
@@ -115,6 +112,7 @@ int lc2_compress (dest, src, num)
       put_1_n (a); src++ ; num-- ; last = s0; continue;
     }
   }
+
   return (dest - p);
 }
 
@@ -124,11 +122,8 @@ int lc2_compress (dest, src, num)
 
 #define bitextract(i,p,l) (((i) >> p) & ((1 << (l)) -1))
 
-int lc2_uncompress (dest, src, num) 
-     int *dest;
-     char *src;
-     int num;
-{
+int lc2_uncompress(int *dest, char *src, int num) { 
+
   int last = 0;
   int nleft = num;
   
@@ -187,12 +182,13 @@ int lc2_uncompress (dest, src, num)
     }
 
   }
+
   return num;
 }
 
-unsigned int lc2_comprlinelenmax (col)
-     unsigned int col;
-{
+unsigned int lc2_comprlinelenmax(unsigned int col) {
+
   return ((col * 5) +3) & -4;
+
 }
 

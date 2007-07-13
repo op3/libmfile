@@ -42,11 +42,8 @@ typedef struct {
 } trixi_header;
 
 
-static char *strbcat (s1, s2, n)
-     char *s1;
-     char *s2;
-     int n;
-{
+static char *strbcat(char *s1, char *s2, int n) {
+
   char c;
   char *p = s1 + strlen(s1);
   int i;
@@ -62,9 +59,8 @@ static char *strbcat (s1, s2, n)
   *++p = '\0';
 }
 
-void trixi_probe (mat)
-     MFILE *mat;
-{
+void trixi_probe(MFILE *mat) {
+
   trixi_header trixi_h;
   char comment[512];
 

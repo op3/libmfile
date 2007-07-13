@@ -61,20 +61,15 @@ static char rcsid[] = "$Id: shm_access.c,v 1.2 1997/04/23 14:03:48 root Exp $";
 
 /* ------------------------------------------------------------------------- */
 
-static void *shm_geta (ap, offset, nbytes)
-     amp ap;
-     acc_pos offset;
-     acc_pos nbytes;
-{
+static void *shm_geta(amp ap, acc_pos offset, acc_pos nbytes) {
+
   char *p = (char *) ap->specinfo.p;
 
   if (offset + nbytes > ap->size) return NULL;
   return p + offset;
 }
 
-static int shm_close (ap)
-     amp ap;
-{
+static int shm_close(amp ap) {
   /* 
     not yet implemented:
     if shmctl() --> shm_attach == 1: 
@@ -86,11 +81,8 @@ static int shm_close (ap)
 
 /* ------------------------------------------------------------------------- */
 
-int shm_tryaccess (ap, name, mode)
-     amp ap;
-     char *name;
-     char *mode;
-{
+int shm_tryaccess(amp ap, char *name, char *mode) {
+
   FILE *f;
   char buf[128], *p;
   int shmid;

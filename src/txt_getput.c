@@ -35,11 +35,8 @@ static char rcsid[] = "$Id: txt_getput.c,v 1.5 1993/07/20 18:00:20 se Exp $";
  */
 
 
-int txt_get (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int txt_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+
   double *dblp = (double *) mat->specinfo.p;
 
 /*  if (dblp == NULL) return -1; */
@@ -47,14 +44,11 @@ int txt_get (mat, buffer, level, line, col, num)
   int idx = ((level * mat->lines) + line) * mat->columns + col;
 
   memcpy (buffer, dblp +idx, num * sizeof (double));
+
   return num;
 }
 
-int txt_put (mat, buffer, level, line, col, num)
-     MFILE *mat;
-     u_int level, line, col, num;
-     int *buffer;
-{
+int txt_put(MFILE *mat, int *buffer, u_int level, u_int line,  u_int col, u_int num) {
   double *dblp = (double *) mat->specinfo.p;
 
 /*  if (dblp == NULL) return -1; */
@@ -62,12 +56,12 @@ int txt_put (mat, buffer, level, line, col, num)
   int idx = ((level * mat->lines) + line) * mat->columns + col;
 
   memcpy (dblp +idx, buffer, num * sizeof (double));
+
   return num;
 }
 
-int txt_flush (mat)
-     MFILE *mat;
-{
+int txt_flush(MFILE *mat) {
+
   if ((mat->status & MST_DIRTY) != 0) 
   {
     double *dblp = (double *) mat->specinfo.p;
