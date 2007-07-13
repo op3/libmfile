@@ -64,13 +64,11 @@ typedef struct {
   short channels;
 } mate_header;
 
-static int match (str, pattern)
-     CONST char *str;
-     CONST char *pattern;
-{
+static int match(CONST char *str, CONST char *pattern) {
+
   char p;
 
-  while (p = *pattern++) {
+  while((p = *pattern++)) {
     char c = *str++;
     switch (p) {
 case '\0':
@@ -95,7 +93,7 @@ default:
   return 0;
 }
 
-static char *strbcat(char *s1, char *s2, int n) {
+static void strbcat(char *s1, char *s2, int n) {
 
   char c;
   char *p = s1 + strlen(s1);

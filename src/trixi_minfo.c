@@ -42,7 +42,7 @@ typedef struct {
 } trixi_header;
 
 
-static char *strbcat(char *s1, char *s2, int n) {
+static void strbcat(char *s1, char *s2, int n) {
 
   char c;
   char *p = s1 + strlen(s1);
