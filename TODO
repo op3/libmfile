@@ -1,0 +1,1 @@
+- add option for NO_SHM flag (used e.g. in maccess.c)
