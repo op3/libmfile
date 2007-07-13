@@ -18,7 +18,7 @@
 #include "oldmat_getput.h"
 #include "mat_types.h"
 
-static char rcsid[] = "$Id: oldmat_minfo.c,v 1.14 1993/07/20 17:58:49 se Exp $";
+
 
 /* $Log: oldmat_minfo.c,v $
  * Revision 1.14  1993/07/20  17:58:49  se

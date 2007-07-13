@@ -27,7 +27,7 @@
 #endif
 #include "mat_types.h"
 
-static char rcsid[] = "$Id: mat_types.c,v 1.13 1993/07/20 17:57:16 se Exp $";
+
 
 /* $Log: mat_types.c,v $
  * Revision 1.13  1993/07/20  17:57:16  se

@@ -17,7 +17,7 @@
 #include "mate_minfo.h"
 #include "mate_getput.h"
 
-static char rcsid[] = "$Id: mate_minfo.c,v 1.6 1993/07/20 17:58:17 se Exp $";
+
 
 /* $Log: mate_minfo.c,v $
  * Revision 1.6  1993/07/20  17:58:17  se

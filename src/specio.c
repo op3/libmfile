@@ -8,7 +8,7 @@
 
 #include "mfile.h"
 
-static char rcsid[] = "$Id: specio.c,v 1.7 1998/11/09 18:21:10 root Exp $";
+
 
 int load_spec(const char *name, unsigned long *buf, int num) {
 

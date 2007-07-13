@@ -18,7 +18,7 @@
 #include <malloc.h>
 #include <string.h>
 
-static char rcsid[] = "$Id: maccess.c,v 1.1 1993/07/20 17:56:58 se Exp $";
+
 
 /* $Log: maccess.c,v $
  * Revision 1.1  1993/07/20  17:56:58  se

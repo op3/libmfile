@@ -8,7 +8,7 @@
 
 #include "lc_c2.h"
 
-static char rcsid[] = "$Id: lc_c2.c,v 1.5 1992/07/30 12:09:41 se Exp $";
+
 
 /* $Log: lc_c2.c,v $
  * Revision 1.5  1992/07/30  12:09:41  se

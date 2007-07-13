@@ -25,7 +25,7 @@
 #include "maccess.h"
 #include "shm_access.h"
 
-static char rcsid[] = "$Id: shm_access.c,v 1.2 1997/04/23 14:03:48 root Exp $";
+
 
 /* $Log: shm_access.c,v $
  * Revision 1.2  1997/04/23  14:03:48  root

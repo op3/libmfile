@@ -13,7 +13,7 @@
 #include "mfile.h"
 #include "mat_types.h"
 
-static char rcsid[] = "$Id: minfo.c,v 1.11 1993/01/20 13:03:44 se Exp root $";
+
 
 /* $Log: minfo.c,v $
  * Revision 1.11  1993/01/20  13:03:44  se

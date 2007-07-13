@@ -10,7 +10,7 @@
 #include "getputint.h"
 #include "mate_getput.h"
 
-static char rcsid[] = "$Id: mate_getput.c,v 1.3 1993/07/20 17:58:06 se Exp $";
+
 
 /* $Log: mate_getput.c,v $
  * Revision 1.3  1993/07/20  17:58:06  se

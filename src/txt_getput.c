@@ -13,7 +13,7 @@
 #include "txt_minfo.h"
 #include "txt_getput.h"
 
-static char rcsid[] = "$Id: txt_getput.c,v 1.5 1993/07/20 18:00:20 se Exp $";
+
 
 /* $Log: txt_getput.c,v $
  * Revision 1.5  1993/07/20  18:00:20  se

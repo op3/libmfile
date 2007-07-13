@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include "lc_c1.h"
 
-static char rcsid[] = "$Id: lc_c1.c,v 1.8 1992/07/30 12:09:41 se Exp $";
+
 
 /* $Log: lc_c1.c,v $
  * Revision 1.8  1992/07/30  12:09:41  se

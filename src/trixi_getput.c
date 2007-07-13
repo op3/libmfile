@@ -12,7 +12,7 @@
 #include "getputint.h"
 #include "trixi_getput.h"
 
-static char rcsid[] = "$Id: trixi_getput.c,v 1.2 1993/07/20 18:00:12 se Exp $";
+
 
 /* $Log: trixi_getput.c,v $
  * Revision 1.2  1993/07/20  18:00:12  se

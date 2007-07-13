@@ -23,7 +23,7 @@
 #include "shm_minfo.h"
 #include "shm_getput.h"
 
-static char rcsid[] = "$Id: shm_minfo.c,v 1.9 1993/07/20 17:59:23 se Exp $";
+
 
 /* $Log: shm_minfo.c,v $
  * Revision 1.9  1993/07/20  17:59:23  se

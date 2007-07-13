@@ -16,7 +16,7 @@
 #include "trixi_minfo.h"
 #include "trixi_getput.h"
 
-static char rcsid[] = "$Id: trixi_minfo.c,v 1.2 1993/07/20 18:00:16 se Exp $";
+
 
 /* $Log: trixi_minfo.c,v $
  * Revision 1.2  1993/07/20  18:00:16  se

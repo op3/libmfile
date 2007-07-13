@@ -18,7 +18,7 @@
 #include "lc_c1.h"
 #include "lc_c2.h"
 
-static char rcsid[] = "$Id: lc_minfo.c,v 1.13 1993/07/20 17:56:36 se Exp $";
+
 
 /* $Log: lc_minfo.c,v $
  * Revision 1.13  1993/07/20  17:56:36  se

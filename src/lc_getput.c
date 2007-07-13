@@ -21,7 +21,7 @@
 #include "lc_c2.h"
 #include "lc_getput.h"
 
-static char rcsid[] = "$Id: lc_getput.c,v 1.12 1993/07/20 17:56:15 se Exp $";
+
 
 /* $Log: lc_getput.c,v $
  * Revision 1.12  1993/07/20  17:56:15  se
