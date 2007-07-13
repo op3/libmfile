@@ -3,7 +3,7 @@ AM_CFLAGS= -O2 -g -Wall -pedantic \
 	-fschedule-insns2 -finline-functions \
 	-frerun-cse-after-loop \
 	-Wcast-align -Wcast-qual -Wconversion \
-	-Wshadow -Wtraditional -Wpointer-arith
+	-Wshadow -Wpointer-arith
 
 lib_LTLIBRARIES = libmfile.la
 
