@@ -13,8 +13,6 @@
 #include <errno.h>
 #include "debug.h"
 
-static char rcsid[] = "$Id: getputint.c,v 1.9 1993/07/20 17:55:46 se Exp $";
-
 /* $Log: getputint.c,v $
  * Revision 1.9  1993/07/20  17:55:46  se
  * modified for use with access method functions

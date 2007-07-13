@@ -17,8 +17,6 @@
 #include "gf2_minfo.h"
 #include "mat_types.h"
 
-static char rcsid[] = "$Id: gf2_getput.c,v 1.0 2003/04/16 08:28:21 se Exp $";
-
 #define fpos(s) (36 + ((level * mat->lines + line) * mat->columns + col) * (s))
 
 /*----------------------------------------------------------------------*/
