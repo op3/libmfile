@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 
-AC_INIT([src/mfile.h],[1.17],[ralf.schulze@ikp.uni-koeln.de])
+AC_INIT([src/mfile.h],[1.18],[ralf.schulze@ikp.uni-koeln.de])
 AC_CONFIG_AUX_DIR(build-aux)
 AC_CONFIG_SRCDIR([src/config.h.in])
 AM_CONFIG_HEADER(src/config.h)
@@ -10,7 +10,7 @@ PACKAGE=libmfile
 # release versioning
 GENERIC_MAJOR_VERSION=1
 GENERIC_MINOR_VERSION=0
-GENERIC_MICRO_VERSION=3
+GENERIC_MICRO_VERSION=4
 GENERIC_VERSION=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION.$GENERIC_MICRO_VERSION
 GENERIC_RELEASE=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION
 AC_SUBST(GENERIC_RELEASE)
@@ -19,7 +19,7 @@ AC_SUBST(GENERIC_VERSION)
 VERSION=$GENERIC_VERSION
 
 # shared library versioning
-GENERIC_LIBRARY_VERSION=1:3:0
+GENERIC_LIBRARY_VERSION=1:4:0
 #                       | | |
 #                +------+ | +---+
 #                |        |     |
