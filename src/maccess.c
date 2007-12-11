@@ -165,7 +165,7 @@ amp tryaccess(char *name, char *mode, char *accessname) {
     while (p)
     {
       if (!accessname 
-	  || p->name && p->name[0] && strcmp(accessname, p->name) == 0)
+	  || (p->name && p->name[0] && (strcmp(accessname, p->name) == 0) ))
       {
 	if (p->tryaccess(ap, name, mode) == 0) 
 	  return initaccessmethod(ap, name);

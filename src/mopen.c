@@ -66,7 +66,7 @@
 # define P_(s) ()
 #endif
 
-static void guessfiletype P_((MFILE *mat));
+/*static void guessfiletype P_((MFILE *mat));*/
 static void setmatdefaults P_((MFILE *mat));
 static void openmatfile P_((MFILE *mat, char *name, char *mode));
 

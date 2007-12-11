@@ -252,8 +252,8 @@ int mputdbl P_((MFILE* mat, double buf[], int lev, int lin, int col, int num));
 #define mget(mat,buf,lev,lin,col,num) mgetint(mat,buf,lev,lin,col,num)
 #define mput(mat,buf,lev,lin,col,num) mputint(mat,buf,lev,lin,col,num)
 
-int load_spec P_((const char *name, int *buf, int num));
-int save_spec P_((const char *name, int *buf, int num));
+int load_spec P_((char *name, int *buf, int num));
+int save_spec P_((char *name, int *buf, int num));
 
 #ifdef LIBMAT_BC
 /* don't use, ONLY for compatibility with old source files !!! */

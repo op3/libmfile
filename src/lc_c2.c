@@ -48,7 +48,7 @@
 			    int bytes = 0;				\
 			    t -= 60;					\
 			    *dest++ = (char) t;				\
-			    while (t = t >>8) {				\
+			    while( (t = t >> 8) ) {				\
 			      *dest++ = (char) --t;			\
 			      bytes++;					\
 			    }						\
@@ -66,54 +66,67 @@
 
 int lc2_compress(char *dest, int *src, int num) {
 
-  int last = 0;
-  char *p = dest;
-  
-  while (num) {
-    unsigned int d = *src - last;
-    int same = 0;
-    int i = 1;
+    int last = 0;
+    char *p = dest;
 
-    if (d < 2) {
-      while (i < num && *(src +i) == last) i++;
+    while (num) {
+        unsigned int d = *src - last;
+        int same = 0;
+        int i = 1;
+
+        if (d < 2) {
+            while (i < num && *(src +i) == last)
+                i++;
+        }
+        same = i -1;
+
+        if (same >= 3) {
+
+            put_same_diff((same -3), d);
+            src += i;
+            num -= i;
+
+        } else {
+
+            int encodetmp;
+            unsigned int a;
+            int s0 = *src;
+
+            a = encode (s0 -last);
+
+            if (fitsinto (a, 3) && (num >= 2)) {
+                int s1 = *(src+1);
+                unsigned int b = encode (s1 -last);
+
+                if (fitsinto (a|b, 2) && (num >= 3)) {
+                    int s2 = *(src+2);
+                    unsigned int c = encode (s2 -last);
+
+                    if (fitsinto (/*a|b|*/ c, 2)) {
+                        put_3_2 (a, b, c);
+                        src += 3;
+                        num -= 3;
+                        last = s2;
+                        continue;
+                    }
+                }
+                if (fitsinto (/*a|*/ b, 3)) {
+                    put_2_3 (a, b);
+                    src += 2;
+                    num -= 2;
+                    last = s1;
+                    continue;
+                }
+            }
+            put_1_n (a);
+            src++ ;
+            num-- ;
+            last = s0;
+            continue;
+        }
     }
-    same = i -1;
 
-    if (same >= 3) {
-
-      put_same_diff((same -3), d);
-      src += i;
-      num -= i;
-
-    } else {
-
-      int encodetmp;
-      unsigned int a;
-      int s0 = *src;
-
-      a = encode (s0 -last);
-
-      if (fitsinto (a, 3) && (num >= 2)) {
-        int s1 = *(src+1);
-        unsigned int b = encode (s1 -last);
-
-        if (fitsinto (a|b, 2) && (num >= 3)) {
-	  int s2 = *(src+2);
-	  unsigned int c = encode (s2 -last);
-	
-	  if (fitsinto (/*a|b|*/ c, 2)) {
-	    put_3_2 (a, b, c); src += 3; num -= 3; last = s2; continue;
-	  }
-	}
-	if (fitsinto (/*a|*/ b, 3)) {
-	  put_2_3 (a, b); src += 2; num -= 2; last = s1; continue;
-	}
-      }
-      put_1_n (a); src++ ; num-- ; last = s0; continue;
-    }
-  }
-
-  return (dest - p);
+    return (dest - p);
 }
 
 
@@ -122,73 +135,77 @@ int lc2_compress(char *dest, int *src, int num) {
 
 #define bitextract(i,p,l) (((i) >> p) & ((1 << (l)) -1))
 
-int lc2_uncompress(int *dest, char *src, int num) { 
+int lc2_uncompress(int *dest, char *src, int num) {
 
-  int last = 0;
-  int nleft = num;
-  
-  while (nleft) {
-    unsigned int i;
-    unsigned char t = *src++;
+    int last = 0;
+    int nleft = num;
 
-    if (t & 0x80) {
+    while (nleft) {
+        int i;
+        unsigned char t = *src++;
 
-      int n = t & 0x3f;
-      if (n > 59) {
-	int bytes = n - 59;
-	int i;
-	n = 59;
-	for (i = 0; i < bytes; i++) {
-	  unsigned char b = *src++;
-	  int s = i << 3;
-	  n += (b + 1) << s;
-	}
-      }
-      if (t & 0x40) {
-        int diff = bitextract (n, 0, 1);
-	int same = (n >> 1) +3;
-	*dest++ = last + diff;
-	nleft -= same;
-	if (nleft <= 0) return -1;
-	while (same--) *dest++ = last;
-      } else {
-        *dest++ = (last += decode(n));
-      }
-      nleft--;
+        if (t & 0x80) {
 
-    } else if (t & 0x40) {
+            int n = t & 0x3f;
+            if (n > 59) {
+                int bytes = n - 59;
 
-      nleft -= 2;
-      if (nleft < 0) return -1;
-      {
-	i = bitextract (t, 0, 3);
-	*dest++ = last + decode (i);
-	i = bitextract (t, 3, 3);
-	*dest++ = (last += decode (i));
-      }
+                n = 59;
+                for (i = 0; i < bytes; i++) {
+                    unsigned char b = *src++;
+                    int s = i << 3;
+                    n += (b + 1) << s;
+                }
+            }
+            if (t & 0x40) {
+                int diff = bitextract (n, 0, 1);
+                int same = (n >> 1) +3;
+                *dest++ = last + diff;
+                nleft -= same;
+                if (nleft <= 0)
+                    return -1;
+                while (same--)
+                    *dest++ = last;
+            } else {
+                *dest++ = (last += decode(n));
+            }
+            nleft--;
 
-    } else {
+        } else if (t & 0x40) {
 
-      nleft -= 3;
-      if (nleft < 0) return -1;
-      {
-	i = bitextract (t, 0, 2);
-	*dest++ = last + decode (i);
-	i = bitextract (t, 2, 2);
-	*dest++ = last + decode (i);
-	i = bitextract (t, 4, 2);
-	*dest++ = (last += decode (i));
-      }
+            nleft -= 2;
+            if (nleft < 0)
+                return -1;
+            {
+                i = bitextract (t, 0, 3);
+                *dest++ = last + decode (i);
+                i = bitextract (t, 3, 3);
+                *dest++ = (last += decode (i));
+            }
+
+        } else {
+
+            nleft -= 3;
+            if (nleft < 0)
+                return -1;
+            {
+                i = bitextract (t, 0, 2);
+                *dest++ = last + decode (i);
+                i = bitextract (t, 2, 2);
+                *dest++ = last + decode (i);
+                i = bitextract (t, 4, 2);
+                *dest++ = (last += decode (i));
+            }
+        }
+
     }
 
-  }
-
-  return num;
+    return num;
 }
 
 unsigned int lc2_comprlinelenmax(unsigned int col) {
 
-  return ((col * 5) +3) & -4;
+    return ((col * 5) +3) & -4;
 
 }
 

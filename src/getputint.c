@@ -11,7 +11,6 @@
 #include "getputint.h"
 #include "maccess.h"
 #include <errno.h>
-#include "debug.h"
 #include "config.h"
 
 /* $Log: getputint.c,v $
