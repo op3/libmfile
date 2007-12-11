@@ -2,15 +2,15 @@ AC_PREREQ(2.59)
 
 AC_INIT([src/mfile.h],[1.17],[ralf.schulze@ikp.uni-koeln.de])
 AC_CONFIG_AUX_DIR(build-aux)
-AC_CONFIG_SRCDIR([config.h.in])
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SRCDIR([src/config.h.in])
+AM_CONFIG_HEADER(src/config.h)
 
 PACKAGE=libmfile
 
 # release versioning
 GENERIC_MAJOR_VERSION=1
 GENERIC_MINOR_VERSION=0
-GENERIC_MICRO_VERSION=2
+GENERIC_MICRO_VERSION=3
 GENERIC_VERSION=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION.$GENERIC_MICRO_VERSION
 GENERIC_RELEASE=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION
 AC_SUBST(GENERIC_RELEASE)
@@ -19,7 +19,7 @@ AC_SUBST(GENERIC_VERSION)
 VERSION=$GENERIC_VERSION
 
 # shared library versioning
-GENERIC_LIBRARY_VERSION=1:2:0
+GENERIC_LIBRARY_VERSION=1:3:0
 #                       | | |
 #                +------+ | +---+
 #                |        |     |
@@ -41,6 +41,10 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_LANG([C])
 AC_PROG_LIBTOOL
+
+# Check for endianness 
+AC_C_BIGENDIAN(AC_DEFINE([LOWENDIAN], [0], [Define on a low-endian system]), 
+				AC_DEFINE([LOWENDIAN], [1], [Define on a low-endian system]))
 
 # Check unit testing (see http://check.sourceforgne.net)
 #PKG_CHECK_MODULES([CHECK], [check >= 0.9.3],,AC_MSG_WARN([Cannot find "check" unit testing framework]))

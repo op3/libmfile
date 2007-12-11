@@ -12,6 +12,7 @@
 #include "maccess.h"
 #include <errno.h>
 #include "debug.h"
+#include "config.h"
 
 /* $Log: getputint.c,v $
  * Revision 1.9  1993/07/20  17:55:46  se

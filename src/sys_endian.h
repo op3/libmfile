@@ -6,24 +6,16 @@
  *
  */
 
-/* $Id: sys_endian.h,v 1.4 1992/07/30 12:14:25 se Exp $
- *
- * $Log: sys_endian.h,v $
- * Revision 1.4  1992/07/30  12:14:25  se
- * add copyright note
- *
- * Revision 1.3  1992/07/08  18:44:34  se
- * reestablished traditional function declarations for compatibility with
- * non ANSI compilers
- *
- * Revision 1.2  92/02/13  16:19:08  16:19:08  se (Stefan Esser)
- * RCS Id and Log entries added
- * 
- */
+#include "config.h"
 
+/* 
+ * This is now handled via autoconf. See configure.ac: AC_C_BIGENDIAN and config.h 
+ * */
+/*
 #if defined (i386) || defined (i486) || defined (MIPSEL) || defined (vax)
 #  define LOWENDIAN 1
 #endif
+*/
 
 #define SWAB2(i)    (((i >> 8) & 0xFF) | ((i << 8) & 0xFF00))
 #define SWAB4(i)    (((i >> 24) & 0xFF) | ((i >>  8) & 0xFF00) | ((i <<  8) & 0xFF0000) | ((i << 24)))
