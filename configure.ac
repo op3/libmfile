@@ -10,7 +10,7 @@ PACKAGE=libmfile
 # release versioning
 GENERIC_MAJOR_VERSION=1
 GENERIC_MINOR_VERSION=0
-GENERIC_MICRO_VERSION=1
+GENERIC_MICRO_VERSION=2
 GENERIC_VERSION=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION.$GENERIC_MICRO_VERSION
 GENERIC_RELEASE=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION
 AC_SUBST(GENERIC_RELEASE)
@@ -42,6 +42,10 @@ AC_PROG_INSTALL
 AC_LANG([C])
 AC_PROG_LIBTOOL
 
+# Check unit testing (see http://check.sourceforgne.net)
+#PKG_CHECK_MODULES([CHECK], [check >= 0.9.3],,AC_MSG_WARN([Cannot find "check" unit testing framework]))
+AM_PROG_CC_C_O
+
 ###
 ## Add the option to enable libefence for memory debugging
 ###
@@ -68,6 +72,6 @@ AS_IF([test "x$with_debug_output" == xyes],
 
 AC_CONFIG_FILES([Makefile \
 	         man/Makefile \
-		 src/Makefile ])
+		     src/Makefile test/Makefile ])
 AC_OUTPUT
 
