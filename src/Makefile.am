@@ -16,6 +16,7 @@ libmfile_la_SOURCES = debug.h \
 		disk_access.c \
 		disk_access.h \
 		sys_endian.h \
+		sys_config.h \
 		getputint.c \
 		getputint.h \
 		gf2_getput.c \
