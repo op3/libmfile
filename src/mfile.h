@@ -100,6 +100,11 @@ Changelog:
 #ifndef _MATRIX_IO_INCLUDED
 #define _MATRIX_IO_INCLUDED
 
+/* Allow the use in C++ code.  */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -276,6 +281,10 @@ int save_spec P_((char *name, int *buf, int num));
 #define mgetbgerrline(m,b,l,c,n)	mget(m,b,MAT_BGERR,l,c,n)
 #define mputbgerrline(m,b,l,c,n)	mput(m,b,MAT_BGERR,l,c,n)
 #endif /* LIBMAT_BC */
+
+#ifdef __cplusplus
+}
+#endif  /* C++ */
 
 #endif /* _MATRIX_IO_INCLUDED */
 
