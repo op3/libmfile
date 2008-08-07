@@ -101,16 +101,9 @@ int msetinfo(MFILE *mat, minfo *info) {
 
   if (mat == NULL || info == NULL)		return -1;
 
-  if (mat->status & MST_DIMSFIXED) {
-    if (mat->filetype	== info->filetype && 
-	mat->version	== info->version  &&
-	mat->levels	== info->levels	  &&
-	mat->lines	== info->lines	  &&
-	mat->columns	== info->columns) {
-      return 0;
-    } else {
-      return -1;
-    }
+  if (mat->status & MST_DIMSFIXED) { /* Dimesions of matrix are fixed */
+    if (mat->lines != info->lines || mat->columns != info->columns)
+    	return -1;	
   }
   
   mat->filetype	= info->filetype;
