@@ -42,6 +42,26 @@ AC_PROG_INSTALL
 AC_LANG([C])
 AC_PROG_LIBTOOL
 
+## Check for some compiler features
+#
+AC_PROG_CC_STDC # Check for ISO Standard C support (currently C99)
+#if test x"${ac_cv_prog_cc_stdc}" != x"no"; then
+#       AC_DEFINE([...], [1], [...])
+#fi
+
+# Check for __attribute__((visibility("hidden"))) support
+AC_TRY_COMPILE([], [void __attribute__ ((visibility("hidden"))) foo(void) { retu
+rn 1; };],
+                attribute_visibility=yes,
+                attribute_visibility=no)
+
+if test x"$attribute_visibility" == x"yes"; then
+        AC_DEFINE([HAVE_ATTRIBUTE_VISIBILITY], 1, [Define if compiler supports visibility attribute])
+        AC_SUBST([FVISIBILITY], ["-fvisibility=hidden"])
+fi
+
+AC_C_CONST      # Check for 'const' and set to empty if not supported 
+
 # Check for endianness 
 AC_C_BIGENDIAN(AC_DEFINE([LOWENDIAN], [0], [Define on a low-endian system]), 
 				AC_DEFINE([LOWENDIAN], [1], [Define on a low-endian system]))
