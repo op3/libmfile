@@ -120,7 +120,7 @@ int main(void) {
     return_code += test_spectra_rw("test_le2s.spe", buffer, info);
     info.filetype = MAT_HE2S;
     return_code += test_spectra_rw("test_he2s.spe", buffer, info);
-    /* These are working yet */
+    /* These are not working yet */
     /*
     info.filetype = MAT_LE4T;
     return_code += test_spectra_rw("test_le4t.spe", buffer, info);
