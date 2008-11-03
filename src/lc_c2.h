@@ -1,36 +1,31 @@
 /*
- * lc_c2.h:		Copyright 1992 by 
- *			Stefan Esser
- *			Institut for Nuclear Physics
- *			University of Cologne, Germany
- *
+ * lc_c2.h
  */
-
-/* $Id: lc_c2.h,v 1.4 1992/07/30 12:14:25 se Exp $
- *
- * $Log: lc_c2.h,v $
- * Revision 1.4  1992/07/30  12:14:25  se
- * add copyright note
- *
- * Revision 1.3  1992/07/08  21:03:39  se
- * general cleanup for strictest GCC warning levels
- *
- * Revision 1.2  1992/07/08  18:44:34  se
- * reestablished traditional function declarations for compatibility with
- * non ANSI compilers
- *
- * Revision 1.1  92/06/30  14:45:27  14:45:27  se (Stefan Esser)
- * Initial revision
+/*
+ * Copyright (c) 1992-2008, Stefan Esser <se@ikp.uni-koeln.de>
+ * All rights reserved.
  * 
- * Revision 1.3  1992/03/17  15:06:45  se
- * changed type of lc_compress() to return int instead of u_int.
- * return codes are -1 in case of error, nuber of bytes after compression else
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ *	* Redistributions of source code must retain the above copyright notice, 
+ *	  this list of conditions and the following disclaimer.
+ * 	* Redistributions in binary form must reproduce the above copyright notice, 
+ * 	  this list of conditions and the following disclaimer in the documentation 
+ * 	  and/or other materials provided with the distribution.
+ *    
  *
- * Revision 1.2  1992/02/13  16:19:08  se
- * RCS Id and Log entries added
- *
- */
-
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 #if defined(__STDC__) || defined(__cplusplus)
 # define P_(s) s
 #else

@@ -1,12 +1,32 @@
 /*
- * shm_access.c:		Copyright 1992 by 
- *			Stefan Esser
- *			Institut for Nuclear Physics
- *			University of Cologne, Germany
- *
+ * shm_access.c
  */
 
-
+/*
+ * Copyright (c) 1992-2008, Stefan Esser <se@ikp.uni-koeln.de>
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ *	* Redistributions of source code must retain the above copyright notice, 
+ *	  this list of conditions and the following disclaimer.
+ * 	* Redistributions in binary form must reproduce the above copyright notice, 
+ * 	  this list of conditions and the following disclaimer in the documentation 
+ * 	  and/or other materials provided with the distribution.
+ *    
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 #ifndef NO_SHM
 
 #include <stdlib.h>
@@ -24,40 +44,6 @@
 #include "mfile.h"
 #include "maccess.h"
 #include "shm_access.h"
-
-
-
-/* $Log: shm_access.c,v $
- * Revision 1.2  1997/04/23  14:03:48  root
- * Error removed in function shm_tryaccess.
- * File will be closed now.
- *
- * Revision 1.1  1993/07/20  17:58:54  se
- * Initial revision
- *
- * Revision 1.8  1992/12/31  10:59:06  se
- * nothing will be compiled if NO_SHM is defined
- *
- * Revision 1.7  1992/07/30  12:09:41  se
- * added copyright note
- *
- * Revision 1.6  1992/07/25  14:19:42  se
- * now includes string.h instead of strings.h
- *
- * Revision 1.5  1992/07/08  21:03:39  se
- * general cleanup for strictest GCC warning levels
- *
- * Revision 1.4  1992/07/08  18:44:34  se
- * reestablished traditional function declarations for compatibility with
- * non ANSI compilers
- *
- * Revision 1.3  92/06/10  11:21:24  11:21:24  se (Stefan Esser)
- * changes to reflect mat->specinfo now being union {int, int*}
- * 
- * Revision 1.2  1992/02/13  14:37:45  se
- * added rcsid[]
- *
- */
 
 /* ------------------------------------------------------------------------- */
 

@@ -19,7 +19,7 @@ AC_SUBST(GENERIC_VERSION)
 VERSION=$GENERIC_VERSION
 
 # shared library versioning
-GENERIC_LIBRARY_VERSION=1:5:0
+GENERIC_LIBRARY_VERSION=1:5:1
 #                       | | |
 #                +------+ | +---+
 #                |        |     |

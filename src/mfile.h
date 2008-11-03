@@ -1,102 +1,31 @@
 /*
- * mfile.h:		Copyright 1992 by 
- *			Stefan Esser
- *			Institut for Nuclear Physics
- *			University of Cologne, Germany
- *
+ * mfile.h
  */
-
-/* $Id: mfile.h,v 1.17 1993/07/20 18:01:23 se Exp $
- *
- * $Log: mfile.h,v $
- * Revision 1.17  1993/07/20  18:01:23  se
- * modified for use with access method module
- *
- * Revision 1.16  1993/04/22  15:26:28  se
- * Support added for SIGNED 2 byte integer data
- *
- * Revision 1.15  1992/12/31  11:00:15  se
- * now defines NO_SHM on systems that don't support SystemV Shared Memory
- * (OS9, VMS).
- * definition of MAT_SHM is now dependent on NO_SHM not being defined
- *
- * Revision 1.14  1992/07/30  12:14:25  se
- * added support of comment fields in MFILE and minfo structs
- * added copyright note
- *
- * Revision 1.13  1992/07/25  14:14:58  se
- * added definitions of MAT_LE2T/LE4T/HE2T/HE4T for triagonal matrizes
- *
- * Revision 1.12  1992/07/08  21:03:39  se
- * general cleanup for strictest GCC warning levels
- *
- * Revision 1.11  1992/07/08  18:44:34  se
- * reestablished traditional function declarations for compatibility with
- * non ANSI compilers
- *
- * Revision 1.10  92/06/10  11:25:44  11:25:44  se (Stefan Esser)
- * mat->specinfo changed from int* to union {int i, int *p}
- * new defines for datatype names currently in use
+/*
+ * Copyright (c) 1992-2008, Stefan Esser <se@ikp.uni-koeln.de>
+ * All rights reserved.
  * 
- * Revision 1.9  1992/05/13  23:33:03  se
- * added MAT_TXT to mean a matrix or spectrum in an ASCII representation
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ *	* Redistributions of source code must retain the above copyright notice, 
+ *	  this list of conditions and the following disclaimer.
+ * 	* Redistributions in binary form must reproduce the above copyright notice, 
+ * 	  this list of conditions and the following disclaimer in the documentation 
+ * 	  and/or other materials provided with the distribution.
+ *    
  *
- * Revision 1.8  1992/03/17  15:26:26  se
- * new field mflushf in struct MFILE to keep pointer to format specific
- * cache flush subroutine
- * ,
- *
- * Revision 1.7  1992/03/12  17:09:34  se
- * added define for MAT_MATE
- * added undef of P_ because other headers may try to define it again
- *
- * Revision 1.6  1992/02/18  23:30:32  se
- * added definitions of MST_INTERN for only internally changeable bits of
- * mat->status, and MST_USER for user defined bits in this variable.
- *
- * Revision 1.5  1992/02/17  23:10:45  se
- * corrected typo ...
- *
- * Revision 1.4  1992/02/15  17:22:42  se
- * initspecinfo doesn't assume 4k.4k.lc anymore ...
- *
- * Revision 1.3  1992/02/14  19:30:43  se
- * added definition of m{get,put}{flt,dbl}() which read spectra and
- * matrixes into buffers of type float[] rsp. double[]
- *
- * Revision 1.2  1992/02/13  16:19:08  se
- * RCS Id and Log entries added
- *
-
-
-File:
-
-	/usr/include/local/mfile.h
-
-Changelog:
-
-	Stefan Esser, 30.12.91
-		completely reworked version
-		support for compressed 2 and 3 dim matrizes
-		name of header changed from 'matrixio.h' to 'mfile.h'
-		library now '/usr/lib/libmfile.a'
-
-	Stefan Esser, 05.11.91
-		new fields in MFILE for compressed matrix files
-		line, col, num changed from int to u_int
-
-	Stefan Esser, 23.07.90
-		changed order of parameters in calls to mgetline/mputline
-
-	Stefan Esser, 17.07.90
-		changed to give more info on matrix structure
-
-	Stefan Esser, 12.07.90
-		first version of matrix file and data access functions
-		(library '/usr/include/libmat.a')
-
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 #ifndef _MATRIX_IO_INCLUDED
 #define _MATRIX_IO_INCLUDED
 

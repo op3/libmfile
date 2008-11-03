@@ -1,42 +1,32 @@
 /*
- * mat_types.h:		Copyright 1992 by 
- *			Stefan Esser
- *			Institut for Nuclear Physics
- *			University of Cologne, Germany
- *
+ * mat_types.h
  */
-
-#include "mfile.h"
-
-/* $Id: mat_types.h,v 1.8 1993/07/20 18:01:16 se Exp $
- *
- * $Log: mat_types.h,v $
- * Revision 1.8  1993/07/20  18:01:16  se
- * modified for use with access method module
- *
- * Revision 1.7  1992/07/30  12:14:25  se
- * add copyright note
- *
- * Revision 1.6  1992/07/08  18:44:34  se
- * reestablished traditional function declarations for compatibility with
- * non ANSI compilers
- *
- * Revision 1.5  92/07/08  06:24:31  06:24:31  se (Stefan Esser)
- * removed parameter declaration from definitions of getf and putf
+/*
+ * Copyright (c) 1992-2008, Stefan Esser <se@ikp.uni-koeln.de>
+ * All rights reserved.
  * 
- * Revision 1.4  1992/06/10  11:22:38  se
- * struct matproc now contains additional fields:
- * getf(), putf() are pointers to get/put functions,
- * datatype contains info on int/float and range of the data
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ *	* Redistributions of source code must retain the above copyright notice, 
+ *	  this list of conditions and the following disclaimer.
+ * 	* Redistributions in binary form must reproduce the above copyright notice, 
+ * 	  this list of conditions and the following disclaimer in the documentation 
+ * 	  and/or other materials provided with the distribution.
+ *    
  *
- * Revision 1.3  1992/02/19  00:04:34  se
- * mat_types now defines access functions instead of making the matproc[]
- * array available
- *
- * Revision 1.2  1992/02/13  16:19:08  se
- * RCS Id and Log entries added
- *
- */
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+#include "mfile.h"
 
 #if defined(__STDC__) || defined(__cplusplus)
 # define P_(s) s

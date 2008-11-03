@@ -1,11 +1,31 @@
 /*
- * txt_minfo.c:		Copyright 1992 by 
- *			Stefan Esser
- *			Institut for Nuclear Physics
- *			University of Cologne, Germany
- *
+ * txt_minfo.c
  */
-
+/*
+ * Copyright (c) 1992-2008, Stefan Esser <se@ikp.uni-koeln.de>
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without modification, 
+ * are permitted provided that the following conditions are met:
+ * 
+ *	* Redistributions of source code must retain the above copyright notice, 
+ *	  this list of conditions and the following disclaimer.
+ * 	* Redistributions in binary form must reproduce the above copyright notice, 
+ * 	  this list of conditions and the following disclaimer in the documentation 
+ * 	  and/or other materials provided with the distribution.
+ *    
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+ * IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 #include <stdlib.h>
 #include <memory.h>
 #include <string.h>
@@ -17,42 +37,6 @@
 #include "txt_minfo.h"
 #include "txt_getput.h"
 
-
-
-/* $Log: txt_minfo.c,v $
- * Revision 1.10  1993/07/20  18:00:31  se
- * modified for use with access method module
- *
- * Revision 1.9  1992/12/31  10:56:23  se
- * txt_alloc no longer dumps core, if malloc failed
- *
- * Revision 1.8  1992/07/30  12:09:41  se
- * added copyright note
- *
- * Revision 1.7  1992/07/25  14:20:12  se
- * now includes string.h instead of strings.h
- * now uses malloc/memset instead of calloc
- *
- * Revision 1.6  1992/07/08  21:03:39  se
- * general cleanup for strictest GCC warning levels
- *
- * Revision 1.5  1992/07/08  18:57:51  se
- * added cast to (int *) of return value from calloc()
- *
- * Revision 1.4  1992/07/08  18:44:34  se
- * reestablished traditional function declarations for compatibility with
- * non ANSI compilers
- *
- * Revision 1.3  92/07/08  06:26:50  06:26:50  se (Stefan Esser)
- * now #includes strings.h and ctype.h
- * 
- * Revision 1.2  1992/06/10  11:22:17  se
- * changes to reflect mat->specinfo now being union {int, int*}
- *
- * Revision 1.1  1992/05/13  23:39:40  se
- * Initial revision
- *
- */
 
 #if defined(__STDC__) || defined(__cplusplus)
 # define P_(s) s
