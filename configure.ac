@@ -1,38 +1,32 @@
 AC_PREREQ(2.59)
 
-AC_INIT([src/mfile.h],[1.18],[ralf.schulze@ikp.uni-koeln.de])
+# Release Versioning
+m4_define(generic_major_version, 1)
+m4_define(generic_minor_version, 0)
+m4_define(generic_micro_version, 6)
+m4_define(generic_release, generic_major_version.generic_minor_version);
+
+# Shared Library Versioning
+m4_define(lt_current, 1)	# increment if interfaces have been added, removed or changed
+m4_define(lt_revision, 5)	# increment if source code has changed, set to zero if current is incremented
+m4_define(lt_age, 1)		# increment if interfaces have been added, set to zero if interfaces have been removed or changed
+
+AC_INIT([libmfile], [generic_release()], [ralf.schulze@ikp.uni-koeln.de])
 AC_CONFIG_AUX_DIR(build-aux)
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([src/config.h.in])
 AM_CONFIG_HEADER(src/config.h)
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
-PACKAGE=libmfile
+GENERIC_VERSION=generic_major_version().generic_minor_version().generic_micro_version()
+VERSION=$GENERIC_VERSION
+GENERIC_LIBRARY_VERSION=lt_current():lt_revision():lt_age()
+GENERIC_RELEASE=generic_release()	
 
-# release versioning
-GENERIC_MAJOR_VERSION=1
-GENERIC_MINOR_VERSION=0
-GENERIC_MICRO_VERSION=5
-GENERIC_VERSION=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION.$GENERIC_MICRO_VERSION
-GENERIC_RELEASE=$GENERIC_MAJOR_VERSION.$GENERIC_MINOR_VERSION
 AC_SUBST(GENERIC_RELEASE)
 AC_SUBST(GENERIC_VERSION)
-
-VERSION=$GENERIC_VERSION
-
-# shared library versioning
-GENERIC_LIBRARY_VERSION=1:5:1
-#                       | | |
-#                +------+ | +---+
-#                |        |     |
-#             current:revision:age
-#                |        |     |
-#                |        |     +- increment if interfaces have been added
-#                |        |        set to zero if interfaces have been removed
-#                                  or changed
-#                |        +- increment if source code has changed
-#                |           set to zero if current is incremented
-#                +- increment if interfaces have been added, removed or changed
-
 AC_SUBST(GENERIC_LIBRARY_VERSION)
+AC_SUBST(PACKAGE)
 
 AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
 
