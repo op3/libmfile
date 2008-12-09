@@ -3,7 +3,7 @@ AC_PREREQ(2.59)
 # Release Versioning
 m4_define(generic_major_version, 1)
 m4_define(generic_minor_version, 0)
-m4_define(generic_micro_version, 6)
+m4_define(generic_micro_version, 7)
 m4_define(generic_release, generic_major_version.generic_minor_version);
 
 # Shared Library Versioning

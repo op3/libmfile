@@ -1,6 +1,6 @@
 AM_CFLAGS= -O2 -g -Wall -pedantic \
-	-funroll-loops -fschedule-insns \
-	-fschedule-insns2 -finline-functions \
+	-funroll-loops \
+	-finline-functions \
 	-frerun-cse-after-loop \
 	-Wcast-align -Wcast-qual -Wconversion \
 	-Wshadow -Wpointer-arith
