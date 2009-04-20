@@ -159,7 +159,7 @@ typedef struct matfile {
 # define P_(s) ()
 #endif
 
-MFILE *mopen P_((char *name, char *mode));
+MFILE *mopen P_((const char *name, const char *mode));
 int mclose P_((MFILE *mat));
 int mflush P_((MFILE *mat));
 

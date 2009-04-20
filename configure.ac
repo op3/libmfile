@@ -3,12 +3,12 @@ AC_PREREQ(2.59)
 # Release Versioning
 m4_define(generic_major_version, 1)
 m4_define(generic_minor_version, 0)
-m4_define(generic_micro_version, 7)
+m4_define(generic_micro_version, 8)
 m4_define(generic_release, generic_major_version.generic_minor_version);
 
 # Shared Library Versioning
 m4_define(lt_current, 1)	# increment if interfaces have been added, removed or changed
-m4_define(lt_revision, 5)	# increment if source code has changed, set to zero if current is incremented
+m4_define(lt_revision, 6)	# increment if source code has changed, set to zero if current is incremented
 m4_define(lt_age, 1)		# increment if interfaces have been added, set to zero if interfaces have been removed or changed
 
 AC_INIT([libmfile], [generic_release()], [ralf.schulze@ikp.uni-koeln.de])

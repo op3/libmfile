@@ -36,7 +36,7 @@
 # define P_(s) ()
 #endif
 
-extern MFILE *mopen P_((char *name, char *mode));
+extern MFILE *mopen P_((const char *name, const char *mode));
 extern int mflush P_((MFILE *mat));
 extern int mclose P_((MFILE *mat));
 extern int mgetinfo P_((MFILE *mat, minfo *info));

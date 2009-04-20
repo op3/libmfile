@@ -165,7 +165,7 @@ static amp initaccessmethod(amp ap, char *name) {
 }
 
 
-amp tryaccess(char *name, char *mode, char *accessname) {
+amp tryaccess(const char *name, const char *mode, char *accessname) {
 
   amp ap = newaccessmethod();
 

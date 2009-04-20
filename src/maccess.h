@@ -92,5 +92,5 @@ extern maccessdescr *tryaccess_first;
 
 /* ------------------------------------------------------------------------- */
 
-amp tryaccess P_((char *name, char *mode, char *accessname));
+amp tryaccess P_((const char *name, const char *mode, char *accessname));
 int maddaccess P_((tryaccessf *taf, char *name));

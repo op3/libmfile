@@ -45,7 +45,7 @@
 
 /*static void guessfiletype P_((MFILE *mat));*/
 static void setmatdefaults P_((MFILE *mat));
-static void openmatfile P_((MFILE *mat, char *name, char *mode));
+static void openmatfile P_((MFILE *mat, const char *name, const char *mode));
 
 #undef P_
 
@@ -81,7 +81,7 @@ static void setmatdefaults(MFILE *mat) {
 }
 
 
-static void openmatfile(MFILE *mat, char *name, char *mode) {
+static void openmatfile(MFILE *mat, const char *name, const char *mode) {
 
   char *accessmode = NULL;
 
@@ -98,7 +98,7 @@ static void openmatfile(MFILE *mat, char *name, char *mode) {
 }  
 
 
-MFILE *mopen(char *name, char *mode) {
+MFILE *mopen(const char *name, const char *mode) {
 
   MFILE *mat;
   char *fmt;
