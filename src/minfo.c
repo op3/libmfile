@@ -41,7 +41,7 @@
 
 static char *putnum P_((char *p, u_int n, int put1));
 static char *putfmt P_((char *p, int filetype));
-static char *minfototxt P_((char *fmt, minfo *info));
+static char *minfototxt P_((const char *fmt, minfo *info));
 
 #undef P_
 
@@ -203,7 +203,7 @@ static char *putfmt(char *p, int filetype) {
 }
 
 
-static char *minfototxt(char *fmt, minfo *info) {
+static char *minfototxt(const char *fmt, minfo *info) {
 
   static char txtbuf[127];
   char *p;
@@ -233,7 +233,7 @@ static char *minfototxt(char *fmt, minfo *info) {
 }
 
 
-int msetfmt(MFILE *mat, char *format) {
+int msetfmt(MFILE *mat, const char *format) {
 
   minfo info;
   if (mat && format) {

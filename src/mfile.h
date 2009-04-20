@@ -170,7 +170,7 @@ int msetinfo P_((MFILE *mat, minfo *info));
 /* valid examples: 4k.4k  (4k*4k matrix of unspecified element type)	  */
 /*		   8k.le4 (8K low endian 4 byte spectrum)		  */
 /*		   lc:1   (line compressed file (version = 1)		  */
-int msetfmt P_((MFILE *mat, char *format));
+int msetfmt P_((MFILE *mat, const char *format));
 char* mgetfmt P_((MFILE *mat, char *format));
 
 /* lev: [0..(levels-1)], lin: [0..(lines-1)], col: [0..(columns-1)] */
