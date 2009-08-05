@@ -29,7 +29,7 @@
 
 #include "mfile.h"
 
-int load_spec(char *name, int *buf, int num) {
+int load_spec(const char *name, unsigned long *buf, int num) {
 
   int n;
   MFILE *mat;
@@ -41,7 +41,7 @@ int load_spec(char *name, int *buf, int num) {
   return n;
 }
 
-int save_spec(char *name, int *buf, int num) {
+int save_spec(const char *name, unsigned long *buf, int num) {
 
   int n;
   MFILE *mat;
