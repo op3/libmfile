@@ -31,6 +31,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+#include "config.h"
+
 #include "mfile.h"
 #include "maccess.h"
 #include "getputint.h"
@@ -297,7 +299,13 @@ int oldmat_uninit (mat)
 
     if (matsize == 0) return 0;
     
+    /* Avoid writing uninitialized memory to file */
+    memset(omh, 0, sizeof(omh));
+    #ifdef HAVE_SNPRINTF
+    snprintf (omh, sizeof(omh), "%s%s\n", MAGIC_OLDMAT, mgetfmt (mat, NULL));
+    #else
     sprintf (omh, "%s%s\n", MAGIC_OLDMAT, mgetfmt (mat, NULL));
+    #endif
 
     if (_put (mat->ap, (char *) omh, matsize, sizeof (omh)) 
 	!= sizeof (omh)) return -1;

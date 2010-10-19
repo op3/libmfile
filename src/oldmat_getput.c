@@ -256,21 +256,21 @@ int hf4_put(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int
 
 int lf8_get(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
 
-  return getle8 (mat->ap, (int *)buffer, fpos (4), num);
+  return getle8 (mat->ap, (int *)buffer, fpos (8), num);
 }
 
 int lf8_put(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
 
-  return putle8 (mat->ap, (int *)buffer, fpos (4), num);
+  return putle8 (mat->ap, (int *)buffer, fpos (8), num);
 }
 
 int hf8_get(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
 
-  return gethe8 (mat->ap, (int *)buffer, fpos (4), num);
+  return gethe8 (mat->ap, (int *)buffer, fpos (8), num);
 }
 
 int hf8_put(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num) {
 
-  return puthe8 (mat->ap, (int *)buffer, fpos (4), num);
+  return puthe8 (mat->ap, (int *)buffer, fpos (8), num);
 }
 

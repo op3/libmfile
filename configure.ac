@@ -8,7 +8,7 @@ m4_define(generic_release, generic_major_version.generic_minor_version);
 
 # Shared Library Versioning
 m4_define(lt_current, 1)	# increment if interfaces have been added, removed or changed
-m4_define(lt_revision, 7)	# increment if source code has changed, set to zero if current is incremented
+m4_define(lt_revision, 8)	# increment if source code has changed, set to zero if current is incremented
 m4_define(lt_age, 0)		# increment if interfaces have been added, set to zero if interfaces have been removed or changed
 
 AC_INIT([libmfile], [generic_release()], [ralf.schulze@ikp.uni-koeln.de])
@@ -87,6 +87,11 @@ AC_ARG_WITH([debug],
 AS_IF([test "x$with_debug_output" == xyes],
 	    AC_DEFINE([DEBUG_OUTPUT], [1],[Enable debugging output])
 )		
+
+###
+## Check for library functions
+###
+AC_CHECK_FUNCS([snprintf])
 
 AC_CONFIG_FILES([Makefile \
 	         man/Makefile \
