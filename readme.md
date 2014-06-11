@@ -1,5 +1,4 @@
-mfile {align="center"}
-=====
+# mfile
 
 [Name](#Name)\
  [Syntax](#Syntax)\
@@ -10,90 +9,80 @@ mfile {align="center"}
 
 * * * * *
 
-Name
-----
-
+## <a name="Name"></a>Name
 mopen, mclose, mgetint, mgetflt, mgetdbl, mputint, mputflt, mputdbl,
-mgetfmt, msetfmt − coincidence matrix access functions \$Id:
-mfile.3ikp,v 1.2 1992/02/17 23:51:37 se Exp \$ \$Log: mfile.3ikp,v \$ \#
-Revision 1.2 1992/02/17 23:51:37 se \# Added function definitions for
-m{get,put}{flt,dbl}(). \# \# Revision 1.1 1992/02/13 16:21:04 se \#
-Initial revision \#
+mgetfmt, msetfmt
 
-Syntax
-------
+## <a name="Syntax"></a>Syntax
 
-**\#include \<local/mfile.h\>**
+``` c
+#include "mfile.h"
 
-**MFILE \*mopen (***name***,** *mode***)\
- char \****name***;\
- char \****mode***;**
+MFILE *mopen(name, mode)
+char *name
+char *mode
 
-**int mclose (***mat***)\
- MFILE \****mat***;**
+int mclose(mat)
+MFILE *mat
 
-**int mgetint (***mat***,** *buffer***,** *level***,** *line***,**
-*column***,** *num***)\
- MFILE \****mat***;\
- int \****buffer***;\
- int** *level***,** *line***,** *column***,** *num***;**
+int mgetint(mat, buffer, level, line, column, num)
+MFILE *mat
+int *buffer
+int level, line, column, num
 
-**int mgetflt (***mat***,** *buffer***,** *level***,** *line***,**
-*column***,** *num***)\
- MFILE \****mat***;\
- float \****buffer***;\
- int** *level***,** *line***,** *column***,** *num***;**
+int mgetflt (mat, buffer, level, line, column, num)
+MFILE *mat
+float *buffer
+int level, line, column, num
 
-**int mgetdbl (***mat***,** *buffer***,** *level***,** *line***,**
-*column***,** *num***)\
- MFILE \****mat***;\
- double \****buffer***;\
- int** *level***,** *line***,** *column***,** *num***;**
+int mgetdbl (mat, buffer, level, line, column, num)
+MFILE *mat
+double *buffer
+int level, line, column, num
 
-**int mputint (***mat***,** *buffer***,** *level***,** *line***,**
-*column***,** *num***)\
- MFILE \****mat***;\
- int \****buffer***;\
- int** *level***,** *line***,** *column***,** *num***;**
+int mputint (mat, buffer, level, line, column, num)
+MFILE *mat
+int *buffer
+int level, line, column, num
 
-int mputflt (*mat*, *buffer*, *level*, *line*, *column*, *num*) **\
- MFILE \****mat***;\
- float \****buffer***;\
- int** *level***,** *line***,** *column***,** *num***;**
+int mputflt (mat, buffer, level, line, column, num)
+MFILE *mat
+float *buffer
+int level, line, column, num
 
-int mputdbl (*mat*, *buffer*, *level*, *line*, *column*, *num*) **\
- MFILE \****mat***;\
- double \****buffer***;\
- int** *level***,** *line***,** *column***,** *num***;**
+int mputdbl (mat, buffer, level, line, column, num)
+MFILE *mat
+double *buffer
+int level, line, column, num
 
-**int mgetinfo (***mat***,** *info***)\
- MFILE \****mat***;\
- minfo \****info***;**
+int mgetinfo (mat, info)
+MFILE *mat
+minfo *info
 
-**int msetinfo (***mat***,** *info***)\
- MFILE \****mat***;\
- minfo \****info***;**
+int msetinfo (mat, info)
+MFILE *mat
+minfo *info
 
-**int mgetfmt (***mat***,** *format***)\
- MFILE \****mat***;\
- char \****format***;**
+int mgetfmt (mat, format)
+MFILE *mat
+char *format
 
-**int msetfmt (***mat***,** *format***)\
- MFILE \****mat***;\
- char \****format***;**
+int msetfmt (mat, format)
+MFILE *mat
+char *format
 
-**int load\_spec (***name***,** *buffer***,** *num***)\
- char \****name***;\
- int \****buf***;\
- int** *num***;**
+int load_spec (name, buffer, num)
+char *name
+int *buf
+int num
 
-**int save\_spec (***name***,** *buffer***,** *num***)\
- char \****name***;\
- int \****buf***;\
- int** *num***;**
+int save_spec (name, buffer, num)
+char *name
+int *buf
+int num
+```
 
-Description
------------
+## <a name="Description"></a>Description
 
 These functions allow machine independent and efficient access to
 coincidence matrices. Traditional matrices (long and short, VAX and
@@ -122,83 +111,86 @@ error.
 The subroutine writes *num* elements into the matrix file. Parameters
 and return codes are the same as returned by *mget*.
 
-The *mgetinfo* subroutine
+The `mgetinfo` subroutine
 
-The *msetinfo* subroutine
+The `msetinfo` subroutine
 
-The *mgetfmt* subroutine
+The `mgetfmt` subroutine
 
-The *msetfmt* subroutine
+The `msetfmt` subroutine
 
-The *load\_spec* subroutine
+The `load_spec` subroutine
 
-The *save\_spec* subroutine
+The `save_spec` subroutine
 
-Example
--------
+## <a name="Syntax"></a>Example
+
 
 The following code fragment lists a program that opens the matrix file
 specified by the first argument for reading and creates a new matrix
 under the name given as the second argument. Only marginal error
 checking is shown to keep the example short.
 
-``` {style="margin-left:11%; margin-top: 1em"}
-     main (argc, argv)
-     int argc;
-     char **argv;
-     {
-          MFILE *src, *dst;
-          minfo info;
-          int levels,lines,columns;
-          int lev,lin;
+``` c
+main (argc, argv)
+int argc;
+char **argv;
+{
+    MFILE *src, *dst;
+    minfo info;
+    int levels, lines, columns;
+    int lev, lin;
 
-     /* open both matrix files */
-          src = mopen (argv[1], "r");
-          dst = mopen (argc[2], "w");
+/* open both matrix files */
+    src = mopen (argv[1], "r");
+    dst = mopen (argc[2], "w");
 
-     /* abort if open failed */
-          if (!src || !dst) exit (1);
+/* abort if open failed */
+    if (!src || !dst) exit (1);
 
-     /* get matrix dimensions */
-          mgetinfo (src, &info);
-          levels  = info.levels;
-          lines   = info.lines;
-          columns = info.columns;
+/* get matrix dimensions */
+    mgetinfo (src, &info);
+    levels  = info.levels;
+    lines   = info.lines;
+    columns = info.columns;
 
-     /* set dest matrix dims equal to src dims */
-          mgetinfo (dst, &info);
-          info.levels  = levels;
-          info.lines   = lines;
-          info.columns = columns;
-          if (msetinfo (dst, &info) != 0) exit (1);
+/* set dest matrix dims equal to src dims */
+    mgetinfo (dst, &info);
+    info.levels  = levels;
+    info.lines   = lines;
+    info.columns = columns;
+    if (msetinfo (dst, &info) != 0) exit (1);
 
-     /* allocate line buffer */
-          buffer = (int *) malloc (c * sizeof(int));
+/* allocate line buffer */
+    buffer = (int *) malloc (c * sizeof(int));
 
-     /* copy matrix line by line */
-          for (lev = 0; lev < levels; lev++) {
-               for (lin = 0; lin < lines; lin++) {
-                    mgetint (src, buffer, lev, lin, 0, columns);
-                    mputint (dst, buffer, lev, lin, 0, columns);
-               }
-          }
+/* copy matrix line by line */
+    for (lev = 0; lev < levels; lev++) {
+        for (lin = 0; lin < lines; lin++) {
+            mgetint (src, buffer, lev, lin, 0, columns);
+            mputint (dst, buffer, lev, lin, 0, columns);
+        }
+    }
 
-
-     /* close matrices */
-          mclose (src);
-          if (mclose (dst) != 0) exit (1);
-          exit (0);
-     }
+/* close matrices */
+    mclose (src);
+    if (mclose (dst) != 0) exit (1);
+    exit (0);
+}
 ```
 
-Restrictions
-------------
+## <a name="Restrictions"></a>Restrictions
 
 Traditional style matrizes and spectra may have at most 16384 columns.
 
-Author
-------
+## <a name="Author"></a>Author
 
-Stefan Esser ( Institut of Nuclear Physics, Cologne, Germany )
+Stefan Esser <se@ikp.uni-koeln.de>
 
-* * * * *
+Ralf Schulze <r.schulze@ikp.uni-koeln.de>
+
+Nigel Warr <n.warr@ikp.uni-koeln.de>
+
+Jan Mayer <jan.mayer@ikp.uni-koeln.de>
+
+Institut of Nuclear Physics, Cologne, Germany
