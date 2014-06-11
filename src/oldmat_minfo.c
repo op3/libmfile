@@ -31,7 +31,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "config.h"
+//#include "config.h"
 
 #include "mfile.h"
 #include "maccess.h"

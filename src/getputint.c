@@ -32,7 +32,7 @@
 #include "getputint.h"
 #include "maccess.h"
 #include <errno.h>
-#include "config.h"
+//#include "config.h"
 
 
 #ifdef undef
