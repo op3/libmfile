@@ -26,13 +26,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
 
-void shm_probe P_((MFILE *mat));
-void shm_init P_((MFILE *mat));
-int shm_putinfo P_((MFILE *mat, minfo *info));
-int shm_uninit P_((MFILE *mat));
+void shm_probe(MFILE *mat);
+void shm_init(MFILE *mat);
+int shm_putinfo(MFILE *mat, minfo *info);
+int shm_uninit(MFILE *mat);

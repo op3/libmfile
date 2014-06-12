@@ -32,13 +32,7 @@
 
 #define TXT_MAGIC	"#:MatrixFormat:"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-void txt_probe P_((MFILE *mat));
-void txt_init P_((MFILE *mat));
-/*int txt_putinfo P_((MFILE *mat, minfo *info));*/
-int txt_uninit P_((MFILE *mat));
+void txt_probe(MFILE *mat);
+void txt_init(MFILE *mat);
+/*int txt_putinfo(MFILE *mat, minfo *info));*/
+int txt_uninit(MFILE *mat);

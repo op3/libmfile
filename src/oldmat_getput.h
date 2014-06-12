@@ -26,38 +26,33 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
 
 /* oldmat_getput.c */
-extern int le4_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le4_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le2_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le2_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he4_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he4_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he2_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he2_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le2s_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he2s_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
+extern int le4_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le4_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le2_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le2_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he4_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he4_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he2_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he2_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le2s_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he2s_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
 
-extern int le4t_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le4t_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le2t_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int le2t_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he4t_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he4t_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he2t_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int he2t_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
+extern int le4t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le4t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le2t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int le2t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he4t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he4t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he2t_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int he2t_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
 
-extern int lf4_get P_((MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int lf4_put P_((MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int hf4_get P_((MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int hf4_put P_((MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int lf8_get P_((MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int lf8_put P_((MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int hf8_get P_((MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int hf8_put P_((MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num));
+extern int lf4_get(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int lf4_put(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int hf4_get(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int hf4_put(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int lf8_get(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int lf8_put(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int hf8_get(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int hf8_put(MFILE *mat, double *buffer, u_int level, u_int line, u_int col, u_int num);

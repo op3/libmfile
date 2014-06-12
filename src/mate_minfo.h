@@ -29,10 +29,4 @@
 #include <sys/types.h>
 #include "mfile.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-void mate_probe P_((MFILE *mat));
+void mate_probe(MFILE *mat);

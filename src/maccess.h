@@ -29,12 +29,6 @@
 
 #include "mfile.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
 /* ------------------------------------------------------------------------- */
 
 #define _get(ap,buf,pos,num)	ap->get(ap,buf,pos,num)
@@ -50,13 +44,13 @@ typedef unsigned int acc_pos;
 
 /*typedef struct accessmethod *amp;*/
 
-typedef int tryaccessf P_((amp ap, char *name, char *mode));
-typedef int flushf P_((amp ap));
-typedef int closef P_((amp ap));
-typedef int getf P_((amp ap, void *buffer, acc_pos offset, acc_pos nbytes));
-typedef int putf P_((amp ap, void *buffer, acc_pos offset, acc_pos nbytes));
-typedef void *getaf P_((amp ap, acc_pos offset, acc_pos nbytes));
-typedef void *putaf P_((amp ap, acc_pos offset, acc_pos nbytes));
+typedef int tryaccessf(amp ap, char *name, char *mode);
+typedef int flushf(amp ap);
+typedef int closef(amp ap);
+typedef int getf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+typedef int putf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+typedef void *getaf(amp ap, acc_pos offset, acc_pos nbytes);
+typedef void *putaf(amp ap, acc_pos offset, acc_pos nbytes);
 
 typedef struct accessmethod
 {
@@ -92,5 +86,5 @@ extern maccessdescr *tryaccess_first;
 
 /* ------------------------------------------------------------------------- */
 
-amp tryaccess P_((const char *name, const char *mode, char *accessname));
-int maddaccess P_((tryaccessf *taf, char *name));
+amp tryaccess(const char *name, const char *mode, char *accessname);
+int maddaccess(tryaccessf *taf, char *name);

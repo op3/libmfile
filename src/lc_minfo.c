@@ -38,18 +38,10 @@
 #include "lc_c1.h"
 #include "lc_c2.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-static int init_lci P_((MFILE *mat, u_int freepos, u_int freelistpos, u_int poslentablepos));
-/* static int lc_updateheader P_((MFILE *mat)); */
-static void free_lci P_((MFILE *mat));
-static int lc_flush P_((MFILE *mat));
-
-#undef P_
+static int init_lci(MFILE *mat, u_int freepos, u_int freelistpos, u_int poslentablepos);
+/* static int lc_updateheader(MFILE *mat); */
+static void free_lci(MFILE *mat);
+static int lc_flush(MFILE *mat);
 
 static int init_lci(MFILE *mat, unsigned int freepos, 
 		    unsigned int freelistpos, unsigned int poslentablepos) {

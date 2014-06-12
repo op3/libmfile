@@ -37,17 +37,9 @@
 #include "sys_endian.h"
 #include "mopen.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-/*static void guessfiletype P_((MFILE *mat));*/
-static void setmatdefaults P_((MFILE *mat));
-static void openmatfile P_((MFILE *mat, const char *name, const char *mode));
-
-#undef P_
+/*static void guessfiletype(MFILE *mat);*/
+static void setmatdefaults(MFILE *mat);
+static void openmatfile(MFILE *mat, const char *name, const char *mode);
 
 /* include header files for all known format check routines */
 #include "lc_minfo.h"

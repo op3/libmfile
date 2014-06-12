@@ -26,12 +26,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
 
-extern int lc2_compress P_((char *dest, int *src, int num));
-extern int lc2_uncompress P_((int *dest, char *src, int num));
-extern unsigned int lc2_comprlinelenmax P_((unsigned int col));
+extern int lc2_compress(char *dest, int *src, int num);
+extern int lc2_uncompress(int *dest, char *src, int num);
+extern unsigned int lc2_comprlinelenmax(unsigned int col);

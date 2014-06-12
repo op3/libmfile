@@ -26,13 +26,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
 
-extern int shm_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
+extern int shm_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
 /*
-extern int shm_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
+extern int shm_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
 */

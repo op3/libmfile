@@ -30,15 +30,9 @@
 #include <sys/types.h>
 #include "mfile.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-extern MFILE *mopen P_((const char *name, const char *mode));
-extern int mflush P_((MFILE *mat));
-extern int mclose P_((MFILE *mat));
-extern int mgetinfo P_((MFILE *mat, minfo *info));
-extern int msetinfo P_((MFILE *mat, minfo *info));
-extern void initspecinfo P_((MFILE *mat));
+extern MFILE *mopen(const char *name, const char *mode);
+extern int mflush(MFILE *mat);
+extern int mclose(MFILE *mat);
+extern int mgetinfo(MFILE *mat, minfo *info);
+extern int msetinfo(MFILE *mat, minfo *info);
+extern void initspecinfo(MFILE *mat);

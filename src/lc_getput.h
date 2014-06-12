@@ -27,12 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
 
-extern int lc_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int lc_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int lc_flushcache P_((MFILE *mat));
+extern int lc_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int lc_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int lc_flushcache(MFILE *mat);

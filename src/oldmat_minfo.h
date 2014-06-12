@@ -34,14 +34,8 @@ extern char MAGIC_OLDMAT[];
 
 typedef char oldmat_header[64];
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
 /* oldmat_minfo.c */
-void oldmat_probe P_((MFILE *mat));
-void oldmat_init P_((MFILE *mat));
-int oldmat_uninit P_((MFILE *mat));
-int oldmat_putinfo P_((MFILE *mat, minfo *info));
+void oldmat_probe(MFILE *mat);
+void oldmat_init(MFILE *mat);
+int oldmat_uninit(MFILE *mat);
+int oldmat_putinfo(MFILE *mat, minfo *info);

@@ -41,18 +41,10 @@
 #include "lc_c2.h"
 #include "lc_getput.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-/* static int lc_alloc P_((MFILE *mat, int n)); */
-static int readline P_((MFILE *mat, int *buffer, u_int line));
-static int writeline P_((MFILE *mat, int *buffer, u_int line));
-static void trycacheline P_((MFILE *mat, u_int line));
-
-#undef P_
+/* static int lc_alloc(MFILE *mat, int n)); */
+static int readline(MFILE *mat, int *buffer, u_int line);
+static int writeline(MFILE *mat, int *buffer, u_int line);
+static void trycacheline(MFILE *mat, u_int line);
 
 #ifdef VERIFY_COMPRESSION
 static void verifycompr(lc_minfo *lci, int *line, int num) {

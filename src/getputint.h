@@ -29,44 +29,32 @@
 
 #include <sys/types.h>
 
-
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-/*
-int   get    P_((int fd, void *buffer, u_int pos, u_int num));
-int   put    P_((int fd, void *buffer, u_int pos, u_int num));
-*/
-
 /* signed low endian 8 byte matrix file */
-u_int getle8 P_((amp ap, int *buffer, u_int pos, u_int num));
-u_int putle8 P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int getle8(amp ap, int *buffer, u_int pos, u_int num);
+u_int putle8(amp ap, int *buffer, u_int pos, u_int num);
 
 /* signed high endian 8 byte matrix file */
-u_int gethe8 P_((amp ap, int *buffer, u_int pos, u_int num));
-u_int puthe8 P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int gethe8(amp ap, int *buffer, u_int pos, u_int num);
+u_int puthe8(amp ap, int *buffer, u_int pos, u_int num);
 
 /* signed low endian 4 byte matrix file */
-u_int getle4 P_((amp ap, int *buffer, u_int pos, u_int num));
-u_int putle4 P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int getle4(amp ap, int *buffer, u_int pos, u_int num);
+u_int putle4(amp ap, int *buffer, u_int pos, u_int num);
 
 /* signed high endian 4 byte matrix file */
-u_int gethe4 P_((amp ap, int *buffer, u_int pos, u_int num));
-u_int puthe4 P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int gethe4(amp ap, int *buffer, u_int pos, u_int num);
+u_int puthe4(amp ap, int *buffer, u_int pos, u_int num);
 
 /* unsigned low endian 2 byte matrix file */
-u_int getle2 P_((amp ap, int *buffer, u_int pos, u_int num));
-u_int putle2 P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int getle2(amp ap, int *buffer, u_int pos, u_int num);
+u_int putle2(amp ap, int *buffer, u_int pos, u_int num);
 
 /* unsigned high endian 2 byte matrix file */
-u_int gethe2 P_((amp ap, int *buffer, u_int pos, u_int num));
-u_int puthe2 P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int gethe2(amp ap, int *buffer, u_int pos, u_int num);
+u_int puthe2(amp ap, int *buffer, u_int pos, u_int num);
 
 /* signed low endian 2 byte matrix file */
-u_int getle2s P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int getle2s(amp ap, int *buffer, u_int pos, u_int num);
 
 /* signed high endian 2 byte matrix file */
-u_int gethe2s P_((amp ap, int *buffer, u_int pos, u_int num));
+u_int gethe2s(amp ap, int *buffer, u_int pos, u_int num);

@@ -27,12 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
 
-extern int txt_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int txt_put P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
-extern int txt_flush P_((MFILE *mat));
+extern int txt_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int txt_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int txt_flush(MFILE *mat);

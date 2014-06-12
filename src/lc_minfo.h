@@ -67,13 +67,7 @@ typedef struct {
   int		(*uncomprf)();
 } lc_minfo;
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-void lc_probe P_((MFILE *mat));
-void lc_init P_((MFILE *mat));
-int lc_putinfo P_((MFILE *mat, minfo *info));
-int lc_uninit P_((MFILE *mat));
+void lc_probe(MFILE *mat);
+void lc_init(MFILE *mat);
+int  lc_putinfo(MFILE *mat, minfo *info);
+int  lc_uninit(MFILE *mat);

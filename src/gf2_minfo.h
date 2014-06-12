@@ -32,13 +32,7 @@
 
 #define GF2_STD_VERSION 2
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
 /* gf2_minfo.c */
-extern void gf2_probe P_((MFILE *mat));
-extern void gf2_init P_((MFILE *mat));
-extern int gf2_uninit P_((MFILE *mat));
+extern void gf2_probe(MFILE *mat);
+extern void gf2_init(MFILE *mat);
+extern int  gf2_uninit(MFILE *mat);

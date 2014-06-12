@@ -152,42 +152,35 @@ typedef struct matfile {
 } MFILE;
 
 
+MFILE *mopen(const char *name, const char *mode);
+int mclose(MFILE *mat);
+int mflush(MFILE *mat);
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-MFILE *mopen P_((const char *name, const char *mode));
-int mclose P_((MFILE *mat));
-int mflush P_((MFILE *mat));
-
-int mgetinfo P_((MFILE *mat, minfo *info));
-int msetinfo P_((MFILE *mat, minfo *info));
+int mgetinfo(MFILE *mat, minfo *info);
+int msetinfo(MFILE *mat, minfo *info);
 
 /* format: [[[LEVELS '.'] LINES '.'] COLUMNS '.' [MATTYPE [ ':' VERSION]] */
 /* valid examples: 4k.4k  (4k*4k matrix of unspecified element type)	  */
 /*		   8k.le4 (8K low endian 4 byte spectrum)		  */
 /*		   lc:1   (line compressed file (version = 1)		  */
-int msetfmt P_((MFILE *mat, const char *format));
-char* mgetfmt P_((MFILE *mat, char *format));
+int msetfmt(MFILE *mat, const char *format);
+char* mgetfmt(MFILE *mat, char *format);
 
 /* lev: [0..(levels-1)], lin: [0..(lines-1)], col: [0..(columns-1)] */
-int mgetint P_((MFILE* mat, int buf[], int lev, int lin, int col, int num));
-int mputint P_((MFILE* mat, int buf[], int lev, int lin, int col, int num));
+int mgetint(MFILE* mat, int buf[], int lev, int lin, int col, int num);
+int mputint(MFILE* mat, int buf[], int lev, int lin, int col, int num);
 
-int mgetflt P_((MFILE* mat, float buf[], int lev, int lin, int col, int num));
-int mputflt P_((MFILE* mat, float buf[], int lev, int lin, int col, int num));
+int mgetflt(MFILE* mat, float buf[], int lev, int lin, int col, int num);
+int mputflt(MFILE* mat, float buf[], int lev, int lin, int col, int num);
 
-int mgetdbl P_((MFILE* mat, double buf[], int lev, int lin, int col, int num));
-int mputdbl P_((MFILE* mat, double buf[], int lev, int lin, int col, int num));
+int mgetdbl(MFILE* mat, double buf[], int lev, int lin, int col, int num);
+int mputdbl(MFILE* mat, double buf[], int lev, int lin, int col, int num);
 
 #define mget(mat,buf,lev,lin,col,num) mgetint(mat,buf,lev,lin,col,num)
 #define mput(mat,buf,lev,lin,col,num) mputint(mat,buf,lev,lin,col,num)
 
-int load_spec P_((const char *name, unsigned long *buf, int num));
-int save_spec P_((const char *name, unsigned long *buf, int num));
+int load_spec(const char *name, unsigned long *buf, int num);
+int save_spec(const char *name, unsigned long *buf, int num);
 
 #ifdef LIBMAT_BC
 /* don't use, ONLY for compatibility with old source files !!! */
@@ -216,5 +209,3 @@ int save_spec P_((const char *name, unsigned long *buf, int num));
 #endif  /* C++ */
 
 #endif /* _MATRIX_IO_INCLUDED */
-
-#undef P_

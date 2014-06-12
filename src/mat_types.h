@@ -28,26 +28,18 @@
 */
 #include "mfile.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-# define CONST const
-#else
-# define P_(s) ()
-# define CONST /* */
-#endif
+typedef void mprobef(MFILE *mat);
+typedef void minitf(MFILE *mat);
+typedef int  mgetf(MFILE *mat, void* buf, int v, int l, int c, int n);
+typedef int  mputf(MFILE *mat, void* buf, int v, int l, int c, int n);
 
-typedef void mprobef P_((MFILE *mat));
-typedef void minitf P_((MFILE *mat));
-typedef int  mgetf P_((MFILE *mat, void* buf, int v, int l, int c, int n));
-typedef int  mputf P_((MFILE *mat, void* buf, int v, int l, int c, int n));
-
-void matproc_guessfiletype P_((MFILE *mat));
-void matproc_init P_((MFILE *mat));
-int matproc_filetype P_((CONST char *fmtname));
-char *matproc_fmtname P_((int filetype));
-int matproc_datatype P_((int filetype));
-mgetf* matproc_getf P_((int filetype));
-mputf* matproc_putf P_((int filetype));
+void matproc_guessfiletype(MFILE *mat);
+void matproc_init(MFILE *mat);
+int matproc_filetype(const char *fmtname);
+char *matproc_fmtname(int filetype);
+int matproc_datatype(int filetype);
+mgetf* matproc_getf(int filetype);
+mputf* matproc_putf(int filetype);
 
 typedef char fmtnametype[7];
 

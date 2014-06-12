@@ -27,4 +27,4 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-int disk_tryaccess (amp ap, char *name, char *mode);
+int disk_tryaccess(amp ap, char *name, char *mode);

@@ -38,17 +38,9 @@
 #include "txt_getput.h"
 
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-static int txt_load P_((MFILE *mat));
-static int txt_alloc P_((MFILE *mat));
-static void txt_free P_((MFILE *mat));
-
-#undef P_
+static int txt_load(MFILE *mat);
+static int txt_alloc(MFILE *mat);
+static void txt_free(MFILE *mat);
 
 #define PROBESIZE 8192
 

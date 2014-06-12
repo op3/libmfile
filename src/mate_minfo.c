@@ -38,17 +38,7 @@
 #include "mate_getput.h"
 
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-# define CONST const
-#else
-# define P_(s) ()
-# define CONST /* */
-#endif
-
-static int match P_((CONST char *str, CONST char *pattern));
-
-#undef P_
+static int match(const char *str, const char *pattern);
 
 typedef struct {
   char dummy1[7];
@@ -60,7 +50,7 @@ typedef struct {
   short channels;
 } mate_header;
 
-static int match(CONST char *str, CONST char *pattern) {
+static int match(const char *str, const char *pattern) {
 
   char p;
 

@@ -42,15 +42,15 @@
 /* ------------------------------------------------------------------------- */
 
 static amp newaccessmethod();
-static amp initaccessmethod P_((amp ap, char *name));
-static void *dummy_geta P_((amp ap, acc_pos offset, acc_pos nbytes));
-static void *dummy_puta P_((amp ap, acc_pos offset, acc_pos nbytes));
-static int dummy_flush P_((amp ap));
-static int dummy_close P_((amp ap));
-static int get_via_geta P_((amp ap, void *buffer, acc_pos offset, acc_pos nbytes));
-static int put_via_puta P_((amp ap, void *buffer, acc_pos offset, acc_pos nbytes));
-static void *geta_via_get P_((amp ap, acc_pos offset, acc_pos nbytes));
-static void *puta_via_put P_((amp ap, acc_pos offset, acc_pos nbytes));
+static amp initaccessmethod(amp ap, char *name);
+static void *dummy_geta(amp ap, acc_pos offset, acc_pos nbytes);
+static void *dummy_puta(amp ap, acc_pos offset, acc_pos nbytes);
+static int dummy_flush(amp ap);
+static int dummy_close(amp ap);
+static int get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+static int put_via_puta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+static void *geta_via_get(amp ap, acc_pos offset, acc_pos nbytes);
+static void *puta_via_put(amp ap, acc_pos offset, acc_pos nbytes);
 
 /* ------------------------------------------------------------------------- */
 

@@ -49,13 +49,6 @@
 
 #include <string.h>
 
-
-#if defined(__STDC__) || defined(__cplusplus)
-# define CONST const
-#else
-# define CONST /* */
-#endif
-
 static matprocs matproc [] =
 {
 /* formats that are easily recognized (eg. by magic number) first	     */
@@ -149,7 +142,7 @@ char *matproc_fmtname(int mft) {
 }
 
 
-int matproc_filetype(CONST char *fmt) {
+int matproc_filetype(const char *fmt) {
 
   matprocs *p = matproc;
   

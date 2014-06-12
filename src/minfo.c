@@ -33,17 +33,9 @@
 #include "mfile.h"
 #include "mat_types.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-static char *putnum P_((char *p, u_int n, int put1));
-static char *putfmt P_((char *p, int filetype));
-static char *minfototxt P_((const char *fmt, minfo *info));
-
-#undef P_
+static char *putnum(char *p, u_int n, int put1);
+static char *putfmt(char *p, int filetype);
+static char *minfototxt(const char *fmt, minfo *info);
 
 int mgetinfo(MFILE *mat, minfo *info) {
 

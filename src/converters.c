@@ -33,45 +33,35 @@
 #include "converters.h"
 #include "debug.h"
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#define CONST const
-#else
-# define P_(s) ()
-#define CONST /* */
-#endif
+static void checkconvbuffer(unsigned int size);
 
-static void checkconvbuffer P_((unsigned int size));
+static int conv_int_to_dbl(double *dst, const int    *src, int num);
+static int conv_flt_to_dbl(double *dst, const float  *src, int num);
+static int conv_int_to_flt(float  *dst, const int    *src, int num);
+static int conv_dbl_to_flt(float  *dst, const double *src, int num);
+static int conv_flt_to_int(int    *dst, const float  *src, int num);
+static int conv_dbl_to_int(int    *dst, const double *src, int num);
 
-static int conv_int_to_dbl P_((double *dst, CONST int    *src, int num));
-static int conv_flt_to_dbl P_((double *dst, CONST float  *src, int num));
-static int conv_int_to_flt P_((float  *dst, CONST int    *src, int num));
-static int conv_dbl_to_flt P_((float  *dst, CONST double *src, int num));
-static int conv_flt_to_int P_((int    *dst, CONST float  *src, int num));
-static int conv_dbl_to_int P_((int    *dst, CONST double *src, int num));
-
-static int mgetint_via_flt P_((MFILE *mat, int *b, int v, int l, int c, int n));
+static int mgetint_via_flt(MFILE *mat, int *b, int v, int l, int c, int n);
      
-static int mgetint_via_dbl P_((MFILE *mat, int *b, int v, int l, int c, int n));
+static int mgetint_via_dbl(MFILE *mat, int *b, int v, int l, int c, int n);
      
-static int mgetflt_via_int P_((MFILE *mat, float *b, int v, int l, int c, int n));
-static int mgetflt_via_dbl P_((MFILE *mat, float *b, int v, int l, int c, int n));
-static int mgetdbl_via_int P_((MFILE *mat, double *b, int v, int l, int c, int n));
-static int mgetdbl_via_flt P_((MFILE *mat, double *b, int v, int l, int c, int n));
+static int mgetflt_via_int(MFILE *mat, float *b, int v, int l, int c, int n);
+static int mgetflt_via_dbl(MFILE *mat, float *b, int v, int l, int c, int n);
+static int mgetdbl_via_int(MFILE *mat, double *b, int v, int l, int c, int n);
+static int mgetdbl_via_flt(MFILE *mat, double *b, int v, int l, int c, int n);
 
-static int mputint_via_flt P_((MFILE *mat, int *b, int v, int l, int c, int n));
-static int mputint_via_dbl P_((MFILE *mat, int *b, int v, int l, int c, int n));
-static int mputflt_via_int P_((MFILE *mat, float *b, int v, int l, int c, int n));
-static int mputflt_via_dbl P_((MFILE *mat, float *b, int v, int l, int c, int n));
-static int mputdbl_via_int P_((MFILE *mat, double *b, int v, int l, int c, int n));
-static int mputdbl_via_flt P_((MFILE *mat, double *b, int v, int l, int c, int n));
-
-#undef P_
+static int mputint_via_flt(MFILE *mat, int *b, int v, int l, int c, int n);
+static int mputint_via_dbl(MFILE *mat, int *b, int v, int l, int c, int n);
+static int mputflt_via_int(MFILE *mat, float *b, int v, int l, int c, int n);
+static int mputflt_via_dbl(MFILE *mat, float *b, int v, int l, int c, int n);
+static int mputdbl_via_int(MFILE *mat, double *b, int v, int l, int c, int n);
+static int mputdbl_via_flt(MFILE *mat, double *b, int v, int l, int c, int n);
 
 /*------------------------------------------------------------------------*/
 
 
-static int conv_int_to_dbl(double *dst, CONST int *src, int num) {
+static int conv_int_to_dbl(double *dst, const int *src, int num) {
 
   int i;
   for (i = 0; i < num; i++) {
@@ -80,7 +70,7 @@ static int conv_int_to_dbl(double *dst, CONST int *src, int num) {
   return num;
 }
 
-static int conv_flt_to_dbl(double *dst, CONST float *src, int num) {
+static int conv_flt_to_dbl(double *dst, const float *src, int num) {
 
   int i;
   for (i = 0; i < num; i++) {
@@ -89,7 +79,7 @@ static int conv_flt_to_dbl(double *dst, CONST float *src, int num) {
   return num;
 }
 
-static int conv_int_to_flt(float *dst, CONST int *src, int num) {
+static int conv_int_to_flt(float *dst, const int *src, int num) {
 
   int i;
   for (i = 0; i < num; i++) {
@@ -98,7 +88,7 @@ static int conv_int_to_flt(float *dst, CONST int *src, int num) {
   return num;
 }
 
-static int conv_dbl_to_flt(float *dst, CONST double *src, int num) {
+static int conv_dbl_to_flt(float *dst, const double *src, int num) {
 
   int i;
   for (i = 0; i < num; i++) {
@@ -107,7 +97,7 @@ static int conv_dbl_to_flt(float *dst, CONST double *src, int num) {
   return num;
 }
 
-static int conv_flt_to_int(int *dst, CONST float *src, int num) {
+static int conv_flt_to_int(int *dst, const float *src, int num) {
 
   int i;
   for (i = 0; i < num; i++) {
@@ -117,7 +107,7 @@ static int conv_flt_to_int(int *dst, CONST float *src, int num) {
   return num;
 }
 
-static int conv_dbl_to_int(int *dst, CONST double *src, int num) {
+static int conv_dbl_to_int(int *dst, const double *src, int num) {
 
   int i;
   for (i = 0; i < num; i++) {

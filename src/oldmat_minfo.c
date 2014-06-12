@@ -43,16 +43,8 @@
 
 #define TESTBUFSIZE	(4096*4)	/* must be a power of 2 */
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-static void guessdatatype P_((MFILE *mat, u_int pos));
-static void guesslinescols P_((MFILE *mat, u_int size));
-
-#undef P_
+static void guessdatatype(MFILE *mat, u_int pos);
+static void guesslinescols(MFILE *mat, u_int size);
 
 char MAGIC_OLDMAT[] = "\nMatFmt: ";
 

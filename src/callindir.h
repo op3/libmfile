@@ -27,17 +27,10 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
 /* callindir.c */
-extern int mgetint P_((MFILE *mat, int *buffer, int level, int line, int col, int num));
-extern int mputint P_((MFILE *mat, int *buffer, int level, int line, int col, int num));
-extern int mgetflt P_((MFILE *mat, float *buffer, int level, int line, int col, int num));
-extern int mputflt P_((MFILE *mat, float *buffer, int level, int line, int col, int num));
-extern int mgetdbl P_((MFILE *mat, double *buffer, int level, int line, int col, int num));
-extern int mputdbl P_((MFILE *mat, double *buffer, int level, int line, int col, int num));
-
+extern int mgetint(MFILE *mat, int *buffer, int level, int line, int col, int num);
+extern int mputint(MFILE *mat, int *buffer, int level, int line, int col, int num);
+extern int mgetflt(MFILE *mat, float *buffer, int level, int line, int col, int num);
+extern int mputflt(MFILE *mat, float *buffer, int level, int line, int col, int num);
+extern int mgetdbl(MFILE *mat, double *buffer, int level, int line, int col, int num);
+extern int mputdbl(MFILE *mat, double *buffer, int level, int line, int col, int num);

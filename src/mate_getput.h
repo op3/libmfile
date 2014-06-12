@@ -27,10 +27,4 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#if defined(__STDC__) || defined(__cplusplus)
-# define P_(s) s
-#else
-# define P_(s) ()
-#endif
-
-int mate_get P_((MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num));
+int mate_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
