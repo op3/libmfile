@@ -42,7 +42,7 @@
 /* ------------------------------------------------------------------------- */
 
 static amp newaccessmethod();
-static amp initaccessmethod(amp ap, char *name);
+static amp initaccessmethod(amp ap, const char *name);
 static void *dummy_geta(amp ap, acc_pos offset, acc_pos nbytes);
 static void *dummy_puta(amp ap, acc_pos offset, acc_pos nbytes);
 static int32_t dummy_flush(amp ap);
@@ -144,7 +144,7 @@ static amp newaccessmethod()
   return ap;
 }
 
-static amp initaccessmethod(amp ap, char *name) {
+static amp initaccessmethod(amp ap, const char *name) {
 
   if (name)
   {

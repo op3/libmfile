@@ -45,7 +45,7 @@ typedef uint32_t acc_pos;
 
 /*typedef struct accessmethod *amp;*/
 
-typedef int32_t tryaccessf(amp ap, char *name, char *mode);
+typedef int32_t tryaccessf(amp ap, const char *name, const char *mode);
 typedef int32_t flushf(amp ap);
 typedef int32_t closef(amp ap);
 typedef int32_t getf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);

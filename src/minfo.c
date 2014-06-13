@@ -201,7 +201,7 @@ static char *minfototxt(const char *fmt, minfo *info) {
   char *p;
 
   if (fmt == NULL) fmt = txtbuf;
-  p = fmt;
+  p = (char *)fmt;
 
   if (info == NULL) {
     p = putfmt (p, MAT_INVALID);
@@ -221,7 +221,7 @@ static char *minfototxt(const char *fmt, minfo *info) {
     }
   }
   
-  return fmt;
+  return (char *)fmt;
 }
 
 
@@ -230,11 +230,11 @@ int32_t msetfmt(MFILE *mat, const char *format) {
   minfo info;
   if (mat && format) {
     if (mgetinfo (mat, &info) != 0) return -1;
-    if (mtxttoinfo (format, &info) != 0) return -1;
+    if (mtxttoinfo ((char *)format, &info) != 0) return -1;
     return msetinfo (mat, &info);
   } else {
     memset (&info, 0, sizeof (minfo));
-    return mtxttoinfo (format, &info);
+    return mtxttoinfo ((char *)format, &info);
   }
 }
 

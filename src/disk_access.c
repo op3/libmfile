@@ -81,7 +81,7 @@ int32_t disk_close (amp ap) {
 
 /* ------------------------------------------------------------------------- */
 
-int32_t disk_tryaccess(amp ap, char *name, char *mode) {
+int32_t disk_tryaccess(amp ap, const char *name, const char *mode) {
 
   FILE *f;
   struct stat stat_buf;
@@ -96,10 +96,11 @@ int32_t disk_tryaccess(amp ap, char *name, char *mode) {
     bmode[len] = b[0];
     bmode[len + 1] = '\0';
     f = fopen (name, bmode);
+    free(bmode);
    } else {
     f = fopen (name, mode);
   }
-
+  
   
   if (!f) {
     PERROR("fopen");

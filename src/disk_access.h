@@ -29,4 +29,4 @@
 
 #include <stdint.h>
 
-int32_t disk_tryaccess(amp ap, char *name, char *mode);
+int32_t disk_tryaccess(amp ap, const char *name, const char *mode);
