@@ -28,7 +28,10 @@
 */
 
 #include <stdio.h>
-#include <sys/file.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+//#include <sys/file.h>
 #include <sys/stat.h>
 
 #include "maccess.h"
@@ -83,7 +86,21 @@ int32_t disk_tryaccess(amp ap, char *name, char *mode) {
   FILE *f;
   struct stat stat_buf;
 
-  f = fopen (name, mode);
+  // Always open in binary mode
+  char *b = "b";
+  size_t len = strlen(mode);
+  size_t spn = strcspn(mode, b);
+  if (spn == len){
+    char *bmode = malloc(len + 2);
+    strcpy(bmode, mode);
+    bmode[len] = b[0];
+    bmode[len + 1] = '\0';
+    f = fopen (name, bmode);
+   } else {
+    f = fopen (name, mode);
+  }
+
+  
   if (!f) {
     PERROR("fopen");
     return -1;
