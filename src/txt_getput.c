@@ -34,38 +34,38 @@
 #include "txt_getput.h"
 
 
-int txt_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+int32_t txt_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num) {
 
   double *dblp = (double *) mat->specinfo.p;
 
 /*  if (dblp == NULL) return -1; */
 
-  int idx = ((level * mat->lines) + line) * mat->columns + col;
+  int32_t idx = ((level * mat->lines) + line) * mat->columns + col;
 
   memcpy (buffer, dblp +idx, num * sizeof (double));
 
   return num;
 }
 
-int txt_put(MFILE *mat, int *buffer, u_int level, u_int line,  u_int col, u_int num) {
+int32_t txt_put(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line,  uint32_t col, uint32_t num) {
   double *dblp = (double *) mat->specinfo.p;
 
 /*  if (dblp == NULL) return -1; */
 
-  int idx = ((level * mat->lines) + line) * mat->columns + col;
+  int32_t idx = ((level * mat->lines) + line) * mat->columns + col;
 
   memcpy (dblp +idx, buffer, num * sizeof (double));
 
   return num;
 }
 
-int txt_flush(MFILE *mat) {
+int32_t txt_flush(MFILE *mat) {
 
   if ((mat->status & MST_DIRTY) != 0) 
   {
     double *dblp = (double *) mat->specinfo.p;
-    int maxnum = mat->levels * mat->lines * mat->columns;
-    int i;
+    int32_t maxnum = mat->levels * mat->lines * mat->columns;
+    int32_t i;
     /* PROVISORISCH !!! */
     FILE *outf = (FILE*) mat->ap->specinfo.p;
 

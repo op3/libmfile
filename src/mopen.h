@@ -27,12 +27,13 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include <sys/types.h>
+
+#include <stdint.h>
 #include "mfile.h"
 
 extern MFILE *mopen(const char *name, const char *mode);
-extern int mflush(MFILE *mat);
-extern int mclose(MFILE *mat);
-extern int mgetinfo(MFILE *mat, minfo *info);
-extern int msetinfo(MFILE *mat, minfo *info);
+extern int32_t mflush(MFILE *mat);
+extern int32_t mclose(MFILE *mat);
+extern int32_t mgetinfo(MFILE *mat, minfo *info);
+extern int32_t msetinfo(MFILE *mat, minfo *info);
 extern void initspecinfo(MFILE *mat);

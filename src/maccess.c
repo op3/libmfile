@@ -45,10 +45,10 @@ static amp newaccessmethod();
 static amp initaccessmethod(amp ap, char *name);
 static void *dummy_geta(amp ap, acc_pos offset, acc_pos nbytes);
 static void *dummy_puta(amp ap, acc_pos offset, acc_pos nbytes);
-static int dummy_flush(amp ap);
-static int dummy_close(amp ap);
-static int get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
-static int put_via_puta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+static int32_t dummy_flush(amp ap);
+static int32_t dummy_close(amp ap);
+static int32_t get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+static int32_t put_via_puta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
 static void *geta_via_get(amp ap, acc_pos offset, acc_pos nbytes);
 static void *puta_via_put(amp ap, acc_pos offset, acc_pos nbytes);
 
@@ -65,11 +65,11 @@ maccessdescr *tryaccess_first   = &shm_access;
 
 /* ------------------------------------------------------------------------- */
 
-static int dummy_flush(amp ap) {
+static int32_t dummy_flush(amp ap) {
   return 0;
 }
 
-static int dummy_close(amp ap) {
+static int32_t dummy_close(amp ap) {
   return 0;
 }
 
@@ -83,7 +83,7 @@ static void *dummy_puta(amp ap, acc_pos offset, acc_pos nbytes) {
 
 /* ------------------------------------------------------------------------- */
 
-static int get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+static int32_t get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
 
   void* src = _geta (ap, offset, nbytes);
   if (src)
@@ -95,7 +95,7 @@ static int get_via_geta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
   return 0;
 }
 
-static int put_via_puta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+static int32_t put_via_puta(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
 
   void* dest = _puta (ap, offset, nbytes);
   if (dest)
@@ -120,7 +120,7 @@ static void *puta_via_put(amp ap, acc_pos offset, acc_pos nbytes) {
 
 /* ------------------------------------------------------------------------- */
 
-int maddaccess (     tryaccessf *tryaccess, char *name) {
+int32_t maddaccess (     tryaccessf *tryaccess, char *name) {
 
   maccessdescr *p = (maccessdescr*) malloc (sizeof (maccessdescr));
   if (p)

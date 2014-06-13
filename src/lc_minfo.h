@@ -26,7 +26,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include <sys/types.h>
+
+#include <stdint.h>
 #include "mfile.h"
 
 #define MAGIC_LC	0x80FFFF10
@@ -39,35 +40,35 @@
 #define LC_STD_VERSION	LC_C2_VERSION
 
 typedef struct {
-  u_int		magic;
-  u_int		version;
-  u_int		levels, lines, columns;
-  u_int		poslentablepos;
-  u_int		freepos, freelistpos;
-  u_int		used, free;
-  u_int		status;
+  uint32_t 	magic;
+  uint32_t 	version;
+  uint32_t 	levels, lines, columns;
+  uint32_t 	poslentablepos;
+  uint32_t 	freepos, freelistpos;
+  uint32_t 	used, free;
+  uint32_t 	status;
 } lc_header;
 
 typedef struct {
-  u_int		pos,len;
+  uint32_t 	pos,len;
 } lc_poslen;
 
 typedef struct {
-  int		version;
-  u_int		freepos, freelistpos;
-  int		*linebuf;
+  int32_t 	version;
+  uint32_t 	freepos, freelistpos;
+  int32_t 	*linebuf;
   void		*comprlinebuf;
-  u_int		cachedlinedirty;
-  u_int		cachedline;
-  u_int		cachedcomprline;
-  u_int		comprlinelen;
-  u_int		poslentablepos;
+  uint32_t 	cachedlinedirty;
+  uint32_t 	cachedline;
+  uint32_t 	cachedcomprline;
+  uint32_t 	comprlinelen;
+  uint32_t 	poslentablepos;
   lc_poslen	*poslentableptr;
-  int		(*comprf)();
-  int		(*uncomprf)();
+  int32_t 	(*comprf)();
+  int32_t 	(*uncomprf)();
 } lc_minfo;
 
 void lc_probe(MFILE *mat);
 void lc_init(MFILE *mat);
-int  lc_putinfo(MFILE *mat, minfo *info);
-int  lc_uninit(MFILE *mat);
+int32_t  lc_putinfo(MFILE *mat, minfo *info);
+int32_t  lc_uninit(MFILE *mat);

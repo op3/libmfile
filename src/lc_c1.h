@@ -27,6 +27,8 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-extern int lc1_compress(char *dest, int *src, int num);
-extern int lc1_uncompress(int *dest, char *src, int num);
-extern unsigned int lc1_comprlinelenmax(unsigned int col);
+#include <stdint.h>
+
+extern int32_t lc1_compress(char *dest, int32_t *src, int32_t num);
+extern int32_t lc1_uncompress(int32_t *dest, char *src, int32_t num);
+extern uint32_t lc1_comprlinelenmax(uint32_t col);

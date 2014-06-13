@@ -33,11 +33,11 @@
 #include "mfile.h"
 #include "mat_types.h"
 
-static char *putnum(char *p, u_int n, int put1);
-static char *putfmt(char *p, int filetype);
+static char *putnum(char *p, uint32_t n, int32_t put1);
+static char *putfmt(char *p, int32_t filetype);
 static char *minfototxt(const char *fmt, minfo *info);
 
-int mgetinfo(MFILE *mat, minfo *info) {
+int32_t mgetinfo(MFILE *mat, minfo *info) {
 
   if (info == NULL) return -1;
 
@@ -66,7 +66,7 @@ int mgetinfo(MFILE *mat, minfo *info) {
 }
 
 
-int msetinfo(MFILE *mat, minfo *info) {
+int32_t msetinfo(MFILE *mat, minfo *info) {
 
   /* check parameters and set filetype = MATINVALID in case of error */
   /* should call 'mat->msetinfof()' for sanity checks ... */
@@ -89,13 +89,13 @@ int msetinfo(MFILE *mat, minfo *info) {
 }
 
 
-int mtxttoinfo(char *fmt, minfo *info) {
+int32_t mtxttoinfo(char *fmt, minfo *info) {
 
-  int lev=0;
-  int lin=0;
-  int col=0;
-  int typ=MAT_UNKNOWN;
-  int ver=0;
+  int32_t lev=0;
+  int32_t lin=0;
+  int32_t col=0;
+  int32_t typ=MAT_UNKNOWN;
+  int32_t ver=0;
 
 #define skipspace(p)	while (isspace(*p)) (p++)
 #define getnum(p,n)	while (isdigit(*p)) n=n*10 + ((*p++) - '0')
@@ -127,7 +127,7 @@ int mtxttoinfo(char *fmt, minfo *info) {
   if (isalpha (*fmt)) {
     char fmtname[8];
     char c;
-    int i=0;
+    int32_t i=0;
     
     while (i < (sizeof (fmtname) -1) && (c = *fmt) && c != ':') {
       fmtname[i] = c;
@@ -165,7 +165,7 @@ int mtxttoinfo(char *fmt, minfo *info) {
 
 
 
-static char *putnum(char *p, u_int n, int put1) {
+static char *putnum(char *p, uint32_t n, int32_t put1) {
 
   if (n != 1 || put1) {
     char numbuf[32];
@@ -183,7 +183,7 @@ static char *putnum(char *p, u_int n, int put1) {
 }
 
 
-static char *putfmt(char *p, int filetype) {
+static char *putfmt(char *p, int32_t filetype) {
 
   char *cp;
 
@@ -225,7 +225,7 @@ static char *minfototxt(const char *fmt, minfo *info) {
 }
 
 
-int msetfmt(MFILE *mat, const char *format) {
+int32_t msetfmt(MFILE *mat, const char *format) {
 
   minfo info;
   if (mat && format) {

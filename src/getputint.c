@@ -36,10 +36,10 @@
 
 
 #ifdef undef
-int get(int fd, void *adr, u_int pos, u_int num) {
+int32_t get(int32_t fd, void *adr, uint32_t pos, uint32_t num) {
 
-  int w;
-  int done = 0;
+  int32_t w;
+  int32_t done = 0;
   char *buffer = adr;
 
   errno = 0;
@@ -62,7 +62,7 @@ int get(int fd, void *adr, u_int pos, u_int num) {
       if (errno) {
 #endif
 #ifdef undef
-        int saveerrno = errno;
+        int32_t saveerrno = errno;
 	(void) close(fd);
 	errno = saveerrno;
 	PERROR("get");		/* ERROR ABORT */
@@ -79,10 +79,10 @@ int get(int fd, void *adr, u_int pos, u_int num) {
 }
 
 
-int put(int fd, void *adr, u_int pos, u_int num) {
+int32_t put(int32_t fd, void *adr, uint32_t pos, uint32_t num) {
 
-  int w;
-  int done = 0;
+  int32_t w;
+  int32_t done = 0;
   char *buffer = adr;
 
   errno = 0;
@@ -105,7 +105,7 @@ int put(int fd, void *adr, u_int pos, u_int num) {
       if (errno) {
 #endif
 #ifdef undef
-        int saveerrno = errno;
+        int32_t saveerrno = errno;
 	(void) close(fd);
 	errno = saveerrno;
 	PERROR ("get");		/* ERROR ABORT */
@@ -123,21 +123,21 @@ int put(int fd, void *adr, u_int pos, u_int num) {
 #endif /* undef */
 
 
-u_int getle8(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t getle8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
      
 #ifdef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[2*MAT_COLMAX], *p;
+  uint32_t iobuf[2*MAT_COLMAX], *p;
 #endif
 
-  u_int n = num << 3;
+  uint32_t n = num << 3;
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
 #ifndef LOWENDIAN
   p = iobuf;
   for (n = num; n ; n--) {
-    register int t1 = *(p++);
-    register int t2 = *(p++);
+    register int32_t t1 = *(p++);
+    register int32_t t2 = *(p++);
     *(buffer++) = GETLE4(t2);
     *(buffer++) = GETLE4(t1);
   }
@@ -146,17 +146,17 @@ u_int getle8(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
      
-u_int putle8(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t putle8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_int n;
+  uint32_t n;
 #ifdef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[2*MAT_COLMAX], *p = iobuf;
+  uint32_t iobuf[2*MAT_COLMAX], *p = iobuf;
 
   for (n = num; n ; n--) {
-    register int t1 = *(buffer++);
-    register int t2 = *(buffer++);
+    register int32_t t1 = *(buffer++);
+    register int32_t t2 = *(buffer++);
     *(p++) = GETLE4(t2);
     *(p++) = GETLE4(t1);
   }
@@ -166,21 +166,21 @@ u_int putle8(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
 
-u_int gethe8(amp ap, int *buffer, u_int pos, u_int num) {     
+uint32_t gethe8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {     
 
 #ifndef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[2*MAT_COLMAX], *p;
+  uint32_t iobuf[2*MAT_COLMAX], *p;
 #endif
 
-  u_int n = num << 3;
+  uint32_t n = num << 3;
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
 #ifdef LOWENDIAN
   p = iobuf;
   for (n = num; n ; n--) {
-    register int t1 = *(p++);
-    register int t2 = *(p++);
+    register int32_t t1 = *(p++);
+    register int32_t t2 = *(p++);
     *(buffer++) = GETHE4(t2);
     *(buffer++) = GETHE4(t1);
   }
@@ -189,17 +189,17 @@ u_int gethe8(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
      
-u_int puthe8(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t puthe8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_int n;
+  uint32_t n;
 #ifndef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[2*MAT_COLMAX], *p = iobuf;
+  uint32_t iobuf[2*MAT_COLMAX], *p = iobuf;
 
   for (n = num; n ; n--) {
-    register int t1 = *(buffer++);
-    register int t2 = *(buffer++);
+    register int32_t t1 = *(buffer++);
+    register int32_t t2 = *(buffer++);
     *(p++) = GETHE4(t2);
     *(p++) = GETHE4(t1);
   }
@@ -209,19 +209,19 @@ u_int puthe8(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
 
-u_int getle4 (amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t getle4 (amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
      
 #ifdef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[MAT_COLMAX], *p;
+  uint32_t iobuf[MAT_COLMAX], *p;
 #endif
 
-  u_int n = num << 2;
+  uint32_t n = num << 2;
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
 #ifndef LOWENDIAN
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(p++);
+    register int32_t t = *(p++);
     *(buffer++) = GETLE4(t);
   }
 #endif
@@ -229,16 +229,16 @@ u_int getle4 (amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
      
-u_int putle4 (amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t putle4 (amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_int n;
+  uint32_t n;
 #ifdef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[MAT_COLMAX], *p;
+  uint32_t iobuf[MAT_COLMAX], *p;
 
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(buffer++);
+    register int32_t t = *(buffer++);
     *(p++) = GETLE4(t);
   }
 #endif
@@ -248,35 +248,35 @@ u_int putle4 (amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
 
-u_int gethe4(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t gethe4(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
 #ifndef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[MAT_COLMAX], *p;
+  uint32_t iobuf[MAT_COLMAX], *p;
 #endif
 
-  u_int n = num << 2;
+  uint32_t n = num << 2;
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
 #ifdef LOWENDIAN
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(p++);
+    register int32_t t = *(p++);
     *(buffer++) = GETHE4(t);
   }
 #endif
   return num;
 }
 
-u_int puthe4(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t puthe4(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_int n;
+  uint32_t n;
 #ifndef LOWENDIAN
-  int *iobuf = buffer;
+  int32_t *iobuf = buffer;
 #else
-  u_int iobuf[MAT_COLMAX], *p;
+  uint32_t iobuf[MAT_COLMAX], *p;
 
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(buffer++);
+    register int32_t t = *(buffer++);
     *(p++) = GETHE4(t);
   }
 #endif
@@ -285,27 +285,27 @@ u_int puthe4(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
 
-u_int getle2(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t getle2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_short iobuf[MAT_COLMAX], *p;
-  u_int n = num << 1;
+  uint16_t iobuf[MAT_COLMAX], *p;
+  uint32_t n = num << 1;
 
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(p++);
-    *(buffer++) = (u_short) GETLE2(t);
+    register int32_t t = *(p++);
+    *(buffer++) = (uint16_t) GETLE2(t);
   }
 
   return num;
 }
 
-u_int putle2(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t putle2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_short iobuf[MAT_COLMAX], *p;
-  u_int n;
+  uint16_t iobuf[MAT_COLMAX], *p;
+  uint32_t n;
 
   for (p = iobuf, n = num; n ; n--) {
-    register u_int t = *(buffer++);
+    register uint32_t t = *(buffer++);
     *(p++) = GETLE2(t);
   }
   n = num << 1;
@@ -314,27 +314,27 @@ u_int putle2(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
 
-u_int gethe2(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t gethe2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_short iobuf[MAT_COLMAX], *p;
-  u_int n = num << 1;
+  uint16_t iobuf[MAT_COLMAX], *p;
+  uint32_t n = num << 1;
 
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(p++);
-    *(buffer++) = (u_short) GETHE2(t);
+    register int32_t t = *(p++);
+    *(buffer++) = (uint16_t) GETHE2(t);
   }
 
   return num;
 }
 
-u_int puthe2(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t puthe2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_short iobuf[MAT_COLMAX], *p;
-  u_int n;
+  uint16_t iobuf[MAT_COLMAX], *p;
+  uint32_t n;
 
   for (p = iobuf, n = num; n ; n--) {
-    register u_int t = *(buffer++);
+    register uint32_t t = *(buffer++);
     *(p++) = GETHE2(t);
   }
   n = num << 1;
@@ -343,29 +343,29 @@ u_int puthe2(amp ap, int *buffer, u_int pos, u_int num) {
   return num;
 }
 
-u_int getle2s(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t getle2s(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  short iobuf[MAT_COLMAX], *p;
-  u_int n = num << 1;
+  int16_t iobuf[MAT_COLMAX], *p;
+  uint32_t n = num << 1;
 
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(p++);
-    *(buffer++) = (short) GETLE2(t);
+    register int32_t t = *(p++);
+    *(buffer++) = (int16_t) GETLE2(t);
   }
 
   return num;
 }
 
-u_int gethe2s(amp ap, int *buffer, u_int pos, u_int num) {
+uint32_t gethe2s(amp ap, int32_t *buffer, uint32_t pos, uint32_t num) {
 
-  u_short iobuf[MAT_COLMAX], *p;
-  u_int n = num << 1;
+  uint16_t iobuf[MAT_COLMAX], *p;
+  uint32_t n = num << 1;
 
   if (_get (ap, (char *)iobuf, pos, n) != n) return 0;
   for (p = iobuf, n = num; n ; n--) {
-    register int t = *(p++);
-    *(buffer++) = (short) GETHE2(t);
+    register int32_t t = *(p++);
+    *(buffer++) = (int16_t) GETHE2(t);
   }
 
   return num;

@@ -27,10 +27,11 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* callindir.c */
-extern int mgetint(MFILE *mat, int *buffer, int level, int line, int col, int num);
-extern int mputint(MFILE *mat, int *buffer, int level, int line, int col, int num);
-extern int mgetflt(MFILE *mat, float *buffer, int level, int line, int col, int num);
-extern int mputflt(MFILE *mat, float *buffer, int level, int line, int col, int num);
-extern int mgetdbl(MFILE *mat, double *buffer, int level, int line, int col, int num);
-extern int mputdbl(MFILE *mat, double *buffer, int level, int line, int col, int num);
+#include <stdint.h>
+
+extern int32_t mgetint(MFILE *mat, int32_t *buffer, int32_t level, int32_t line, int32_t col, int32_t num);
+extern int32_t mputint(MFILE *mat, int32_t *buffer, int32_t level, int32_t line, int32_t col, int32_t num);
+extern int32_t mgetflt(MFILE *mat, float *buffer, int32_t level, int32_t line, int32_t col, int32_t num);
+extern int32_t mputflt(MFILE *mat, float *buffer, int32_t level, int32_t line, int32_t col, int32_t num);
+extern int32_t mgetdbl(MFILE *mat, double *buffer, int32_t level, int32_t line, int32_t col, int32_t num);
+extern int32_t mputdbl(MFILE *mat, double *buffer, int32_t level, int32_t line, int32_t col, int32_t num);

@@ -37,11 +37,11 @@
 #define put_2_3(a,b)	(*dest++ = 0x40 + (a) + ((b) << 3))
 
 #define put_tag_n(T,a)	do {						\
-			  unsigned int t = a;				\
+			  uint32_t t = a;				\
 			  if (t <= 59) { *dest++ = T + t; }		\
 			  else {					\
 			    char *tag = dest++;				\
-			    int bytes = 0;				\
+			    int32_t bytes = 0;				\
 			    t -= 60;					\
 			    *dest++ = (char) t;				\
 			    while( (t = t >> 8) ) {				\
@@ -60,15 +60,15 @@
 
 /* liefert Anzahl Bytes nach Kompression oder -1 bei Fehler */
 
-int lc2_compress(char *dest, int *src, int num) {
+int32_t lc2_compress(char *dest, int32_t *src, int32_t num) {
 
-    int last = 0;
+    int32_t last = 0;
     char *p = dest;
 
     while (num) {
-        unsigned int d = *src - last;
-        int same = 0;
-        int i = 1;
+        uint32_t d = *src - last;
+        int32_t same = 0;
+        int32_t i = 1;
 
         if (d < 2) {
             while (i < num && *(src +i) == last)
@@ -84,19 +84,19 @@ int lc2_compress(char *dest, int *src, int num) {
 
         } else {
 
-            int encodetmp;
-            unsigned int a;
-            int s0 = *src;
+            int32_t encodetmp;
+            uint32_t a;
+            int32_t s0 = *src;
 
             a = encode (s0 -last);
 
             if (fitsinto (a, 3) && (num >= 2)) {
-                int s1 = *(src+1);
-                unsigned int b = encode (s1 -last);
+                int32_t s1 = *(src+1);
+                uint32_t b = encode (s1 -last);
 
                 if (fitsinto (a|b, 2) && (num >= 3)) {
-                    int s2 = *(src+2);
-                    unsigned int c = encode (s2 -last);
+                    int32_t s2 = *(src+2);
+                    uint32_t c = encode (s2 -last);
 
                     if (fitsinto (/*a|b|*/ c, 2)) {
                         put_3_2 (a, b, c);
@@ -126,36 +126,36 @@ int lc2_compress(char *dest, int *src, int num) {
 }
 
 
-#define decode(i)	( ((i) & 1) ? ~((unsigned int)(i) >> 1)		\
-				    :  ((unsigned int)(i) >> 1) )
+#define decode(i)	( ((i) & 1) ? ~((uint32_t)(i) >> 1)		\
+				    :  ((uint32_t)(i) >> 1) )
 
 #define bitextract(i,p,l) (((i) >> p) & ((1 << (l)) -1))
 
-int lc2_uncompress(int *dest, char *src, int num) {
+int32_t lc2_uncompress(int32_t *dest, char *src, int32_t num) {
 
-    int last = 0;
-    int nleft = num;
+    int32_t last = 0;
+    int32_t nleft = num;
 
     while (nleft) {
-        int i;
+        int32_t i;
         unsigned char t = *src++;
 
         if (t & 0x80) {
 
-            int n = t & 0x3f;
+            int32_t n = t & 0x3f;
             if (n > 59) {
-                int bytes = n - 59;
+                int32_t bytes = n - 59;
 
                 n = 59;
                 for (i = 0; i < bytes; i++) {
                     unsigned char b = *src++;
-                    int s = i << 3;
+                    int32_t s = i << 3;
                     n += (b + 1) << s;
                 }
             }
             if (t & 0x40) {
-                int diff = bitextract (n, 0, 1);
-                int same = (n >> 1) +3;
+                int32_t diff = bitextract (n, 0, 1);
+                int32_t same = (n >> 1) +3;
                 *dest++ = last + diff;
                 nleft -= same;
                 if (nleft <= 0)
@@ -199,9 +199,8 @@ int lc2_uncompress(int *dest, char *src, int num) {
     return num;
 }
 
-unsigned int lc2_comprlinelenmax(unsigned int col) {
+uint32_t lc2_comprlinelenmax(uint32_t col) {
 
     return ((col * 5) +3) & -4;
 
 }
-

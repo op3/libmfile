@@ -29,7 +29,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <sys/types.h>
 #include <sys/file.h>
 #include <sys/stat.h>
 #include <string.h>
@@ -44,9 +43,9 @@
 #include "mat_types.h"
 #include "sys_config.h"
 
-unsigned int gf2_swap32(unsigned int in) {
+uint32_t gf2_swap32(uint32_t in) {
 
-    unsigned int out = 0;
+    uint32_t out = 0;
 
     out |= (in & 0x000000FF) << 24;
     out |= (in & 0x0000FF00) << 8;
@@ -59,7 +58,7 @@ unsigned int gf2_swap32(unsigned int in) {
 /* Probe for gf2 format files */
 void gf2_probe(MFILE *mat) {
 
-    u_int gf2_header[9];
+    uint32_t gf2_header[9];
 
     if (_get(mat->ap, gf2_header, 0, sizeof(gf2_header)) != sizeof(gf2_header))
         return;
@@ -83,9 +82,9 @@ void gf2_probe(MFILE *mat) {
 void gf2_init(MFILE *mat) {
 
     if (0 < mat->columns && mat->columns <= MAT_COLMAX) {
-        int filetype = mat->filetype;
-        int datatype = matproc_datatype (filetype);
-        int elemsize = datatype & MAT_D_SIZE;
+        int32_t filetype = mat->filetype;
+        int32_t datatype = matproc_datatype (filetype);
+        int32_t elemsize = datatype & MAT_D_SIZE;
         mgetf* getfLocal   = matproc_getf (filetype);
         mputf* putfLocal   = matproc_putf (filetype);
 
@@ -99,14 +98,14 @@ void gf2_init(MFILE *mat) {
 }
 
 /* End gf2 format */
-int gf2_uninit(MFILE *mat) {
+int32_t gf2_uninit(MFILE *mat) {
 
-    int status;
-    u_int num = mat->columns;
-    int gf2_header[9];
+    int32_t status;
+    uint32_t num = mat->columns;
+    int32_t gf2_header[9];
     char *ptr;
-    unsigned int elemsize = mat->specinfo.i;
-    unsigned int matsize  = mat->levels * mat->lines * mat->columns * elemsize;
+    uint32_t elemsize = mat->specinfo.i;
+    uint32_t matsize  = mat->levels * mat->lines * mat->columns * elemsize;
 
     gf2_header[0] = 24;			/* recla */
     gf2_header[1] = 0;			/* Name - 8 bytes */
@@ -127,7 +126,7 @@ int gf2_uninit(MFILE *mat) {
             return 0;
 
         /* Get matrix name without path */
-        ptr = rindex(mat->name, DIR_SEPARATOR_CHAR);
+        ptr = strrchr(mat->name, DIR_SEPARATOR_CHAR);
         if (ptr == NULL) {
             ptr = mat->name;
         } else

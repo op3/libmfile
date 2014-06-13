@@ -26,6 +26,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#include <stdint.h>
 #include "mfile.h"
 
 #define TXT_STD_VERSION 1
@@ -35,4 +37,4 @@
 void txt_probe(MFILE *mat);
 void txt_init(MFILE *mat);
 /*int txt_putinfo(MFILE *mat, minfo *info));*/
-int txt_uninit(MFILE *mat);
+int32_t txt_uninit(MFILE *mat);

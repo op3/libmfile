@@ -26,6 +26,9 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#include <sys/types.h>
+
 #ifndef _MATRIX_IO_INCLUDED
 #define _MATRIX_IO_INCLUDED
 
@@ -36,7 +39,7 @@ extern "C" {
 
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/types.h>
+#include <stdint.h>
 
 #if defined (OSK) || defined (VMS_POSIX)
 #define NO_SHM
@@ -83,9 +86,9 @@ extern "C" {
 
 #define MAT_D_SIZE	(0xff)	/* bits reserved for elem size info	*/
 
-#define MAT_D_INT_U	(0x100)	/* signed int				*/
-#define MAT_D_INT_S	(0x200)	/* unsigned int				*/
-#define MAT_D_FLOAT	(0x400)	/* floating point			*/
+#define MAT_D_INT_U	(0x100)	/* signed int32_t 			*/
+#define MAT_D_INT_S	(0x200)	/* unsigned int32_t 			*/
+#define MAT_D_FLOAT	(0x400)	/* floating point32_t 		*/
 
 #define MAT_D_INV	(0)
 #define MAT_D_I2U	(MAT_D_INT_U + 2)
@@ -114,12 +117,12 @@ extern "C" {
 
 
 typedef struct minfo {
-  int		filetype;		/* MAT_LC, MAT_LE2, ...		*/
-  u_int		levels;
-  u_int		lines;
-  u_int 	columns;
-  u_int		version;
-  u_int		status;
+  int32_t 	filetype;		/* MAT_LC, MAT_LE2, ...		*/
+  uint32_t 	levels;
+  uint32_t 	lines;
+  uint32_t 	columns;
+  uint32_t 	version;
+  uint32_t 	status;
   char		*name;
   char		*comment;
 } minfo;
@@ -130,57 +133,57 @@ typedef struct matfile {
   amp		ap;
   char		*name;
   char		*comment;
-  int		mode;
-  u_int		version;
-  u_int		status;
-  int		filetype;
-  u_int		levels;
-  u_int		lines;
-  u_int		columns;
-  int		(*mflushf)();
-  int		(*muninitf)();
-  int		(*mgeti4f)();
-  int		(*mgetf4f)();
-  int		(*mgetf8f)();
-  int		(*mputi4f)();
-  int		(*mputf4f)();
-  int		(*mputf8f)();
+  int32_t 	mode;
+  uint32_t 	version;
+  uint32_t 	status;
+  int32_t 	filetype;
+  uint32_t 	levels;
+  uint32_t 	lines;
+  uint32_t 	columns;
+  int32_t 	(*mflushf)();
+  int32_t 	(*muninitf)();
+  int32_t 	(*mgeti4f)();
+  int32_t 	(*mgetf4f)();
+  int32_t 	(*mgetf8f)();
+  int32_t 	(*mputi4f)();
+  int32_t 	(*mputf4f)();
+  int32_t 	(*mputf8f)();
   union {
     void	*p;
-    int		i;
+    int32_t 	i;
   } specinfo;
 } MFILE;
 
 
 MFILE *mopen(const char *name, const char *mode);
-int mclose(MFILE *mat);
-int mflush(MFILE *mat);
+int32_t mclose(MFILE *mat);
+int32_t mflush(MFILE *mat);
 
-int mgetinfo(MFILE *mat, minfo *info);
-int msetinfo(MFILE *mat, minfo *info);
+int32_t mgetinfo(MFILE *mat, minfo *info);
+int32_t msetinfo(MFILE *mat, minfo *info);
 
 /* format: [[[LEVELS '.'] LINES '.'] COLUMNS '.' [MATTYPE [ ':' VERSION]] */
 /* valid examples: 4k.4k  (4k*4k matrix of unspecified element type)	  */
 /*		   8k.le4 (8K low endian 4 byte spectrum)		  */
 /*		   lc:1   (line compressed file (version = 1)		  */
-int msetfmt(MFILE *mat, const char *format);
+int32_t msetfmt(MFILE *mat, const char *format);
 char* mgetfmt(MFILE *mat, char *format);
 
 /* lev: [0..(levels-1)], lin: [0..(lines-1)], col: [0..(columns-1)] */
-int mgetint(MFILE* mat, int buf[], int lev, int lin, int col, int num);
-int mputint(MFILE* mat, int buf[], int lev, int lin, int col, int num);
+int32_t mgetint(MFILE* mat, int32_t buf[], int32_t lev, int32_t lin, int32_t col, int32_t num);
+int32_t mputint(MFILE* mat, int32_t buf[], int32_t lev, int32_t lin, int32_t col, int32_t num);
 
-int mgetflt(MFILE* mat, float buf[], int lev, int lin, int col, int num);
-int mputflt(MFILE* mat, float buf[], int lev, int lin, int col, int num);
+int32_t mgetflt(MFILE* mat, float buf[], int32_t lev, int32_t lin, int32_t col, int32_t num);
+int32_t mputflt(MFILE* mat, float buf[], int32_t lev, int32_t lin, int32_t col, int32_t num);
 
-int mgetdbl(MFILE* mat, double buf[], int lev, int lin, int col, int num);
-int mputdbl(MFILE* mat, double buf[], int lev, int lin, int col, int num);
+int32_t mgetdbl(MFILE* mat, double buf[], int32_t lev, int32_t lin, int32_t col, int32_t num);
+int32_t mputdbl(MFILE* mat, double buf[], int32_t lev, int32_t lin, int32_t col, int32_t num);
 
 #define mget(mat,buf,lev,lin,col,num) mgetint(mat,buf,lev,lin,col,num)
 #define mput(mat,buf,lev,lin,col,num) mputint(mat,buf,lev,lin,col,num)
 
-int load_spec(const char *name, unsigned long *buf, int num);
-int save_spec(const char *name, unsigned long *buf, int num);
+int32_t load_spec(const char *name, uint32_t *buf, int32_t num);
+int32_t save_spec(const char *name, uint32_t *buf, int32_t num);
 
 #ifdef LIBMAT_BC
 /* don't use, ONLY for compatibility with old source files !!! */

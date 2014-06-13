@@ -26,28 +26,30 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#include <stdint.h>
 #include "mfile.h"
 
 typedef void mprobef(MFILE *mat);
 typedef void minitf(MFILE *mat);
-typedef int  mgetf(MFILE *mat, void* buf, int v, int l, int c, int n);
-typedef int  mputf(MFILE *mat, void* buf, int v, int l, int c, int n);
+typedef int32_t  mgetf(MFILE *mat, void* buf, int32_t v, int32_t l, int32_t c, int32_t n);
+typedef int32_t  mputf(MFILE *mat, void* buf, int32_t v, int32_t l, int32_t c, int32_t n);
 
 void matproc_guessfiletype(MFILE *mat);
 void matproc_init(MFILE *mat);
-int matproc_filetype(const char *fmtname);
-char *matproc_fmtname(int filetype);
-int matproc_datatype(int filetype);
-mgetf* matproc_getf(int filetype);
-mputf* matproc_putf(int filetype);
+int32_t matproc_filetype(const char *fmtname);
+char *matproc_fmtname(int32_t filetype);
+int32_t matproc_datatype(int32_t filetype);
+mgetf* matproc_getf(int32_t filetype);
+mputf* matproc_putf(int32_t filetype);
 
 typedef char fmtnametype[7];
 
 typedef struct 
 {
-  int		filetype;
+  int32_t		filetype;
   fmtnametype	fmtname;
-  int		datatype;
+  int32_t		datatype;
   mgetf		*mget;
   mputf		*mput;
   mprobef	*mprobe;

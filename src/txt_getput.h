@@ -28,6 +28,8 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-extern int txt_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
-extern int txt_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
-extern int txt_flush(MFILE *mat);
+#include <stdint.h>
+
+extern int32_t txt_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num);
+extern int32_t txt_put(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num);
+extern int32_t txt_flush(MFILE *mat);

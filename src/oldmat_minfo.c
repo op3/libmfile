@@ -43,21 +43,21 @@
 
 #define TESTBUFSIZE	(4096*4)	/* must be a power of 2 */
 
-static void guessdatatype(MFILE *mat, u_int pos);
-static void guesslinescols(MFILE *mat, u_int size);
+static void guessdatatype(MFILE *mat, uint32_t pos);
+static void guesslinescols(MFILE *mat, uint32_t size);
 
 char MAGIC_OLDMAT[] = "\nMatFmt: ";
 
 static void guessdatatype (mat, pos)
      MFILE *mat;
-     u_int pos;
+     uint32_t pos;
 {
-  u_char buf[TESTBUFSIZE];
-  int nread;
-  int n1 = 0, n2 = 0, n3 = 0, n4 = 0;
-  int lf4 = 0, lf8 = 0, hf4 = 0, hf8 = 0, vaxf = 0, vaxg = 0;
+  unsigned char buf[TESTBUFSIZE];
+  int32_t nread;
+  int32_t n1 = 0, n2 = 0, n3 = 0, n4 = 0;
+  int32_t lf4 = 0, lf8 = 0, hf4 = 0, hf8 = 0, vaxf = 0, vaxg = 0;
   
-  u_int i, lim4, lim8;
+  uint32_t i, lim4, lim8;
   
   pos &= (-8);
   nread = _get (mat->ap, (char *)buf, pos, sizeof(buf));
@@ -66,13 +66,13 @@ static void guessdatatype (mat, pos)
   if (nread <= 0)						return;
   
   for (i = 0; i < nread; i += 4) {
-    u_int tli,thi,tvax,e;
+    uint32_t tli,thi,tvax,e;
 
     n1 += buf[i];
     n2 += buf[i+1];
     n3 += buf[i+2];
     n4 += buf[i+3];
-/* consider floating point number, if within 2^-3 to 2^20 */
+/* consider floating point32_t number, if within 2^-3 to 2^20 */
 #define GETEXP(_n,_bits) (((_n) & 0x7fff) >> (15 - (_bits)))
 #define MINEXP (-3)
 #define MAXEXP (20)
@@ -141,12 +141,12 @@ static void guessdatatype (mat, pos)
 
 static void guesslinescols (mat, size)
      MFILE *mat;
-     u_int size;
+     uint32_t size;
 {
-  int filetype = mat->filetype;
+  int32_t filetype = mat->filetype;
   
   if (filetype != MAT_INVALID) {
-    u_int elems, lines, columns;
+    uint32_t elems, lines, columns;
 
     switch (filetype) {
   case MAT_LE2:
@@ -207,11 +207,11 @@ static void guesslinescols (mat, size)
 
 static void checkformagic (mat, size)
      MFILE *mat;
-     int   size;
+     int32_t   size;
 {
   oldmat_header	omh;
-  unsigned int s = sizeof (omh);
-  unsigned int l = strlen (MAGIC_OLDMAT);
+  uint32_t s = sizeof (omh);
+  uint32_t l = strlen (MAGIC_OLDMAT);
 
   if (size < s || _get (mat->ap, (char *) omh, size - s, s) != s) return;
 
@@ -222,7 +222,7 @@ static void checkformagic (mat, size)
 void oldmat_probe (mat)
      MFILE *mat;
 {
-  u_int size = mat->ap->size;
+  uint32_t size = mat->ap->size;
 
   checkformagic (mat, size);
   if (mat->filetype != MAT_UNKNOWN) return;
@@ -237,9 +237,9 @@ void oldmat_init (mat)
      MFILE *mat;
 {
   if (0 < mat->columns && mat->columns <= MAT_COLMAX) {
-    int filetype = mat->filetype;
-    int datatype = matproc_datatype (filetype);
-    int elemsize = datatype & MAT_D_SIZE;
+    int32_t filetype = mat->filetype;
+    int32_t datatype = matproc_datatype (filetype);
+    int32_t elemsize = datatype & MAT_D_SIZE;
     mgetf* getf  = matproc_getf (filetype);
     mputf* putf  = matproc_putf (filetype);
     
@@ -278,7 +278,7 @@ void oldmat_init (mat)
   }
 }
 
-int oldmat_uninit (mat)
+int32_t oldmat_uninit (mat)
      MFILE *mat;
 {
   if ((mat->status & MST_DIRTY) == 0) return 0;
@@ -286,8 +286,8 @@ int oldmat_uninit (mat)
   if (mat->version == 2)
   {
     oldmat_header omh;
-    unsigned int elemsize = mat->specinfo.i;
-    unsigned int matsize  = mat->levels * mat->lines * mat->columns * elemsize;
+    uint32_t elemsize = mat->specinfo.i;
+    uint32_t matsize  = mat->levels * mat->lines * mat->columns * elemsize;
 
     if (matsize == 0) return 0;
     
@@ -305,7 +305,7 @@ int oldmat_uninit (mat)
   return 0;
 }
 
-int oldmat_putinfo(MFILE *mat, minfo *info) {
+int32_t oldmat_putinfo(MFILE *mat, minfo *info) {
 
   return 0;
 }

@@ -43,19 +43,19 @@ typedef struct {
   char code[40];
   char name[20];
   char date[20];
-  int x_res;
-  int y_res;
-  int bpc;
-  int blocksize;
+  int32_t x_res;
+  int32_t y_res;
+  int32_t bpc;
+  int32_t blocksize;
   char comment[416];
 } trixi_header;
 
 
-static void strbcat(char *s1, char *s2, int n) {
+static void strbcat(char *s1, char *s2, int32_t n) {
 
   char c;
   char *p = s1 + strlen(s1);
-  int i;
+  int32_t i;
 
   i = strlen(s2);
   if (i > n) i = n;

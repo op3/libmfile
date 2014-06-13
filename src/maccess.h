@@ -27,6 +27,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <stdint.h>
 #include "mfile.h"
 
 /* ------------------------------------------------------------------------- */
@@ -40,15 +41,15 @@
 
 /* ------------------------------------------------------------------------- */
 
-typedef unsigned int acc_pos;
+typedef uint32_t acc_pos;
 
 /*typedef struct accessmethod *amp;*/
 
-typedef int tryaccessf(amp ap, char *name, char *mode);
-typedef int flushf(amp ap);
-typedef int closef(amp ap);
-typedef int getf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
-typedef int putf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+typedef int32_t tryaccessf(amp ap, char *name, char *mode);
+typedef int32_t flushf(amp ap);
+typedef int32_t closef(amp ap);
+typedef int32_t getf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
+typedef int32_t putf(amp ap, void *buffer, acc_pos offset, acc_pos nbytes);
 typedef void *getaf(amp ap, acc_pos offset, acc_pos nbytes);
 typedef void *putaf(amp ap, acc_pos offset, acc_pos nbytes);
 
@@ -69,7 +70,7 @@ typedef struct accessmethod
   acc_pos	wr_bytes;
   struct
   {
-    long int	i;
+    int32_t	i;
     void	*p;
   } specinfo;
 } accessmethod;
@@ -87,4 +88,4 @@ extern maccessdescr *tryaccess_first;
 /* ------------------------------------------------------------------------- */
 
 amp tryaccess(const char *name, const char *mode, char *accessname);
-int maddaccess(tryaccessf *taf, char *name);
+int32_t maddaccess(tryaccessf *taf, char *name);

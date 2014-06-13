@@ -27,4 +27,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-int disk_tryaccess(amp ap, char *name, char *mode);
+#include <stdint.h>
+
+int32_t disk_tryaccess(amp ap, char *name, char *mode);

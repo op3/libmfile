@@ -29,9 +29,9 @@
 
 #include "mfile.h"
 
-int load_spec(const char *name, unsigned long *buf, int num) {
+int32_t load_spec(const char *name, uint32_t *buf, int32_t num) {
 
-  int n;
+  int32_t n;
   MFILE *mat;
 
   mat = mopen ((char *)name, "r");
@@ -41,9 +41,9 @@ int load_spec(const char *name, unsigned long *buf, int num) {
   return n;
 }
 
-int save_spec(const char *name, unsigned long *buf, int num) {
+int32_t save_spec(const char *name, uint32_t *buf, int32_t num) {
 
-  int n;
+  int32_t n;
   MFILE *mat;
   minfo info;
   

@@ -27,34 +27,34 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <sys/types.h>
+#include <stdint.h>
 
 /* signed low endian 8 byte matrix file */
-u_int getle8(amp ap, int *buffer, u_int pos, u_int num);
-u_int putle8(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t getle8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
+uint32_t putle8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* signed high endian 8 byte matrix file */
-u_int gethe8(amp ap, int *buffer, u_int pos, u_int num);
-u_int puthe8(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t gethe8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
+uint32_t puthe8(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* signed low endian 4 byte matrix file */
-u_int getle4(amp ap, int *buffer, u_int pos, u_int num);
-u_int putle4(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t getle4(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
+uint32_t putle4(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* signed high endian 4 byte matrix file */
-u_int gethe4(amp ap, int *buffer, u_int pos, u_int num);
-u_int puthe4(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t gethe4(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
+uint32_t puthe4(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* unsigned low endian 2 byte matrix file */
-u_int getle2(amp ap, int *buffer, u_int pos, u_int num);
-u_int putle2(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t getle2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
+uint32_t putle2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* unsigned high endian 2 byte matrix file */
-u_int gethe2(amp ap, int *buffer, u_int pos, u_int num);
-u_int puthe2(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t gethe2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
+uint32_t puthe2(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* signed low endian 2 byte matrix file */
-u_int getle2s(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t getle2s(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);
 
 /* signed high endian 2 byte matrix file */
-u_int gethe2s(amp ap, int *buffer, u_int pos, u_int num);
+uint32_t gethe2s(amp ap, int32_t *buffer, uint32_t pos, uint32_t num);

@@ -38,7 +38,7 @@
 #include "mate_getput.h"
 
 
-static int match(const char *str, const char *pattern);
+static int32_t match(const char *str, const char *pattern);
 
 typedef struct {
   char dummy1[7];
@@ -47,10 +47,10 @@ typedef struct {
   char time[12];
   char dummy2[210];
   char dummy3[10];
-  short channels;
+  int16_t  channels;
 } mate_header;
 
-static int match(const char *str, const char *pattern) {
+static int32_t match(const char *str, const char *pattern) {
 
   char p;
 
@@ -79,11 +79,11 @@ default:
   return 0;
 }
 
-static void strbcat(char *s1, char *s2, int n) {
+static void strbcat(char *s1, char *s2, int32_t n) {
 
   char c;
   char *p = s1 + strlen(s1);
-  int i;
+  int32_t i;
 
   i = strlen(s2);
   if (i > n) i = n;

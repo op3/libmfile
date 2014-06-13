@@ -30,9 +30,10 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/* gf2_getput.c */
-extern int  gf2_get(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num);
-extern int  gf2_put(MFILE *mat, float *buffer, u_int level, u_int line, u_int col, u_int num);
+#include <stdint.h>
+
+extern int32_t  gf2_get(MFILE *mat, float *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num);
+extern int32_t  gf2_put(MFILE *mat, float *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num);
 extern void gf2_probe(MFILE *mat);
 extern void gf2_init(MFILE *mat);
-extern int  gf2_uninit(MFILE *mat);
+extern int32_t  gf2_uninit(MFILE *mat);

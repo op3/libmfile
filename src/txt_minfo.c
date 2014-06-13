@@ -38,8 +38,8 @@
 #include "txt_getput.h"
 
 
-static int txt_load(MFILE *mat);
-static int txt_alloc(MFILE *mat);
+static int32_t txt_load(MFILE *mat);
+static int32_t txt_alloc(MFILE *mat);
 static void txt_free(MFILE *mat);
 
 #define PROBESIZE 8192
@@ -84,10 +84,10 @@ void txt_probe(MFILE *mat) {
 
   char buffer[PROBESIZE];
   char *p = buffer;
-  unsigned int fpos = 0;
-  int nleft = 0;
+  uint32_t fpos = 0;
+  int32_t nleft = 0;
 
-  int numbers = 0;
+  int32_t numbers = 0;
   char c = NEXTCHAR;
 
   if (nleft > sizeof (TXT_MAGIC) 
@@ -115,14 +115,14 @@ void txt_probe(MFILE *mat) {
   }
 }
 
-static int txt_load(MFILE *mat) {
+static int32_t txt_load(MFILE *mat) {
 
   char buffer[PROBESIZE];
   char *p = buffer;
-  unsigned int fpos = 0;
-  int nleft = 0;
-  int maxnum = mat->levels * mat->lines * mat->columns;
-  int n;
+  uint32_t fpos = 0;
+  int32_t nleft = 0;
+  int32_t maxnum = mat->levels * mat->lines * mat->columns;
+  int32_t n;
 
   char c = NEXTCHAR;
 
@@ -133,7 +133,7 @@ static int txt_load(MFILE *mat) {
   while (n < maxnum)
   {
     char buf[40];
-    int i = 0;
+    int32_t i = 0;
 
     SKIPSPACE;
     SKIPCOMMENT;
@@ -149,7 +149,7 @@ static int txt_load(MFILE *mat) {
   return n;
 }
 
-static int txt_alloc(MFILE *mat) {
+static int32_t txt_alloc(MFILE *mat) {
 
   unsigned arrsize = mat->levels * mat->lines * mat->columns * sizeof(double);
   mat->specinfo.p = (void *) malloc (arrsize);
@@ -187,13 +187,12 @@ void txt_init(MFILE *mat) {
   }
 }
 
-int txt_uninit(MFILE *mat) {
+int32_t txt_uninit(MFILE *mat) {
 
-  int status;
+  int32_t status;
 
   status = txt_flush (mat);
   txt_free (mat);
 
   return status;
 }  
-

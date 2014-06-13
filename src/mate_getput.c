@@ -33,9 +33,9 @@
 
 #define fpos(s) (((level * mat->lines + line) * mat->columns + col) * (s))
 
-int mate_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
-  int nread = getle4 (mat->ap, buffer, fpos (4) + 0x200, num);
-  int i;
+int32_t mate_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num) {
+  int32_t nread = getle4 (mat->ap, buffer, fpos (4) + 0x200, num);
+  int32_t i;
 
   for (i = 0; i < nread; i++) {
     buffer[i] &= 0xffffff;

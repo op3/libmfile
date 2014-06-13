@@ -41,23 +41,23 @@
 #include "lc_c2.h"
 #include "lc_getput.h"
 
-/* static int lc_alloc(MFILE *mat, int n)); */
-static int readline(MFILE *mat, int *buffer, u_int line);
-static int writeline(MFILE *mat, int *buffer, u_int line);
-static void trycacheline(MFILE *mat, u_int line);
+/* static int32_t lc_alloc(MFILE *mat, int32_t n)); */
+static int32_t readline(MFILE *mat, int32_t *buffer, uint32_t line);
+static int32_t writeline(MFILE *mat, int32_t *buffer, uint32_t line);
+static void trycacheline(MFILE *mat, uint32_t line);
 
 #ifdef VERIFY_COMPRESSION
-static void verifycompr(lc_minfo *lci, int *line, int num) {
+static void verifycompr(lc_minfo *lci, int32_t *line, int32_t num) {
 
-  static int uncline[MAT_COLMAX];
+  static int32_t uncline[MAT_COLMAX];
 
   if (num > MAT_COLMAX) return;
 
   uncline[num-1] = line[num-1] -1;
   
   if ((lci->uncomprf (uncline, lci->comprlinebuf, num) != num) ||
-      (memcmp (uncline, line, num * sizeof (int)) != 0)	) {
-    u_int c;
+      (memcmp (uncline, line, num * sizeof (int32_t)) != 0)	) {
+    uint32_t c;
     for (c = 0; c < num; c++) {
       if (uncline[c] != line[c]) {
         fprintf (stderr, "\ncompression error, aborting !!!\ncol = %d,  %d (correct %d)\n", c, uncline[c], line[c]);
@@ -68,7 +68,7 @@ static void verifycompr(lc_minfo *lci, int *line, int num) {
 }
 #endif /* VERIFY_COMPRESSION */
 
-static int readline(MFILE *mat, int *buffer, u_int line) {
+static int32_t readline(MFILE *mat, int32_t *buffer, uint32_t line) {
 
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
   
@@ -76,8 +76,8 @@ static int readline(MFILE *mat, int *buffer, u_int line) {
     amp ap = mat->ap;
     lc_poslen *poslentable = lci->poslentableptr;
 
-    u_int l		   = poslentable[line].len;
-    u_int p		   = poslentable[line].pos;
+    uint32_t l		   = poslentable[line].len;
+    uint32_t p		   = poslentable[line].pos;
 
     if (l == 0) return 0;
 
@@ -93,18 +93,18 @@ static int readline(MFILE *mat, int *buffer, u_int line) {
   return -1;
 }
 
-static int writeline(MFILE *mat, int *buffer, u_int line) {
+static int32_t writeline(MFILE *mat, int32_t *buffer, uint32_t line) {
 
   amp ap		  = mat->ap;
   lc_minfo *lci		  = (lc_minfo *) mat->specinfo.p;
 
   lc_poslen *poslentable  = lci->poslentableptr;
 
-  u_int p		  = poslentable[line].pos;
-  u_int l		  = poslentable[line].len;
+  uint32_t p		  = poslentable[line].pos;
+  uint32_t l		  = poslentable[line].len;
   
-  u_int fp		  = lci->freepos;
-  u_int nl = lci->comprf (lci->comprlinebuf, buffer, mat->columns);
+  uint32_t fp		  = lci->freepos;
+  uint32_t nl = lci->comprf (lci->comprlinebuf, buffer, mat->columns);
 #ifdef VERIFY_COMPRESSION
   verifycompr (lci, buffer, mat->columns);
 #endif
@@ -123,7 +123,7 @@ static int writeline(MFILE *mat, int *buffer, u_int line) {
   return -1;
 }
 
-static void trycacheline(MFILE *mat, u_int line) {
+static void trycacheline(MFILE *mat, uint32_t line) {
 
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
   
@@ -139,7 +139,7 @@ static void trycacheline(MFILE *mat, u_int line) {
   }
 }
 
-int lc_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+int32_t lc_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num) {
 
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
 
@@ -160,7 +160,7 @@ int lc_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int nu
   return -1;
 }
 
-int lc_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+int32_t lc_put(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num) {
 
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
 
@@ -172,13 +172,13 @@ int lc_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int nu
   if (lci->cachedline != line) {
     trycacheline (mat, line);
     if (lci->cachedline != line && !lci->cachedlinedirty) {
-      memset (lci->linebuf, 0, mat->columns * sizeof (int));
+      memset (lci->linebuf, 0, mat->columns * sizeof (int32_t));
       lci->cachedline = line;
     }
   }
   if (lci->cachedline == line) {
     lci->cachedlinedirty = 1;
-    memcpy (lci->linebuf + col, buffer, num * sizeof (int));
+    memcpy (lci->linebuf + col, buffer, num * sizeof (int32_t));
     return num;
   }
 
@@ -186,7 +186,7 @@ int lc_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int nu
 }
 
 
-int lc_flushcache(MFILE *mat) {
+int32_t lc_flushcache(MFILE *mat) {
 
   lc_minfo *lci = (lc_minfo *) mat->specinfo.p;
 
@@ -197,6 +197,3 @@ int lc_flushcache(MFILE *mat) {
   lci->cachedlinedirty = 0;
   return 0;
 }
-
-
-

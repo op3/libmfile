@@ -38,15 +38,15 @@
 #include "lc_c1.h"
 #include "lc_c2.h"
 
-static int init_lci(MFILE *mat, u_int freepos, u_int freelistpos, u_int poslentablepos);
-/* static int lc_updateheader(MFILE *mat); */
+static int32_t init_lci(MFILE *mat, uint32_t freepos, uint32_t freelistpos, uint32_t poslentablepos);
+/* static int32_t lc_updateheader(MFILE *mat); */
 static void free_lci(MFILE *mat);
-static int lc_flush(MFILE *mat);
+static int32_t lc_flush(MFILE *mat);
 
-static int init_lci(MFILE *mat, unsigned int freepos, 
-		    unsigned int freelistpos, unsigned int poslentablepos) {
+static int32_t init_lci(MFILE *mat, uint32_t freepos, 
+		    uint32_t freelistpos, uint32_t poslentablepos) {
 
-  u_int n = mat->lines * mat->levels;
+  uint32_t n = mat->lines * mat->levels;
 
   lc_minfo *lci = (lc_minfo *)malloc (sizeof (lc_minfo));
 
@@ -77,7 +77,7 @@ static int init_lci(MFILE *mat, unsigned int freepos,
 
     }
 
-    lci->linebuf	= (int *)malloc (mat->columns * sizeof(int));
+    lci->linebuf	= (int32_t *)malloc (mat->columns * sizeof(int32_t));
     lci->poslentableptr	= (lc_poslen *)malloc (n * sizeof(lc_poslen));
   
     if (lci->poslentableptr && lci->linebuf && lci->comprlinebuf) {
@@ -86,7 +86,7 @@ static int init_lci(MFILE *mat, unsigned int freepos,
 	lci->poslentablepos	= poslentablepos;
         lci->freepos		= freepos;
 	lci->freelistpos	= freelistpos;
-        if (getle4 (mat->ap, (int *)lci->poslentableptr, 
+        if (getle4 (mat->ap, (int32_t *)lci->poslentableptr, 
 		    poslentablepos, 2 * n) == 2 * n) {
 	  lc_poslen lpc;
 	  lpc.len = lci->poslentableptr[0].len;
@@ -157,15 +157,15 @@ void lc_init(MFILE *mat) {
 
 
 #ifdef undef
-int lc_putinfo(MFILE *mat, minfo *info) {
+int32_t lc_putinfo(MFILE *mat, minfo *info) {
   return 0;
 }
 #endif
 
 
-int lc_uninit(MFILE *mat) {
+int32_t lc_uninit(MFILE *mat) {
 
-  int status;
+  int32_t status;
 
   status = lc_flush (mat);
   free_lci (mat);
@@ -174,12 +174,12 @@ int lc_uninit(MFILE *mat) {
 }  
 
 
-static int lc_flush(MFILE *mat) {
+static int32_t lc_flush(MFILE *mat) {
 
   if (mat->status & MST_DIRTY) {
     lc_header lch;
     lc_minfo *lci = (lc_minfo *)mat->specinfo.p;
-    unsigned int n;
+    uint32_t n;
   
     if (lc_flushcache (mat) !=0) return -1;
 
@@ -200,7 +200,7 @@ static int lc_flush(MFILE *mat) {
     if (_put (mat->ap, &lch, 0, sizeof(lch)) != sizeof(lch)) return -1;
 
     n = mat->levels * mat->lines;
-    if (putle4 (mat->ap, (int *)lci->poslentableptr, lci->poslentablepos, 2*n) != 2*n) return -1;
+    if (putle4 (mat->ap, (int32_t *)lci->poslentableptr, lci->poslentablepos, 2*n) != 2*n) return -1;
     if (_flush (mat->ap) != 0) return -1;
     mat->status &= ~MST_DIRTY;
   }

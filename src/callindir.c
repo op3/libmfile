@@ -37,16 +37,16 @@
 					(				    \
 					 mat &&				    \
 					 buffer &&			    \
-					 (u_int)level < mat->levels	&&  \
-					 (u_int)line  < mat->lines	&&  \
-					 (u_int)col   < mat->columns	&&  \
-					 (u_int)num   <= mat->columns	&&  \
-					 (u_int)(col + num) <= mat->columns \
+					 (uint32_t)level < mat->levels	&&  \
+					 (uint32_t)line  < mat->lines	&&  \
+					 (uint32_t)col   < mat->columns	&&  \
+					 (uint32_t)num   <= mat->columns	&&  \
+					 (uint32_t)(col + num) <= mat->columns \
 					)
 
-int mgetint(MFILE *mat, int *buffer, int level, int line, int col, int num) {
+int32_t mgetint(MFILE *mat, int32_t *buffer, int32_t level, int32_t line, int32_t col, int32_t num) {
 
-    int (*f)();
+    int32_t (*f)();
 
     /* sanity checks */
     if(paramok(mat, buffer, level, line, col, num)) {
@@ -61,9 +61,9 @@ int mgetint(MFILE *mat, int *buffer, int level, int line, int col, int num) {
 
 }
 
-int mputint(MFILE *mat, int *buffer, int level, int line, int col, int num) {
+int32_t mputint(MFILE *mat, int32_t *buffer, int32_t level, int32_t line, int32_t col, int32_t num) {
 
-    int (*f)();
+    int32_t (*f)();
 
     /* sanity checks */
     if(paramok(mat, buffer, level, line, col, num)) {
@@ -83,9 +83,9 @@ int mputint(MFILE *mat, int *buffer, int level, int line, int col, int num) {
 
 /*------------------------------------------------------------------------*/
 
-int mgetflt(MFILE *mat, float *buffer, int level, int line, int col, int num) {
+int32_t mgetflt(MFILE *mat, float *buffer, int32_t level, int32_t line, int32_t col, int32_t num) {
 
-    int (*f)();
+    int32_t (*f)();
 
     /* sanity checks */
     if(paramok(mat, buffer, level, line, col, num)) {
@@ -99,9 +99,9 @@ int mgetflt(MFILE *mat, float *buffer, int level, int line, int col, int num) {
     return -1;
 }
 
-int mputflt(MFILE *mat, float *buffer, int level, int line, int col, int num) {
+int32_t mputflt(MFILE *mat, float *buffer, int32_t level, int32_t line, int32_t col, int32_t num) {
 
-    int (*f)();
+    int32_t (*f)();
 
     /* sanity checks */
     if(paramok(mat, buffer, level, line, col, num)) {
@@ -121,9 +121,9 @@ int mputflt(MFILE *mat, float *buffer, int level, int line, int col, int num) {
 
 /*------------------------------------------------------------------------*/
 
-int mgetdbl(MFILE *mat, double *buffer, int level, int line, int col, int num) {
+int32_t mgetdbl(MFILE *mat, double *buffer, int32_t level, int32_t line, int32_t col, int32_t num) {
 
-    int (*f)();
+    int32_t (*f)();
 
     /* sanity checks */
     if(paramok(mat, buffer, level, line, col, num)) {
@@ -138,9 +138,9 @@ int mgetdbl(MFILE *mat, double *buffer, int level, int line, int col, int num) {
 
 }
 
-int mputdbl(MFILE *mat, double *buffer, int level, int line, int col, int num) {
+int32_t mputdbl(MFILE *mat, double *buffer, int32_t level, int32_t line, int32_t col, int32_t num) {
 
-    int (*f)();
+    int32_t (*f)();
 
     /* sanity checks */
     if(paramok(mat, buffer, level, line, col, num)) {

@@ -26,7 +26,9 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include <string.h>
+#include <stdint.h>
 
 #include "mfile.h"
 #include "getputint.h"
@@ -35,7 +37,7 @@
 
 #define fpos(s) (((level * mat->lines + line) * mat->columns + col) * (s) +512)
 
-int trixi_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+int32_t trixi_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num) {
 
   return getle2 (mat->ap, buffer, fpos (2), num);
 }

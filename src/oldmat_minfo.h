@@ -26,6 +26,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#include <stdint.h>
 #include "sys_endian.h"
 
 extern char MAGIC_OLDMAT[];
@@ -37,5 +39,5 @@ typedef char oldmat_header[64];
 /* oldmat_minfo.c */
 void oldmat_probe(MFILE *mat);
 void oldmat_init(MFILE *mat);
-int oldmat_uninit(MFILE *mat);
-int oldmat_putinfo(MFILE *mat, minfo *info);
+int32_t oldmat_uninit(MFILE *mat);
+int32_t oldmat_putinfo(MFILE *mat, minfo *info);

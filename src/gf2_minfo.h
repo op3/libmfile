@@ -28,6 +28,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#include <stdint.h>
 #include "sys_endian.h"
 
 #define GF2_STD_VERSION 2
@@ -35,4 +37,4 @@
 /* gf2_minfo.c */
 extern void gf2_probe(MFILE *mat);
 extern void gf2_init(MFILE *mat);
-extern int  gf2_uninit(MFILE *mat);
+extern int32_t gf2_uninit(MFILE *mat);

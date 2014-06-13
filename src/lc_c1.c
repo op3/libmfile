@@ -27,7 +27,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <sys/types.h>
 #include "lc_c1.h"
 
 #define encode(i)	(encodetmp = *(src +(i)),			\
@@ -55,23 +54,23 @@
 
 /* liefert Anzahl Bytes nach Kompression oder -1 bei Fehler */
 
-int lc1_compress(char *dest, int *src, int num) {
+int32_t lc1_compress(char *dest, int32_t *src, int32_t num) {
 
-  int last = 0;
+  int32_t last = 0;
   char *p = dest;
   
   while (num) {
-    int diff, encodetmp;
-    u_int a;
+    int32_t diff, encodetmp;
+    uint32_t a;
 
     a = encode (0);
     if (fitsinto (a, 3) && (num >= 2)) {
-      int last_a = last;
-      u_int b = encode (1);
+      int32_t last_a = last;
+      uint32_t b = encode (1);
 
       if (fitsinto (a|b, 2) && (num >= 3)) {
-	int last_b = last;
-        u_int c = encode (2);
+	int32_t last_b = last;
+        uint32_t c = encode (2);
 	
 	if (fitsinto (/*a|b|*/ c, 2)) {
 	  put_3_2 (a, b, c); src += 3; num -= 3; continue;
@@ -93,18 +92,18 @@ int lc1_compress(char *dest, int *src, int num) {
 }
 
 
-#define decode(i)	(last += ((i) & 1) ? ~((u_int)(i) >> 1) : (i) >> 1 )
+#define decode(i)	(last += ((i) & 1) ? ~((uint32_t)(i) >> 1) : (i) >> 1 )
 
 #define bitextract(i,p,l) (((i) >> p) & ((1 << (l)) -1))
 
-int lc1_uncompress(int *dest, char *src, int num) {
+int32_t lc1_uncompress(int32_t *dest, char *src, int32_t num) {
 
-  int last = 0;
-  int nleft = num;
+  int32_t last = 0;
+  int32_t nleft = num;
   
   while (nleft) {
-    u_int i;
-    u_char t = *src++;
+    uint32_t i;
+    unsigned char t = *src++;
     switch (t >> 6) {
     case 0:				/* 3*2 */
       nleft -= 3;
@@ -138,7 +137,7 @@ int lc1_uncompress(int *dest, char *src, int num) {
     case 3:				/* 1*N */
       nleft--;
       {
-	int s = 6;
+	int32_t s = 6;
 	i = bitextract (t, 0, 6);
 	do {
 	  t = *src++;
@@ -154,7 +153,7 @@ int lc1_uncompress(int *dest, char *src, int num) {
   return num;
 }
 
-unsigned int lc1_comprlinelenmax(unsigned int col) {
+uint32_t lc1_comprlinelenmax(uint32_t col) {
 
   return ((col * 5) +3) & -4;
 

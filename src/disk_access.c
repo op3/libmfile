@@ -37,7 +37,7 @@
 
 /* ------------------------------------------------------------------------- */
 
-int disk_get(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+int32_t disk_get(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
 
   FILE *f = (FILE*) ap->specinfo.p;
   if (fseek (f, (long)offset, SEEK_SET) != 0) {
@@ -48,7 +48,7 @@ int disk_get(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
   return fread (buffer, 1, nbytes, f);
 }
 
-int disk_put(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
+int32_t disk_put(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
 
   FILE *f = (FILE*) ap->specinfo.p;
 
@@ -62,14 +62,14 @@ int disk_put(amp ap, void *buffer, acc_pos offset, acc_pos nbytes) {
 
 /* ------------------------------------------------------------------------- */
 
-int disk_flush(amp ap) {
+int32_t disk_flush(amp ap) {
 
   FILE *f = (FILE*) ap->specinfo.p;
 
   return fflush (f);
 }
 
-int disk_close (amp ap) {
+int32_t disk_close (amp ap) {
 
   FILE *f = (FILE*) ap->specinfo.p;
 
@@ -78,7 +78,7 @@ int disk_close (amp ap) {
 
 /* ------------------------------------------------------------------------- */
 
-int disk_tryaccess(amp ap, char *name, char *mode) {
+int32_t disk_tryaccess(amp ap, char *name, char *mode) {
 
   FILE *f;
   struct stat stat_buf;

@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 2.8 )
+cmake_minimum_required( VERSION 2.6 )
 
 enable_language( C )
 
@@ -7,7 +7,7 @@ set( PROJ_INCLUDES "src" )
 file( GLOB_RECURSE PROJ_SOURCES src/*.c )
 
 
-add_definitions("-std=gnu99 -O3 -ftrapv")
+add_definitions("-std=gnu99 -O3 -ftrapv -DNO_SHM")
 #### Explanations for compiler flags
 # -std=gnu99 -> Use the gnu version of the c99 standard
 # -O3 -> best optimisation

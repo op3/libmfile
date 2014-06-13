@@ -1,19 +1,19 @@
 # mfile
 
-[Name](#name) |
- [Syntax](#syntax) |
- [Description](#description) |
- [Example](#example) |
- [Restrictions](#restrictions) |
- [Author](#author)
+- [Name](#name)
+- [Syntax](#syntax)
+- [Description](#description)
+- [Example](#example)
+- [Restrictions](#restrictions)
+- [Author](#authors)
 
 * * * * *
 
-## <a name="name"></a>Name
+## Name
 mopen, mclose, mgetint, mgetflt, mgetdbl, mputint, mputflt, mputdbl,
 mgetfmt, msetfmt
 
-## <a name="syntax"></a>Syntax
+## Syntax
 
 ``` c
 #include "mfile.h"
@@ -82,7 +82,7 @@ int *buf
 int num
 ```
 
-## <a name="description"></a>Description
+## Description
 
 These functions allow machine independent and efficient access to
 coincidence matrices. Traditional matrices (long and short, VAX and
@@ -123,7 +123,7 @@ The `load_spec` subroutine
 
 The `save_spec` subroutine
 
-## <a name="Syntax"></a>Example
+## Example
 
 
 The following code fragment lists a program that opens the matrix file
@@ -179,11 +179,11 @@ char **argv;
 }
 ```
 
-## <a name="restrictions"></a>Restrictions
+## Restrictions
 
 Traditional style matrizes and spectra may have at most 16384 columns.
 
-## <a name="author"></a>Author
+## Authors
 
 Stefan Esser <se@ikp.uni-koeln.de>
 

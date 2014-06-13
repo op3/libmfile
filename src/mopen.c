@@ -26,6 +26,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include <stdlib.h>
 #include <string.h>
 /*#include <sys/file.h>*/
@@ -121,9 +122,9 @@ MFILE *mopen(const char *name, const char *mode) {
 }
 
 
-int mclose(MFILE *mat) {
+int32_t mclose(MFILE *mat) {
 
-  int status = 0;
+  int32_t status = 0;
   
   if (mat) {
     if (mat->muninitf) status = mat->muninitf (mat);
@@ -141,9 +142,9 @@ int mclose(MFILE *mat) {
   return status;
 }
 
-int mflush(MFILE *mat) {
+int32_t mflush(MFILE *mat) {
 
-  int status = 0;
+  int32_t status = 0;
   
   if (mat && mat->mflushf) status = mat->mflushf (mat);
   if (mat->ap)
