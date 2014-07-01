@@ -1,8 +1,8 @@
 # mfile
 
-Mfile is a software library for compressed storage of spectroscopy data in nuclear physics.
+Mfile is a software library for compressed storage of spectroscopy data in nuclear physics. It is licensed under the [BSD 2-Clause License](http://opensource.org/licenses/BSD-2-Clause).
 
-[Supported formats](#supported-formats) | [Syntax](#Syntax) | [Description](#description) | [Example](#example) | [Restrictions](#restrictions) | [Authors](#authors)
+[Supported formats](#supported-formats) | [Syntax](#syntax) | [Description](#description) | [Example](#example) | [Restrictions](#restrictions) | [Authors](#authors)
 
 * * * * *
 
