@@ -1,17 +1,43 @@
 # mfile
 
-- [Name](#name)
-- [Syntax](#syntax)
-- [Description](#description)
-- [Example](#example)
-- [Restrictions](#restrictions)
-- [Author](#authors)
+Mfile is a software library for compressed storage of spectroscopy data in nuclear physics.
+
+[Supported formats](#supported-formats) | [Syntax](#syntax) | [Description](#description) | [Example](#example) | [Restrictions](#restrictions) | [Authors](#authors)
 
 * * * * *
 
-## Name
-mopen, mclose, mgetint, mgetflt, mgetdbl, mputint, mputflt, mputdbl,
-mgetfmt, msetfmt
+
+## Supported formats
+
+### Main formats
+- MAT_LC: line compressed matrix file (recommended)
+- MAT_TXT: ASCII spectra, Integer or Double
+- MAT_GF2: Radware gf2 format
+
+### Legacy formats
+- MAT_LE2:  old 2 byte VAX matrix file
+- MAT_LE4:  old 4 byte VAX matrix file
+- MAT_HE2:  old 2 byte HighEndian matrix file
+- MAT_HE4:  old 4 byte HighEndian matrix file
+- MAT_HGF2: Big endian Radware gf2 format
+
+### Legacy Formats not covered by tests
+- MAT_SHM:  shared mem spectra (experimental)
+- MAT_LF4:  low endian 4 byte IEEE float
+- MAT_LF8:  low endian 8 byte IEEE float
+- MAT_HF4:  high endian 4 byte IEEE float
+- MAT_HF8:  high endian 8 byte IEEE float
+- MAT_VAXG: VAX G format 8 byte float
+- MAT_VAXF: VAX F format 4 byte float
+- MAT_MATE: PC-Mate spectra  format
+- MAT_LE2T: symm triagonal LE2 matrix file
+- MAT_LE4T: symm triagonal LE4 matrix file
+- MAT_HE2T: symm triagonal HE2 matrix file
+- MAT_HE4T: symm triagonal HE4 matrix file
+- MAT_TRIXI:trixi save_matrix format
+- MAT_LE2S: signed LE2 matrix file
+- MAT_HE2S: signed HE2 matrix file
+
 
 ## Syntax
 
@@ -82,6 +108,7 @@ int *buf
 int num
 ```
 
+
 ## Description
 
 These functions allow machine independent and efficient access to
@@ -123,8 +150,8 @@ The `load_spec` subroutine
 
 The `save_spec` subroutine
 
-## Example
 
+## Example
 
 The following code fragment lists a program that opens the matrix file
 specified by the first argument for reading and creates a new matrix
@@ -179,17 +206,17 @@ char **argv;
 }
 ```
 
+
 ## Restrictions
 
 Traditional style matrizes and spectra may have at most 16384 columns.
+
 
 ## Authors
 
 Stefan Esser <se@ikp.uni-koeln.de>
 
 Ralf Schulze <r.schulze@ikp.uni-koeln.de>
-
-Nigel Warr <n.warr@ikp.uni-koeln.de>
 
 Jan Mayer <jan.mayer@ikp.uni-koeln.de>
 
