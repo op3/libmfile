@@ -27,8 +27,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <sys/types.h>
-
 #ifndef _MATRIX_IO_INCLUDED
 #define _MATRIX_IO_INCLUDED
 
@@ -41,12 +39,7 @@ extern "C" {
 #include <unistd.h>
 #include <stdint.h>
 
-#if defined (OSK) || defined (VMS_POSIX)
-#define NO_SHM
-#endif
-
-/* matrix file type names						*/
-
+/* matrix file type names	*/
 #define MAT_UNKNOWN	(0)
 #define MAT_INVALID	(-1)
 
@@ -74,8 +67,8 @@ extern "C" {
 #define MAT_LE2S	(20)	/* signed LE2 matrix file		*/
 #define MAT_HE2S	(21)	/* signed HE2 matrix file		*/
 
-#define MAT_GF2         (22)    /* Radware gf2 format                   */
-#define MAT_HGF2        (23)    /* Big endian Radware gf2 format        */
+#define MAT_GF2   (22)    /* Radware gf2 format */
+#define MAT_HGF2  (23)    /* Big endian Radware gf2 format */
 #define MAT_FMTLAST	(23)	/* last format currently assigned	*/
 
 #define MAT_STD_INT	MAT_LC	/* default integer matrix format	*/

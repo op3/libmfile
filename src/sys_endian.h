@@ -26,16 +26,6 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-//#include "config.h"
-
-/* 
- * This is now handled via autoconf. See configure.ac: AC_C_BIGENDIAN and config.h 
- */
-/*
-#if defined (i386) || defined (i486) || defined (MIPSEL) || defined (vax)
-#  define LOWENDIAN 1
-#endif
-*/
 
 #define SWAB2(i)    (((i >> 8) & 0xFF) | ((i << 8) & 0xFF00))
 #define SWAB4(i)    (((i >> 24) & 0xFF) | ((i >>  8) & 0xFF00) | ((i <<  8) & 0xFF0000) | ((i << 24)))
@@ -50,4 +40,3 @@
 #  define GETLE2(i) SWAB2(i)
 #  define GETLE4(i) SWAB4(i)
 #endif
-

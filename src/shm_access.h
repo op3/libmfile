@@ -27,4 +27,4 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-int shm_tryaccess (amp ap, char *name, char *mode);
+int32_t shm_tryaccess (amp ap, const char *name, const char *mode);

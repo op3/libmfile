@@ -47,10 +47,10 @@
 void shm_probe(MFILE *mat) {
 
   char buf[128], *p;
-  int shmid;
+  int32_t shmid;
   struct shmid_ds shm_stat;
   void *shm_addr;
-  int shm_size;
+  int32_t shm_size;
   
   static char shm_magic[] = "shared memory (shm_alloc)\nid=";
 
@@ -64,7 +64,7 @@ void shm_probe(MFILE *mat) {
   while (isdigit(*p)) shmid = shmid * 10 + (*p++ - '0');
 
   shm_addr = (void *) shmat (shmid, NULL, SHM_RDONLY);
-  if ((int)shm_addr == -1)					return;
+  if ((int32_t)shm_addr == -1)					return;
 
   if (shmctl (shmid, IPC_STAT, &shm_stat) != 0)			return;
   shm_size = shm_stat.shm_segsz;
@@ -74,7 +74,7 @@ void shm_probe(MFILE *mat) {
 
   mat->levels		= 1;
   mat->lines		= 1;
-  mat->columns		= shm_size / sizeof(int);
+  mat->columns		= shm_size / sizeof(int32_t);
 
   mat->mgeti4f		= shm_get;
   mat->mputi4f		= NULL;
@@ -89,13 +89,13 @@ void shm_init(MFILE *mat) {
 }
 
 
-int shm_putinfo(MFILE *mat, minfo *info) {
+int32_t shm_putinfo(MFILE *mat, minfo *info) {
 
   return 0;
 }
 
 
-int shm_uninit(MFILE *mat) {
+int32_t shm_uninit(MFILE *mat) {
   /* 
     not yet implemented:
     if shmctl() --> shm_attach == 1: 

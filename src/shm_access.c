@@ -55,7 +55,7 @@ static void *shm_geta(amp ap, acc_pos offset, acc_pos nbytes) {
   return p + offset;
 }
 
-static int shm_close(amp ap) {
+static int32_t shm_close(amp ap) {
   /* 
     not yet implemented:
     if shmctl() --> shm_attach == 1: 
@@ -67,14 +67,14 @@ static int shm_close(amp ap) {
 
 /* ------------------------------------------------------------------------- */
 
-int shm_tryaccess(amp ap, char *name, char *mode) {
+int32_t shm_tryaccess(amp ap, const char *name, const char *mode) {
 
   FILE *f;
   char buf[128], *p;
-  int shmid;
+  int32_t shmid;
   struct shmid_ds shm_stat;
   void *shm_addr;
-  int shm_size;
+  int32_t shm_size;
   
   static char shm_magic[] = "shared memory (shm_alloc)\nid=";
 
@@ -98,8 +98,8 @@ int shm_tryaccess(amp ap, char *name, char *mode) {
   shmid = 0;
   while (isdigit(*p)) shmid = shmid * 10 + (*p++ - '0');
 
-  shm_addr = (void *) shmat (shmid, NULL, SHM_RDONLY);
-  if ((int)shm_addr == -1) {
+  shm_addr = shmat (shmid, NULL, SHM_RDONLY);
+  if (shm_addr == (void*)-1) {
     fclose(f);
     return -1;
   }

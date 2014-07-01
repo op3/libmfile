@@ -29,5 +29,5 @@
 
 void shm_probe(MFILE *mat);
 void shm_init(MFILE *mat);
-int shm_putinfo(MFILE *mat, minfo *info);
-int shm_uninit(MFILE *mat);
+int32_t shm_putinfo(MFILE *mat, minfo *info);
+int32_t shm_uninit(MFILE *mat);

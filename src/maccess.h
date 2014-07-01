@@ -79,7 +79,7 @@ typedef struct accessmethod
 
 typedef struct maccessdescr {
   tryaccessf		*tryaccess;
-  char			*name;
+  const char			*name;
   struct maccessdescr	*next;
 } maccessdescr;
 

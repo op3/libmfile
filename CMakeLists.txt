@@ -7,19 +7,19 @@ set( PROJ_INCLUDES "src" )
 file( GLOB_RECURSE PROJ_SOURCES src/*.c )
 
 
-add_definitions("-std=gnu99 -O3 -ftrapv -DNO_SHM")
+add_definitions("-std=gnu99 -O3 -ftrapv -Wall")
 #### Explanations for compiler flags
 # -std=gnu99 -> Use the gnu version of the c99 standard
 # -O3 -> best optimisation
 # -Wall -pedantic -Wcast-align -Wcast-qual -Wconversion -Wshadow -Wpointer-arith
 # -ftrapv -> will cause the program to abort on signed integer overflow (formally "undefined behaviour" in C)
 #### Other useful flags
+# -Wextra
 # -g -> Produce debugging information in the operating system's native format
 #### Flags that were set in the original versions but are no longer state-of-the-art
 # -funroll-loops -> GCC manual says that using -funroll-loops makes code larger and run more slowly
 # -finline-functions -> redundant with -O3
 # -frerun-cse-after-loop -> redundant with -O3
-# -DNO_SHM -> ???
 # -MT -MD -MP -MF -> ???
 
 
@@ -33,13 +33,19 @@ if( NOT ${BIGENDIAN} )
 	add_definitions( -DLOWENDIAN )
 endif( NOT ${BIGENDIAN} )
 
-# Check for sprintf
+# Check for snprintf
 include( CheckFunctionExists ) 
 check_function_exists( snprintf HAVE_SNPRINTF ) 
 if( ${HAVE_SNPRINTF} )
 	add_definitions( -DHAVE_SNPRINTF )
 endif( ${HAVE_SNPRINTF} )
 
+# Check for shared memory via sys/shm.h
+include( CheckIncludeFile )
+check_include_file( "sys/shm.h" HAVE_SHM )
+if( NOT ${HAVE_SHM} )
+	add_definitions( -DNO_SHM )
+endif( NOT ${HAVE_SHM} )
 
 
 project( ${PROJ_NAME} )

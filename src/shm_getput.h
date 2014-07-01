@@ -27,7 +27,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-extern int shm_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
+extern int32_t shm_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num);
 /*
 extern int shm_put(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num);
 */

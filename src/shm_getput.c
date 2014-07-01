@@ -34,9 +34,9 @@
 #include "shm_minfo.h"
 #include "shm_getput.h"
 
-int shm_get(MFILE *mat, int *buffer, u_int level, u_int line, u_int col, u_int num) {
+int32_t shm_get(MFILE *mat, int32_t *buffer, uint32_t level, uint32_t line, uint32_t col, uint32_t num) {
 
-  int *p = (int *) mat->specinfo.p;
+  int32_t *p = (int32_t *) mat->specinfo.p;
 
   memcpy (buffer, p + col, num * sizeof(buffer[0]));
   return num;
