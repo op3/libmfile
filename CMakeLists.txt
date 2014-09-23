@@ -42,6 +42,7 @@ endif( ${HAVE_SNPRINTF} )
 
 # Check for shared memory via sys/shm.h
 include( CheckIncludeFile )
+set( HAVE_SHM false )
 check_include_file( "sys/shm.h" HAVE_SHM )
 if( NOT ${HAVE_SHM} )
 	add_definitions( -DNO_SHM )
